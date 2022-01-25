@@ -1,3 +1,4 @@
 mv .zshrc ~
 mv .p10k.zsh ~
-zsh -c "exit"
+sh -c "$(curl -fsSL https://git.io/zinit-install)"
+/bin/zsh
