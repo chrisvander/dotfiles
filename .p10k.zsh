@@ -1541,8 +1541,8 @@
   }
 
   function prompt_my_docker_context() {
-    if [[ `which docker &>/dev/null && $?` != 0 ]]; then
-    p10k segment -f blue -i ' ' -t $(docker context show)
+    if [[ `which docker &>/dev/null && $?` == 0 ]]; then
+      p10k segment -f blue -i ' ' -t $(docker context show)
     fi
   }
 
