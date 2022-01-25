@@ -1541,7 +1541,9 @@
   }
 
   function prompt_my_docker_context() {
+    if [[ `which docker &>/dev/null && $?` != 0 ]]; then
     p10k segment -f blue -i ' ' -t $(docker context show)
+    fi
   }
 
   # User-defined prompt segments may optionally provide an instant_prompt_* function. Its job
