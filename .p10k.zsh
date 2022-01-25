@@ -32,7 +32,7 @@
   # The list of segments shown on the left. Fill it with the most important segments.
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
     # =========================[ Line #1 ]=========================
-    # os_icon               # os identifier
+    os_icon                 # os identifier
     dir                     # current directory
 
     vcs                     # git status
@@ -1541,7 +1541,7 @@
   }
 
   function prompt_my_docker_context() {
-    if [[ `which docker &>/dev/null && $?` == 0 ]]; then
+    if type "docker" > /dev/null; then
       p10k segment -f blue -i ' ' -t $(docker context show)
     fi
   }
