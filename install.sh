@@ -50,11 +50,14 @@ export SHELL=$(which zsh)
 # symlink theme dotfile
 ln -s $HOME/dotfiles/.p10k.zsh $HOME/.p10k.zsh
 
-# add plugin manager
+# add zinit
 sh -c "$(curl -fsSL https://git.io/zinit-install)"
 
-# run zsh once
+# run zsh once for zinit
 zsh
+
+# set docker env variable (dotfiles repo primarily used for that)
+export IN_DOCKER=true
 
 ###########################
 # end zsh setup
