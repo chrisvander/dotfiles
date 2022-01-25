@@ -32,9 +32,9 @@
   # The list of segments shown on the left. Fill it with the most important segments.
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
     # =========================[ Line #1 ]=========================
-    os_icon                 # os identifier
+    os_icon               # os identifier
+    my_dev_env
     dir                     # current directory
-
     vcs                     # git status
     # =========================[ Line #2 ]=========================
     newline                 # \n
@@ -1540,9 +1540,17 @@
     p10k segment -f 208 -i '⭐' -t 'hello, %n'
   }
 
+  # display docker context information
   function prompt_my_docker_context() {
     if type "docker" > /dev/null; then
       p10k segment -f blue -i ' ' -t $(docker context show)
+    fi
+  }
+
+  # prepend message if in docker environment
+  function prompt_my_dev_env() {
+    if [[ $USER == "vscode" ]]; then 
+      p10k segment -f purple -i ' ' -t '(docker)'
     fi
   }
 
