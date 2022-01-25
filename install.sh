@@ -62,3 +62,6 @@ export IN_DOCKER=true
 ###########################
 # end zsh setup
 ###########################
+
+git config --global user.email "chris.vanderloo@yahoo.com"
+git config --global user.name "Christian van der Loo"
