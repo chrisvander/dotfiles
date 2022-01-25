@@ -55,7 +55,7 @@ ln -s $HOME/dotfiles/.p10k.zsh $HOME/.p10k.zsh
 sh -c "$(curl -fsSL https://git.io/zinit-install)"
 
 # run zsh once
-zsh -c "exit"
+zsh
 
 ###########################
 # end zsh setup
