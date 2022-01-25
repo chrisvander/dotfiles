@@ -46,6 +46,8 @@ sudo chsh -s $(which zsh) $USER
 echo -e "✅ Successfully modified the default shell"
 
 # have VSCode use zsh
+echo "export SHELL=$(which zsh)" >> ~/.bashrc
+echo "zsh" >> ~/.bashrc
 export SHELL=$(which zsh)
 
 # symlink theme dotfile
