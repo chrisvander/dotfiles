@@ -40,15 +40,23 @@ else
    echo -e "\nUh-oh! .zshrc missing."
 fi
 
-ln -s $HOME/dotfiles/.p10k.zsh $HOME/.p10k.zsh
-
 # Set the default shell
 echo -e "⤵ Changing the default shell"
 sudo chsh -s $(which zsh) $USER
 echo -e "✅ Successfully modified the default shell"
 
+# have VSCode use zsh
+export SHELL=$(which zsh)
+
+# symlink theme dotfile
+ln -s $HOME/dotfiles/.p10k.zsh $HOME/.p10k.zsh
+
+# add plugin manager
+sh -c "$(curl -fsSL https://git.io/zinit-install)"
+
+# run zsh once
+zsh -c "exit"
+
 ###########################
 # end zsh setup
 ###########################
-
-sh -c "$(curl -fsSL https://git.io/zinit-install)"
