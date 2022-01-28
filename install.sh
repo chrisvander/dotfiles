@@ -8,9 +8,6 @@ include ~/.zshrc.local
 ###########################
 # zsh setup
 ###########################
-echo -e "⤵ Installing zsh..."
-sudo apt-get -y install zsh
-echo -e "✅ Successfully installed zsh version: $(zsh --version)"
 
 # Set up zsh tools
 PATH_TO_ZSH_DIR=$HOME/.oh-my-zsh
@@ -46,11 +43,6 @@ elif [ -e ${ZSHRC_LINK} ] ; then
 else
    echo -e "\nUh-oh! .zshrc missing."
 fi
-
-# Set the default shell
-echo -e "⤵ Changing the default shell"
-sudo chsh -s $(which zsh) $USER
-echo -e "✅ Successfully modified the default shell"
 
 export SHELL=$(which zsh)
 
