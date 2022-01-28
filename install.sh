@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/sh
 
 include () {
     [[ -f "$1" ]] && source "$1"
