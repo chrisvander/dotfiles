@@ -1550,9 +1550,9 @@
   # prepend message if in docker environment
   function prompt_my_dev_env() {
     if [[ -f /proc/1/cgroup ]] && grep -q docker /proc/1/cgroup; then 
-      p10k segment -f teal -t '(container)'
+      p10k segment -f teal -t 'ﰤ Container'
     else
-      p10k segment -f teal -t $(hostname)
+      p10k segment -f 244 -t $(hostname)
     fi
   }
 
