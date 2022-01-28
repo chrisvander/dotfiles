@@ -49,6 +49,8 @@ fi
 
 export SHELL=$(which zsh)
 
+chsh -s /bin/zsh
+
 # symlink theme dotfile
 ln -s $BASEDIR/.p10k.zsh $HOME/.p10k.zsh
 
