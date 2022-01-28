@@ -67,3 +67,4 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 include ~/.secrets
+include ~/.zshrc.local

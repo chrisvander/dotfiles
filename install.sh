@@ -21,6 +21,7 @@ else
 fi
 
 # Set up symlink for .zshrc
+BASEDIR=$(dirname "$0")
 ZSHRC_LINK=$HOME/.zshrc
 if [ -L ${ZSHRC_LINK} ] ; then
    if [ -e ${ZSHRC_LINK} ] ; then
@@ -34,7 +35,7 @@ elif [ -e ${ZSHRC_LINK} ] ; then
    # because the default zsh tools installs a new one, even if it finds ours
    rm $HOME/.zshrc
    echo -e "⤵ Symlinking your .zshrc file"
-   ln -s $HOME/dotfiles/.zshrc $HOME/.zshrc
+   ln -s $BASEDIR/.zshrc $HOME/.zshrc
    echo -e "✅ Successfully symlinked your .zshrc file"
 else
    echo -e "\nUh-oh! .zshrc missing."
@@ -48,7 +49,7 @@ echo -e "✅ Successfully modified the default shell"
 export SHELL=$(which zsh)
 
 # symlink theme dotfile
-ln -s $HOME/dotfiles/.p10k.zsh $HOME/.p10k.zsh
+ln -s $BASEDIR/.p10k.zsh $HOME/.p10k.zsh
 
 # add zinit
 sh -c "$(curl -fsSL https://git.io/zinit-install)"
