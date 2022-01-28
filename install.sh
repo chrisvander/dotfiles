@@ -1,3 +1,9 @@
+include () {
+    [[ -f "$1" ]] && source "$1"
+}
+
+include ~/.zshrc.local
+
 # Credit: Joe Previte (@jsjoeio) - https://github.com/jsjoeio/dotfiles/blob/master/install.sh
 ###########################
 # zsh setup
