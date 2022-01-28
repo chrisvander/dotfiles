@@ -32,11 +32,12 @@
   # The list of segments shown on the left. Fill it with the most important segments.
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
     # =========================[ Line #1 ]=========================
-    os_icon                 # os identifier
+    my_dev_env
     dir                     # current directory
     vcs                     # git status
     # =========================[ Line #2 ]=========================
     newline                 # \n
+    os_icon                 # os identifier
     prompt_char             # prompt symbol
   )
 
@@ -102,7 +103,6 @@
     # time                  # current time
     # =========================[ Line #2 ]=========================
     newline
-    my_dev_env
     # ip                    # ip address and bandwidth usage for a specified network interface
     # public_ip             # public IP address
     # proxy                 # system-wide http/https/ftp proxy
