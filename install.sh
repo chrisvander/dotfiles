@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 include () {
     [[ -f "$1" ]] && source "$1"
 }
@@ -24,7 +26,8 @@ else
 fi
 
 # Set up symlink for .zshrc
-BASEDIR=$(dirname "$0")
+BASEDIR=$(pwd)
+echo $BASEDIR
 ZSHRC_LINK=$HOME/.zshrc
 if [ -L ${ZSHRC_LINK} ] ; then
    if [ -e ${ZSHRC_LINK} ] ; then
