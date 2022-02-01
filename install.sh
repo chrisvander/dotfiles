@@ -13,44 +13,41 @@ include ~/.zshrc.local
 
 # Set up zsh tools
 PATH_TO_ZSH_DIR=$HOME/.oh-my-zsh
-echo -e "Checking if .oh-my-zsh directory exists at $PATH_TO_ZSH_DIR..."
 if [ -d $PATH_TO_ZSH_DIR ]
 then
-   echo -e "\n$PATH_TO_ZSH_DIR directory exists!\nSkipping installation of zsh tools.\n"
+   echo "\n$PATH_TO_ZSH_DIR directory exists! Skipping installation of zsh tools."
 else
-   echo -e "\n$PATH_TO_ZSH_DIR directory not found."
-   echo -e "⤵ Configuring zsh tools in the $HOME directory..."
-
+   echo "⤵ Configuring zsh tools in the $HOME directory..."
    (cd $HOME && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended)
-   echo -e "✅ Successfully installed zsh tools"
+   echo "✅ Successfully installed zsh tools"
 fi
 
 # Set up symlink for .zshrc
 BASEDIR=$(pwd)
-echo $BASEDIR
 ZSHRC_LINK=$HOME/.zshrc
 if [ -L ${ZSHRC_LINK} ] ; then
    if [ -e ${ZSHRC_LINK} ] ; then
-      echo -e "\n.zshrc is symlinked corrected"
+      echo "\n.zshrc is symlinked corrected"
    else
-      echo -e "\nOops! Your symlink appears to be broken."
+      echo "\nOops! Your symlink appears to be broken."
    fi
 elif [ -e ${ZSHRC_LINK} ] ; then
-   echo -e "\nYour .zshrc exists but is not symlinked."
+   echo "\nYour .zshrc exists but is not symlinked."
    # We have to symlink the .zshrc after we curl the install script
    # because the default zsh tools installs a new one, even if it finds ours
    rm $HOME/.zshrc
-   echo -e "⤵ Symlinking your .zshrc file"
+   echo "⤵ Symlinking your .zshrc file"
+   rm -r ~/.zshrc
    ln -s $BASEDIR/.zshrc $HOME/.zshrc
-   echo -e "✅ Successfully symlinked your .zshrc file"
+   echo "✅ Successfully symlinked your .zshrc file"
 else
-   echo -e "\nUh-oh! .zshrc missing."
+   echo "\nUh-oh! .zshrc missing."
 fi
 
 export SHELL=$(which zsh)
 
-
 # symlink theme dotfile
+rm -rf $HOME/.p10k.zsh
 ln -s $BASEDIR/.p10k.zsh $HOME/.p10k.zsh
 
 # add zinit
@@ -59,6 +56,9 @@ export NO_INPUT=yes
 export NO_TUTORIAL=yes
 export NO_EDIT=yes
 sh -c "$(curl -fsSL https://git.io/zinit-install)"
+
+# source zshrc for install
+$SHELL -c "source $HOME/.zshrc && echo DONE && exit"
 
 ###########################
 # end zsh setup
