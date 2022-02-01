@@ -25,12 +25,12 @@ fi
 if command -v curl >/dev/null 2>&1; then
     mkdir -p /tmp/zinit
     cd /tmp/zinit 
-    curl -fsSLO https://raw.githubusercontent.com/zdharma/zinit/master/git-process-output.zsh && \
+    curl -fsSLO https://raw.githubusercontent.com/zdharma-continuum/zinit/master/git-process-output.zsh && \
         chmod a+x /tmp/zinit/git-process-output.zsh
 elif command -v wget >/dev/null 2>&1; then
     mkdir -p /tmp/zinit
     cd /tmp/zinit 
-    wget -q https://raw.githubusercontent.com/zdharma/zinit/master/git-process-output.zsh && \
+    wget -q https://raw.githubusercontent.com/zdharma-continuum/zinit/master/git-process-output.zsh && \
         chmod a+x /tmp/zinit/git-process-output.zsh
 fi
 
@@ -42,7 +42,7 @@ if test -d "$ZINIT_HOME/$ZINIT_BIN_DIR_NAME/.git"; then
 else
     cd "$ZINIT_HOME"
     echo "[1;34m▓▒░[0m Installing [1;36mDHARMA[1;33m Initiative Plugin Manager[0m at [1;35m$ZINIT_HOME/$ZINIT_BIN_DIR_NAME[0m"
-    { git clone --progress https://github.com/zdharma/zinit.git "$ZINIT_BIN_DIR_NAME" \
+    { git clone --progress https://github.com/zdharma-continuum/zinit.git "$ZINIT_BIN_DIR_NAME" \
         2>&1 | { /tmp/zinit/git-process-output.zsh || cat; } } 2>/dev/null
     if [ -d "$ZINIT_BIN_DIR_NAME" ]; then
         echo
