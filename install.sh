@@ -54,7 +54,11 @@ export SHELL=$(which zsh)
 ln -s $BASEDIR/.p10k.zsh $HOME/.p10k.zsh
 
 # add zinit
-sh -c "./install-zinit.sh"
+export NO_ANNEXES=yes
+export NO_INPUT=yes
+export NO_TUTORIAL=yes
+export NO_EDIT=yes
+sh -c "$(curl -fsSL https://git.io/zinit-install)"
 
 ###########################
 # end zsh setup
