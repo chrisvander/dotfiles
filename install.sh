@@ -56,9 +56,6 @@ ln -s $BASEDIR/.p10k.zsh $HOME/.p10k.zsh
 # add zinit
 sh -c "./install-zinit.sh"
 
-# set docker env variable (dotfiles repo primarily used for that)
-export IN_DOCKER=true
-
 ###########################
 # end zsh setup
 ###########################

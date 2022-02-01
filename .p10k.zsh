@@ -32,9 +32,10 @@
   # The list of segments shown on the left. Fill it with the most important segments.
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
     # =========================[ Line #1 ]=========================
-    my_dev_env
+    my_env
     dir                     # current directory
     vcs                     # git status
+    my_vscode
     # =========================[ Line #2 ]=========================
     newline                 # \n
     os_icon                 # os identifier
@@ -1547,12 +1548,23 @@
     fi
   }
 
-  # prepend message if in docker environment
-  function prompt_my_dev_env() {
+  # switch on docker, personal, or work env. otherwise, hostname
+  function prompt_my_env() {
     if [ -f "${root}/.dockerenv" ] || ([ -f /proc/1/cgroup ] && grep -q docker /proc/1/cgroup); then 
-      p10k segment -f teal -t 'ﰤ Container'
+      p10k segment -f "#44CCFF" -i "" -t 'Container'
+    elif [ "$DISPLAY_ENV" = "personal" ]; then
+      p10k segment -f '#F95738' -i "" -t 'Personal'
+    elif [ "$DISPLAY_ENV" = "work" ]; then
+      p10k segment -f '#85726F' -i "" -t 'Work'
     else
       p10k segment -f 244 -t $(hostname)
+    fi
+  }
+
+  # add logo if in VSCode
+  function prompt_my_vscode() {
+    if [ "$VSCODE" = "true" ]; then
+      p10k segment -f "#0098FF" -i ""
     fi
   }
 
