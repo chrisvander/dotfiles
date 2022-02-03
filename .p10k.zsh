@@ -1543,8 +1543,9 @@
 
   # display docker context information
   function prompt_my_docker_context() {
-    if type "docker" > /dev/null; then
-      p10k segment -f blue -i ' ' -t $(docker context show)
+    docker_context=$(docker context show)
+    if type "docker" > /dev/null && [[ $docker_context != "default" ]]; then
+      p10k segment -f blue -i ' ' -t $docker_context
     fi
   }
 
