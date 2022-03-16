@@ -1543,9 +1543,11 @@
 
   # display docker context information
   function prompt_my_docker_context() {
-    docker_context=$(docker context show)
-    if type "docker" > /dev/null && [[ $docker_context != "default" ]]; then
-      p10k segment -f "#0DB7ED" -i ' ' -t $docker_context
+    if type "docker" > /dev/null; then
+      docker_context=$(docker context show)
+      if [[ $docker_context != "default" ]]; then
+        p10k segment -f "#0DB7ED" -i ' ' -t $docker_context
+      fi
     fi
   }
 
