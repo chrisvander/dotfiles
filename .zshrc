@@ -70,6 +70,9 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+# kubectl
+export KUBECONFIG=$HOME/.kube/config
+
 include ~/.secrets
 include ~/.zshrc.local
 
