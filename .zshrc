@@ -73,5 +73,8 @@ include ~/.zshrc.local
 
 # Fig post block. Keep at the bottom of this file.
 export FIG_PATH="$HOME/.fig/shell/zshrc.post.zsh"
-[[ -f $FIG_PATH ]] &&  . $FIG_PATH
+if [[ -f $FIG_PATH ]] 
+then
+    . $FIG_PATH
+fi
 export PATH="/usr/local/sbin:$PATH"
