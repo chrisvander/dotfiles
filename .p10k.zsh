@@ -1558,7 +1558,7 @@
     elif [ "$DISPLAY_ENV" = "personal" ]; then
       p10k segment -f '#F95738' -i "" -t 'Personal'
     elif [ "$DISPLAY_ENV" = "pi" ]; then
-      p10k segment -f '#F95738' -i "" -t 'Pi'
+      p10k segment -f '#F95738' -i "" -t 'Pi'
     elif [ "$DISPLAY_ENV" = "work" ]; then
       p10k segment -f '#85726F' -i "" -t 'Work'
     else
