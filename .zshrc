@@ -72,5 +72,6 @@ include ~/.secrets
 include ~/.zshrc.local
 
 # Fig post block. Keep at the bottom of this file.
-. "$HOME/.fig/shell/zshrc.post.zsh"
+export FIG_PATH="$HOME/.fig/shell/zshrc.post.zsh"
+[[ -f $FIG_PATH ]] &&  . $FIG_PATH
 export PATH="/usr/local/sbin:$PATH"
