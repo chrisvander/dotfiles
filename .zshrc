@@ -1,5 +1,7 @@
 # Fig pre block. Keep at the top of this file.
-. "$HOME/.fig/shell/zshrc.pre.zsh"
+export FIG_PRE_PATH="$HOME/.fig/shell/zshrc.pre.zsh"
+[[ -f $FIG_PRE_PATH ]] && . $FIG_PRE_PATH
+
 include () {
     [[ -f "$1" ]] && source "$1"
 }
@@ -72,6 +74,6 @@ include ~/.secrets
 include ~/.zshrc.local
 
 # Fig post block. Keep at the bottom of this file.
-export FIG_PATH="$HOME/.fig/shell/zshrc.post.zsh"
-[[ -f $FIG_PATH ]] && . $FIG_PATH &>/dev/null
+export FIG_POST_PATH="$HOME/.fig/shell/zshrc.post.zsh"
+[[ -f $FIG_POST_PATH ]] && . $FIG_POST_PATH
 export PATH="/usr/local/sbin:$PATH"
