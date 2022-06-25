@@ -1,22 +1,23 @@
+zmodload zsh/zprof
 include () {
     [[ -f "$1" ]] && source "$1"
 }
-
-# Specify the preferences directory
-defaults write com.googlecode.iterm2 PrefsCustomFolder -string "~/Developer/dotfiles/"
-# Tell iTerm2 to use the custom preferences in the directory
-defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
-
-if [ -x "$(command -v fnm)" ]; then
-    eval "$(fnm env --use-on-cd)"
-fi
-
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 export POWERLEVEL9K_INSTANT_PROMPT=quiet
 include "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+
+# Specify the preferences directory
+defaults write com.googlecode.iterm2 PrefsCustomFolder -string "~/Developer/dotfiles/"
+# Tell iTerm2 to use the custom preferences in the directory
+defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
+
+
+if [ -x "$(command -v fnm)" ]; then
+    eval "$(fnm env --use-on-cd)"
+fi
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
@@ -41,25 +42,21 @@ zinit light-mode for \
 
 ### End of Zinit's installer chunk
 
-zinit ice wait
+zinit ice wait lucid
 zinit ice depth=1; zinit light romkatv/powerlevel10k
 zinit for \
   light-mode  zsh-users/zsh-autosuggestions \
   light-mode  zdharma-continuum/fast-syntax-highlighting \
               zdharma-continuum/history-search-multi-word \
               sroze/docker-compose-zsh-plugin \
-              chrisvander/docker-helpers.zshplugin
+              chrisvander/docker-helpers.zshplugin \
+              romkatv/zsh-defer
 
-# zinit wait lucid atload"zicompinit; zicdreplay" blockf for \
-#   zsh-users/zsh-completions
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || include ~/.p10k.zsh
 
-alias pip=pip3
-alias python=python3
 alias lzd=lazydocker
 
+__setup_conda() {
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/opt/homebrew/Caskroom/miniforge/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
@@ -74,6 +71,8 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+}
+zsh-defer __setup_conda
 
 # kubectl
 [[ ! -f $HOME/.kube/config ]] || export KUBECONFIG=$HOME/.kube/config
