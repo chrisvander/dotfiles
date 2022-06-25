@@ -1,10 +1,11 @@
-# Fig pre block. Keep at the top of this file.
-export FIG_PRE_PATH="$HOME/.fig/shell/zshrc.pre.zsh"
-[[ -f $FIG_PRE_PATH ]] && . $FIG_PRE_PATH
-
 include () {
     [[ -f "$1" ]] && source "$1"
 }
+
+if [ -x "$(command -v fnm)" ]; then
+    eval "$(fnm env --use-on-cd)"
+fi
+
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -49,7 +50,6 @@ zinit for \
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || include ~/.p10k.zsh
-zinit load b4b4r07/enhancd
 
 alias pip=pip3
 alias python=python3
@@ -57,26 +57,22 @@ alias lzd=lazydocker
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/usr/local/Caskroom/miniforge/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/opt/homebrew/Caskroom/miniforge/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/usr/local/Caskroom/miniforge/base/etc/profile.d/conda.sh" ]; then
-        . "/usr/local/Caskroom/miniforge/base/etc/profile.d/conda.sh"
+    if [ -f "/opt/homebrew/Caskroom/miniforge/base/etc/profile.d/conda.sh" ]; then
+        . "/opt/homebrew/Caskroom/miniforge/base/etc/profile.d/conda.sh"
     else
-        export PATH="/usr/local/Caskroom/miniforge/base/bin:$PATH"
+        export PATH="/opt/homebrew/Caskroom/miniforge/base/bin:$PATH"
     fi
 fi
 unset __conda_setup
 # <<< conda initialize <<<
 
 # kubectl
-export KUBECONFIG=$HOME/.kube/config
+[[ ! -f $HOME/.kube/config ]] || export KUBECONFIG=$HOME/.kube/config
 
 include ~/.secrets
 include ~/.zshrc.local
-
-# Fig post block. Keep at the bottom of this file.
-export FIG_POST_PATH="$HOME/.fig/shell/zshrc.post.zsh"
-[[ -f $FIG_POST_PATH ]] && . $FIG_POST_PATH
 export PATH="/usr/local/sbin:$PATH"
