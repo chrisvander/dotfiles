@@ -63,7 +63,7 @@ sh -c "$(curl -fsSL https://git.io/zinit-install)"
 # source zshrc for install
 export SHELL=$(which zsh)
 $SHELL -c "source $HOME/.zshrc && exit"
-$SHELL -c "echo \"\" && exit"
+$SHELL -c "$PATH_TO_ZSH_DIR/custom/themes/powerlevel10k/gitstatus/install"
 
 git config --global user.email "chris.vanderloo@yahoo.com"
 git config --global user.name "Christian van der Loo"
