@@ -72,3 +72,6 @@ $SHELL -c "source $HOME/.zshrc && echo DONE && exit"
 
 git config --global user.email "chris.vanderloo@yahoo.com"
 git config --global user.name "Christian van der Loo"
+
+[[ -x "$(command -v defaults)" ]] || defaults write com.googlecode.iterm2 PrefsCustomFolder -string "~/Developer/dotfiles/"
+[[ -x "$(command -v defaults)" ]] || defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
