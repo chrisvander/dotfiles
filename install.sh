@@ -10,12 +10,15 @@ then
     exit
 fi
 
-include ~/.zshrc.local
+if ! command -v zsh &> /dev/null
+then
+    echo "ERROR: zsh could not be found"
+    exit
+fi
 
-# Credit: Joe Previte (@jsjoeio) - https://github.com/jsjoeio/dotfiles/blob/master/install.sh
-###########################
-# zsh setup
-###########################
+chsh -s /bin/zsh
+
+include ~/.zshrc.local
 
 # Set up zsh tools
 PATH_TO_ZSH_DIR=$HOME/.oh-my-zsh
@@ -65,10 +68,6 @@ sh -c "$(curl -fsSL https://git.io/zinit-install)"
 
 # source zshrc for install
 $SHELL -c "source $HOME/.zshrc && echo DONE && exit"
-
-###########################
-# end zsh setup
-###########################
 
 git config --global user.email "chris.vanderloo@yahoo.com"
 git config --global user.name "Christian van der Loo"
