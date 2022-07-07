@@ -1,8 +1,14 @@
-#!/bin/sh
+#!/bin/bash
 
 include () {
     [[ -f "$1" ]] && source "$1"
 }
+
+if ! command -v curl &> /dev/null
+then
+    echo "ERROR: curl could not be found"
+    exit
+fi
 
 include ~/.zshrc.local
 
