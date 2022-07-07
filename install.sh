@@ -24,7 +24,7 @@ include ~/.zshrc.local
 PATH_TO_ZSH_DIR=$HOME/.oh-my-zsh
 if [ -d $PATH_TO_ZSH_DIR ]
 then
-   echo "\n$PATH_TO_ZSH_DIR directory exists! Skipping installation of zsh tools."
+   echo "$PATH_TO_ZSH_DIR directory exists! Skipping installation of zsh tools."
 else
    echo "⤵ Configuring zsh tools in the $HOME directory..."
    (cd $HOME && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended)
@@ -34,23 +34,19 @@ fi
 # Set up symlink for .zshrc
 BASEDIR=$(pwd)
 ZSHRC_LINK=$HOME/.zshrc
-if [ -L ${ZSHRC_LINK} ] ; then
+if [[ -L ${ZSHRC_LINK} && -e ${ZSHRC_LINK} ]] ; then
+   echo ".zshrc exists and is symlinked corrected"
+else
    if [ -e ${ZSHRC_LINK} ] ; then
-      echo "\n.zshrc is symlinked corrected"
+      echo "Your .zshrc exists but is not symlinked."
+      rm $ZSHRC_LINK
    else
-      echo "\nOops! Your symlink appears to be broken."
+      touch $ZSHRC_LINK
    fi
-elif [ -e ${ZSHRC_LINK} ] ; then
-   echo "\nYour .zshrc exists but is not symlinked."
-   # We have to symlink the .zshrc after we curl the install script
-   # because the default zsh tools installs a new one, even if it finds ours
-   rm $HOME/.zshrc
    echo "⤵ Symlinking your .zshrc file"
    rm -r ~/.zshrc
    ln -s $BASEDIR/.zshrc $HOME/.zshrc
    echo "✅ Successfully symlinked your .zshrc file"
-else
-   echo "\nUh-oh! .zshrc missing."
 fi
 
 export SHELL=$(which zsh)
