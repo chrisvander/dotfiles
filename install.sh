@@ -62,8 +62,8 @@ sh -c "$(curl -fsSL https://git.io/zinit-install)"
 
 # source zshrc for install
 export SHELL=$(which zsh)
-$SHELL -c "source $HOME/.zshrc && echo DONE && exit"
-$SHELL -c "echo PASS 2"
+$SHELL -c "source $HOME/.zshrc && exit"
+$SHELL -c "echo \"\" && exit"
 
 git config --global user.email "chris.vanderloo@yahoo.com"
 git config --global user.name "Christian van der Loo"
