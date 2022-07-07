@@ -49,8 +49,6 @@ else
    echo "✅ Successfully symlinked your .zshrc file"
 fi
 
-export SHELL=$(which zsh)
-
 # symlink theme dotfile
 rm -rf $HOME/.p10k.zsh
 ln -s $BASEDIR/.p10k.zsh $HOME/.p10k.zsh
@@ -63,7 +61,9 @@ export NO_EDIT=yes
 sh -c "$(curl -fsSL https://git.io/zinit-install)"
 
 # source zshrc for install
+export SHELL=$(which zsh)
 $SHELL -c "source $HOME/.zshrc && echo DONE && exit"
+$SHELL -c "echo PASS 2"
 
 git config --global user.email "chris.vanderloo@yahoo.com"
 git config --global user.name "Christian van der Loo"
