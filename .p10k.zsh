@@ -35,7 +35,6 @@
     my_env
     dir                     # current directory
     vcs                     # git status
-    my_vscode
     # =========================[ Line #2 ]=========================
     newline                 # \n
     os_icon                 # os identifier
@@ -54,14 +53,14 @@
     direnv                  # direnv status (https://direnv.net/)
     asdf                    # asdf version manager (https://github.com/asdf-vm/asdf)
     virtualenv              # python virtual environment (https://docs.python.org/3/library/venv.html)
-    # my_docker_context
+    my_docker_context
     anaconda                # conda environment (https://conda.io/)
     pyenv                   # python environment (https://github.com/pyenv/pyenv)
     goenv                   # go environment (https://github.com/syndbg/goenv)
     # nodenv                # node.js version from nodenv (https://github.com/nodenv/nodenv)
     # nvm                   # node.js version from nvm (https://github.com/nvm-sh/nvm)
     # nodeenv               # node.js environment (https://github.com/ekalinin/nodeenv)
-    # node_version          # node.js version
+    node_version            # node.js version
     # go_version            # go version (https://golang.org)
     # rust_version          # rustc version (https://www.rust-lang.org)
     # dotnet_version        # .NET version (https://dotnet.microsoft.com)
@@ -101,8 +100,9 @@
     todo                    # todo items (https://github.com/todotxt/todo.txt-cli)
     timewarrior             # timewarrior tracking status (https://timewarrior.net/)
     taskwarrior             # taskwarrior task count (https://taskwarrior.org/)
-    wifi                    # wifi speed
+    # wifi                  # wifi speed
     # time                  # current time
+    my_vscode
     # =========================[ Line #2 ]=========================
     newline
     # ip                    # ip address and bandwidth usage for a specified network interface
@@ -139,7 +139,7 @@
   typeset -g POWERLEVEL9K_ICON_BEFORE_CONTENT=true
 
   # Add an empty line before each prompt.
-  typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
+  typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=false
 
   # Connect left prompt lines with these symbols.
   typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=
@@ -1545,12 +1545,17 @@
   # display docker context information
   function prompt_my_docker_context() {
     if type "docker" > /dev/null; then
+      docker_version=$(docker -v | sed -En "s/.*version (.*),.*/\1/p")
       docker_context=$(docker context show)
-      if [[ $docker_context != "default" ]]; then
-        p10k segment -f "#0DB7ED" -i ' ' -t $docker_context
+      if [ "$docker_context" = "default" ]; then
+        docker_msg="$docker_version"
+      else
+        docker_msg="$docker_version"
       fi
+      p10k segment -f "#0DB7ED" -i ' ' -t $docker_msg
     fi
   }
+  typeset -g POWERLEVEL9K_MY_DOCKER_CONTEXT_SHOW_ON_COMMAND="docker|docker-compose"
 
   # switch on docker, personal, or work env. otherwise, hostname
   function prompt_my_env() {
