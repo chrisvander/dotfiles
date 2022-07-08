@@ -60,7 +60,8 @@
     # nodenv                # node.js version from nodenv (https://github.com/nodenv/nodenv)
     # nvm                   # node.js version from nvm (https://github.com/nvm-sh/nvm)
     # nodeenv               # node.js environment (https://github.com/ekalinin/nodeenv)
-    node_version            # node.js version
+    # node_version          # node.js version
+    my_node
     # go_version            # go version (https://golang.org)
     # rust_version          # rustc version (https://www.rust-lang.org)
     # dotnet_version        # .NET version (https://dotnet.microsoft.com)
@@ -1578,6 +1579,12 @@
       p10k segment -f "#0098FF" -i ""
     fi
   }
+
+  function prompt_my_node() {
+    p10k segment -f "#68A063" -i "" -t $(node -v)
+  }
+
+  typeset -g POWERLEVEL9K_MY_NODE_SHOW_ON_COMMAND="node|npm|yarn|pnpm|nx|npx"
 
   # User-defined prompt segments may optionally provide an instant_prompt_* function. Its job
   # is to generate the prompt segment for display in instant prompt. See
