@@ -70,6 +70,7 @@ unset __conda_setup
 # <<< conda initialize <<<
 }
 zsh-defer __setup_conda
+zsh-defer ~/.dotfiles/update.sh
 
 # kubectl
 [[ ! -f $HOME/.kube/config ]] || export KUBECONFIG=$HOME/.kube/config

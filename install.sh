@@ -16,8 +16,6 @@ then
     exit
 fi
 
-chsh -s /bin/zsh
-
 include ~/.zshrc.local
 
 # Set up zsh tools
@@ -53,6 +51,10 @@ fi
 rm -rf $HOME/.p10k.zsh
 ln -s $BASEDIR/.p10k.zsh $HOME/.p10k.zsh
 
+# symlink dotfiles
+rm -rf $HOME/.dotfiles
+ln -s $BASEDIR $HOME/.dotfiles
+
 # add zinit
 export NO_ANNEXES=yes
 export NO_INPUT=yes
@@ -68,5 +70,5 @@ $SHELL -c "$PATH_TO_ZSH_DIR/custom/themes/powerlevel10k/gitstatus/install"
 git config --global user.email "chris.vanderloo@yahoo.com"
 git config --global user.name "Christian van der Loo"
 
-[[ -x "$(command -v defaults)" ]] && defaults write com.googlecode.iterm2 PrefsCustomFolder -string "~/Developer/dotfiles/"
+[[ -x "$(command -v defaults)" ]] && defaults write com.googlecode.iterm2 PrefsCustomFolder -string "~/.dotfiles/"
 [[ -x "$(command -v defaults)" ]] && defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
