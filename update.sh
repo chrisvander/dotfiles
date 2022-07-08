@@ -2,15 +2,19 @@
 
 cd ~/.dotfiles
 
-UPSTREAM=${1:-'@{u}'}
-LOCAL=$(git rev-parse @)
-REMOTE=$(git rev-parse "$UPSTREAM")
-BASE=$(git merge-base @ "$UPSTREAM")
+__update_dotfiles() {
+  git fetch
 
-if [ $LOCAL = $REMOTE ]; then
-  true
-elif [ $LOCAL = $BASE ]; then
-  git pull &> /dev/null
-  source ~/.dotfiles/install.sh &> /dev/null
-  source ~/.zshrc &> /dev/null
-fi
+  UPSTREAM=${1:-'@{u}'}
+  LOCAL=$(git rev-parse @)
+  REMOTE=$(git rev-parse "$UPSTREAM")
+  BASE=$(git merge-base @ "$UPSTREAM")
+
+  if [ $LOCAL = $REMOTE ]; then
+    true
+  elif [ $LOCAL = $BASE ]; then
+    git pull
+  fi
+}
+
+__update_dotfiles &
