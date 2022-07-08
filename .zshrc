@@ -12,12 +12,6 @@ include "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 include ~/.secrets
 include ~/.zshrc.local
 
-# Specify the preferences directory
-defaults write com.googlecode.iterm2 PrefsCustomFolder -string "~/Developer/dotfiles/"
-# Tell iTerm2 to use the custom preferences in the directory
-defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
-
-
 if [ -x "$(command -v fnm)" ]; then
     eval "$(fnm env --use-on-cd)"
 fi

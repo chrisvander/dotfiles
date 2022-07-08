@@ -1,21 +1,30 @@
-#!/bin/sh
+#!/bin/bash
 
 include () {
     [[ -f "$1" ]] && source "$1"
 }
 
-include ~/.zshrc.local
+if ! command -v curl &> /dev/null
+then
+    echo "ERROR: curl could not be found"
+    exit
+fi
 
-# Credit: Joe Previte (@jsjoeio) - https://github.com/jsjoeio/dotfiles/blob/master/install.sh
-###########################
-# zsh setup
-###########################
+if ! command -v zsh &> /dev/null
+then
+    echo "ERROR: zsh could not be found"
+    exit
+fi
+
+chsh -s /bin/zsh
+
+include ~/.zshrc.local
 
 # Set up zsh tools
 PATH_TO_ZSH_DIR=$HOME/.oh-my-zsh
 if [ -d $PATH_TO_ZSH_DIR ]
 then
-   echo "\n$PATH_TO_ZSH_DIR directory exists! Skipping installation of zsh tools."
+   echo "$PATH_TO_ZSH_DIR directory exists! Skipping installation of zsh tools."
 else
    echo "⤵ Configuring zsh tools in the $HOME directory..."
    (cd $HOME && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended)
@@ -25,26 +34,20 @@ fi
 # Set up symlink for .zshrc
 BASEDIR=$(pwd)
 ZSHRC_LINK=$HOME/.zshrc
-if [ -L ${ZSHRC_LINK} ] ; then
+if [[ -L ${ZSHRC_LINK} && -e ${ZSHRC_LINK} ]] ; then
+   echo ".zshrc exists and is symlinked corrected"
+else
    if [ -e ${ZSHRC_LINK} ] ; then
-      echo "\n.zshrc is symlinked corrected"
+      echo "Your .zshrc exists but is not symlinked."
+      rm $ZSHRC_LINK
    else
-      echo "\nOops! Your symlink appears to be broken."
+      touch $ZSHRC_LINK
    fi
-elif [ -e ${ZSHRC_LINK} ] ; then
-   echo "\nYour .zshrc exists but is not symlinked."
-   # We have to symlink the .zshrc after we curl the install script
-   # because the default zsh tools installs a new one, even if it finds ours
-   rm $HOME/.zshrc
    echo "⤵ Symlinking your .zshrc file"
    rm -r ~/.zshrc
    ln -s $BASEDIR/.zshrc $HOME/.zshrc
    echo "✅ Successfully symlinked your .zshrc file"
-else
-   echo "\nUh-oh! .zshrc missing."
 fi
-
-export SHELL=$(which zsh)
 
 # symlink theme dotfile
 rm -rf $HOME/.p10k.zsh
@@ -58,11 +61,12 @@ export NO_EDIT=yes
 sh -c "$(curl -fsSL https://git.io/zinit-install)"
 
 # source zshrc for install
-$SHELL -c "source $HOME/.zshrc && echo DONE && exit"
-
-###########################
-# end zsh setup
-###########################
+export SHELL=$(which zsh)
+$SHELL -c "source $HOME/.zshrc && exit"
+$SHELL -c "$PATH_TO_ZSH_DIR/custom/themes/powerlevel10k/gitstatus/install"
 
 git config --global user.email "chris.vanderloo@yahoo.com"
 git config --global user.name "Christian van der Loo"
+
+[[ -x "$(command -v defaults)" ]] && defaults write com.googlecode.iterm2 PrefsCustomFolder -string "~/Developer/dotfiles/"
+[[ -x "$(command -v defaults)" ]] && defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
