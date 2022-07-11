@@ -1547,12 +1547,13 @@
   function prompt_my_docker_context() {
     if type "docker" > /dev/null; then
       docker_version=$(docker -v | sed -En "s/.*version (.*),.*/\1/p")
-      docker_context=$(docker context show)
-      if [ "$docker_context" = "default" ]; then
-        docker_msg="$docker_version"
-      else
-        docker_msg="$docker_version"
-      fi
+      # docker_context=$(docker context show)
+      docker_msg="$docker_version"
+      # if [ "$docker_context" = "default" ]; then
+      #   docker_msg="$docker_version"
+      # else
+      #   docker_msg="$docker_version"
+      # fi
       p10k segment -f "#0DB7ED" -i ' ' -t $docker_msg
     fi
   }
