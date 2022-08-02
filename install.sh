@@ -70,10 +70,6 @@ export NVIM_PLUGIN_HOME=$HOME/.config/nvim/site/autoload
 mkdir -p $NVIM_PLUGIN_HOME
 cp -r vim-autoload/* $NVIM_PLUGIN_HOME
 
-# install vim-plug
-sh -c 'curl -fLo $NVIM_PLUGIN_HOME/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-
 # Set up zsh tools
 PATH_TO_ZSH_DIR=$HOME/.oh-my-zsh
 if [ -d $PATH_TO_ZSH_DIR ]
