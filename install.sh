@@ -52,23 +52,8 @@ fi
 # activate NodeJS
 fnm use 18.4.0 --install-if-missing
 
-# install neovim support packages
-pip3 install neovim
-gem  install neovim
-npm  install -g neovim
-
-# install LSPs for neovim
-npm i -g \
-  @angular/language-server \
-  @tailwindcss/language-server \
-  bash-language-server \
-  vim-language-server \
-  typescript-language-server \
-  typescript
-
 export NVIM_PLUGIN_HOME=$HOME/.config/nvim/site/autoload
 mkdir -p $NVIM_PLUGIN_HOME
-cp -r vim-autoload/* $NVIM_PLUGIN_HOME
 
 # Set up zsh tools
 PATH_TO_ZSH_DIR=$HOME/.oh-my-zsh
