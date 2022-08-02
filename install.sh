@@ -16,6 +16,12 @@ then
     exit
 fi
 
+if ! command -v unzip &> /dev/null
+then
+    echo "ERROR: unzip could not be found"
+    exit
+fi
+
 if ! command -v zsh &> /dev/null
 then
     echo "ERROR: zsh could not be found"
@@ -36,11 +42,11 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
    curl -fsSL https://fnm.vercel.app/install | bash
    export PATH=/root/.fnm:$PATH
    eval "`fnm env`"
-   apt-get install neovim ruby python3
+   apt-get install -y neovim ruby python3
 fi
 
 # activate NodeJS
-fnm use 18.4.0
+fnm use 18.4.0 --install-if-missing
 
 # install neovim support packages
 pip install neovim
