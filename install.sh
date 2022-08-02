@@ -10,6 +10,12 @@ then
     exit
 fi
 
+if ! command -v git &> /dev/null
+then
+    echo "ERROR: git could not be found"
+    exit
+fi
+
 if ! command -v zsh &> /dev/null
 then
     echo "ERROR: zsh could not be found"
