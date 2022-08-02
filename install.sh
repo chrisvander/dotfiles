@@ -18,6 +18,27 @@ fi
 
 include ~/.zshrc.local
 
+# install homebrew
+if ! command -v brew &> /dev/null
+then
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+# install brew packages
+brew install neovim fnm ruby miniforge jesseduffield/lazygit/lazygit lazydocker docker
+
+# activate NodeJS
+fnm use 18.4.0
+pip install neovim
+gem install neovim
+
+# install global package
+npm i -g neovim
+
+# install vim-plug
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
 # Set up zsh tools
 PATH_TO_ZSH_DIR=$HOME/.oh-my-zsh
 if [ -d $PATH_TO_ZSH_DIR ]
@@ -47,13 +68,57 @@ else
    echo "✅ Successfully symlinked your .zshrc file"
 fi
 
-# symlink theme dotfile
-rm -rf $HOME/.p10k.zsh
-ln -s $BASEDIR/.p10k.zsh $HOME/.p10k.zsh
+# p10k
+P10K_DOTFILE=$HOME/.p10k.zsh
+if [[ -L ${P10K_DOTFILE} && -e ${P10K_DOTFILE} ]] ; then
+   echo ".p10k.zsh exists and is symlinked corrected"
+else
+   if [ -e ${P10K_DOTFILE} ] ; then
+      echo "Your .p10k.zsh exists but is not symlinked."
+      rm $P10K_DOTFILE
+   else
+      touch $P10K_DOTFILE
+   fi
+   echo "⤵ Symlinking your .p10k.zsh file"
+   rm -r ~/.p10k.zsh
+   ln -s $BASEDIR/.p10k.zsh $HOME/.p10k.zsh
+   echo "✅ Successfully symlinked your .p10k.zsh file"
+fi
 
-# symlink dotfiles
-rm -rf $HOME/.dotfiles
-ln -s $BASEDIR $HOME/.dotfiles
+# dotfiles
+F_DOTFILES=$HOME/.dotfiles
+if [[ -L ${F_DOTFILES} && -e ${F_DOTFILES} ]] ; then
+   echo ".dotfiles exists and is symlinked corrected"
+else
+   if [ -e ${F_DOTFILES} ] ; then
+      echo "Your .dotfiles exists but is not symlinked."
+      rm $F_DOTFILES
+   else
+      touch $F_DOTFILES
+   fi
+   echo "⤵ Symlinking your .dotfiles file"
+   rm -r ~/.dotfiles
+   ln -s $BASEDIR/.dotfiles $HOME/.dotfiles
+   echo "✅ Successfully symlinked your .dotfiles file"
+fi
+
+# nvim init
+VIMRC_DOTFILE=$HOME/.config/nvim/init.vim
+if [[ -L ${VIMRC_DOTFILE} && -e ${VIMRC_DOTFILE} ]] ; then
+   echo "init.vim exists and is symlinked corrected"
+else
+   if [ -e ${VIMRC_DOTFILE} ] ; then
+      echo "Your init.vim exists but is not symlinked."
+      rm $VIMRC_DOTFILE
+   else
+      touch $VIMRC_DOTFILE
+   fi
+   echo "⤵ Symlinking your init.vim file"
+   rm -r $HOME/.config/nvim/init.vim
+   mkdir -p $HOME/.config/nvim
+   ln -s $BASEDIR/init.vim $HOME/.config/nvim/init.vim
+   echo "✅ Successfully symlinked your init.vim file"
+fi
 
 # add zinit
 export NO_ANNEXES=yes

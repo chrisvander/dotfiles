@@ -76,3 +76,5 @@ zsh-defer ~/.dotfiles/update.sh
 [[ ! -f $HOME/.kube/config ]] || export KUBECONFIG=$HOME/.kube/config
 
 export PATH="/usr/local/sbin:$PATH"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
