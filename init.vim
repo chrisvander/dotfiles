@@ -63,11 +63,11 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'nvim-telescope/telescope-file-browser.nvim'
 
 " file tree
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'kyazdani42/nvim-tree.lua'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
 
 call plug#end()
 
@@ -80,7 +80,6 @@ autocmd VimEnter *
 " lua plugin setups
 lua << EOF
 require('impatient')
-require('nvim-tree').setup()
 require('lualine').setup {
   sections = {
     lualine_a = {'mode'},
@@ -101,6 +100,8 @@ require("bufferline").setup {
 require("mason").setup {}
 require("mason-lspconfig").setup()
 require('hop').setup()
+require("telescope").setup {}
+require("telescope").load_extension "file_browser"
 EOF
 
 " theme
@@ -115,6 +116,7 @@ nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>fb <cmd>Telescope file_browser<cr>
 
 " Jump browsing
 nnoremap <silent>s <cmd>HopPattern<cr>
@@ -133,8 +135,7 @@ nnoremap <silent>be :BufferLineSortByExtension<CR>
 nnoremap <silent>bd :BufferLineSortByDirectory<CR>
 
 " NvimTree
-nnoremap <leader>e <cmd>NvimTreeFocus<cr>
-nnoremap <leader>c <cmd>NvimTreeClose<cr> 
+nnoremap <leader>e <cmd>CHADopen<cr>
 
 " other options
 

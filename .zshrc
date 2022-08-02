@@ -78,4 +78,3 @@ zsh-defer ~/.dotfiles/update.sh
 
 export PATH="/usr/local/sbin:$PATH"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

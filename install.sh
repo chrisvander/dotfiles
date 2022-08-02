@@ -52,8 +52,6 @@ fi
 
 export PATH=~/.cargo/bin:/root/.fnm:$PATH
 
-cargo install fnm
-
 # activate NodeJS
 fnm use 18.4.0 --install-if-missing
 
