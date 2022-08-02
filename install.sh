@@ -66,7 +66,7 @@ npm i -g \
   typescript-language-server \
   typescript
 
-NVIM_PLUGIN_HOME=$HOME/.config/nvim/site/autoload
+export NVIM_PLUGIN_HOME=$HOME/.config/nvim/site/autoload
 mkdir -p $NVIM_PLUGIN_HOME
 cp -r vim-autoload/* $NVIM_PLUGIN_HOME
 
