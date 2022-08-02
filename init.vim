@@ -69,6 +69,9 @@ Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
 
+" which key bindings
+Plug 'folke/which-key.nvim'
+
 call plug#end()
 
 " autoinstall
@@ -89,7 +92,7 @@ require('lualine').setup {
     lualine_y = {'progress'},
     lualine_z = {'location'}
   },
-  options = { theme = 'onedark' }
+  extensions = { 'chadtree', 'fzf' }
 }
 require("bufferline").setup {
   options = {
@@ -102,11 +105,12 @@ require("mason-lspconfig").setup()
 require('hop').setup()
 require("telescope").setup {}
 require("telescope").load_extension "file_browser"
+require("which-key").setup()
 EOF
 
 " theme
 set termguicolors
-let ayucolor="dark"
+let ayucolor="mirage"
 colorscheme ayu
 
 " keybindings
@@ -117,6 +121,7 @@ nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>fb <cmd>Telescope file_browser<cr>
+nnoremap <leader>db <cmd>Telescope cder<cr>
 
 " Jump browsing
 nnoremap <silent>s <cmd>HopPattern<cr>
@@ -150,8 +155,9 @@ set number
 set relativenumber
 set splitbelow splitright
 set title
-set ttimeoutlen=0
+set timeoutlen=0
 set wildmenu
+hi NonText guifg=bg
 syntax on
 
 " Tabs size
