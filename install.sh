@@ -42,7 +42,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
    curl -fsSL https://fnm.vercel.app/install | bash
    export PATH=/root/.fnm:$PATH
    eval "`fnm env`"
-   apt-get install -y neovim ruby python3
+   apt-get install -y neovim ruby python3 pip3
 fi
 
 # activate NodeJS
