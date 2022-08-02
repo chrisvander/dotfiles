@@ -33,13 +33,10 @@ if [ "$(uname)" == "Darwin" ]; then
    brew install neovim fnm ruby miniforge lazygit lazydocker
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
    # install miniforge
-   if ! command -v pip3 &> /dev/null
-   then
-      curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh"
-      bash Mambaforge-$(uname)-$(uname -m).sh
-   fi
    curl -fsSL https://fnm.vercel.app/install | bash
-   apt-get install neovim ruby
+   export PATH=/root/.fnm:$PATH
+   eval "`fnm env`"
+   apt-get install neovim ruby python3
 fi
 
 # activate NodeJS
