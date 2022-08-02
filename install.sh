@@ -49,9 +49,9 @@ fi
 fnm use 18.4.0 --install-if-missing
 
 # install neovim support packages
-pip install neovim
-gem install neovim
-npm install -g neovim
+pip3 install neovim
+gem  install neovim
+npm  install -g neovim
 
 # install vim-plug
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
