@@ -12,6 +12,7 @@ include "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 include ~/.secrets
 include ~/.zshrc.local
 
+export PATH=/root/.fnm:$PATH
 if [ -x "$(command -v fnm)" ]; then
     eval "$(fnm env --use-on-cd)"
 fi
