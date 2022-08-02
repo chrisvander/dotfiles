@@ -14,6 +14,7 @@ __update_dotfiles() {
     true
   elif [ $LOCAL = $BASE ]; then
     git pull
+    ./install.sh
   fi
 }
 

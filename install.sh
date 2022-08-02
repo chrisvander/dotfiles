@@ -57,8 +57,21 @@ pip3 install neovim
 gem  install neovim
 npm  install -g neovim
 
+# install LSPs for neovim
+npm i -g \
+  @angular/language-server \
+  @tailwindcss/language-server \
+  bash-language-server \
+  vim-language-server \
+  typescript-language-server \
+  typescript
+
+NVIM_PLUGIN_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload
+mkdir -p $NVIM_PLUGIN_HOME
+cp -r vim-autoload/* $NVIM_PLUGIN_HOME
+
 # install vim-plug
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+sh -c 'curl -fLo $NVIM_PLUGIN_HOME/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
 # Set up zsh tools
