@@ -11,6 +11,13 @@ Plug 'tpope/vim-sensible'
 " faster loading
 Plug 'lewis6991/impatient.nvim'
 
+" navigation
+Plug 'phaazon/hop.nvim'
+Plug 'wfxr/minimap.vim'
+
+" multi select
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+
 " themes
 Plug 'joshdick/onedark.vim'
 Plug 'tomasr/molokai'
@@ -24,15 +31,20 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug 'akinsho/bufferline.nvim'
 
 " git
-Plug 'mhinz/vim-signify'
+Plug 'mhinz/vim-signify' " git status in left bar
+Plug 'kdheepak/lazygit.nvim' " lazygit integration
+Plug 'f-person/git-blame.nvim' " git blame
 
-" language servers
+" language servers / managers
 Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'mfussenegger/nvim-dap'
 Plug 'mfussenegger/nvim-lint'
 Plug 'mhartington/formatter.nvim'
+
+" autocomplete
+Plug 'ms-jpq/coq_nvim'
 
 " completions
 Plug 'neovim/nvim-lspconfig'
@@ -59,17 +71,13 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 call plug#end()
 
+" autoinstall
 autocmd VimEnter *
   \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
   \|   PlugInstall --sync | q
   \| endif
 
-" set theme
-set termguicolors
-let ayucolor="mirage"
-colorscheme ayu
-
-" Register nvim-tree basic config
+" lua plugin setups
 lua << EOF
 require('impatient')
 require('nvim-tree').setup()
@@ -82,11 +90,7 @@ require('lualine').setup {
     lualine_y = {'progress'},
     lualine_z = {'location'}
   },
-  options = { theme = 'onedark' },
-  tabline = {},
-  winbar = {},
-  inactive_winbar = {},
-  extensions = {}
+  options = { theme = 'onedark' }
 }
 require("bufferline").setup {
   options = {
@@ -96,75 +100,49 @@ require("bufferline").setup {
 }
 require("mason").setup {}
 require("mason-lspconfig").setup()
-
--- Setup nvim-cmp.
-local cmp = require'cmp'
-
-cmp.setup({
-  snippet = {
-    expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body)
-    end,
-  },
-  completion = {
-    autocomplete = true
-  },
-  mapping = cmp.mapping.preset.insert({
-    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.abort(),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
-  }),
-  sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'vsnip' },
-  }, {
-    { name = 'buffer' },
-  })
-})
-
--- Set configuration for specific filetype.
-cmp.setup.filetype('gitcommit', {
-  sources = cmp.config.sources({
-    { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
-  }, {
-    { name = 'buffer' },
-  })
-})
-
--- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline('/', {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = {
-    { name = 'buffer' }
-  }
-})
-
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline(':', {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = cmp.config.sources({
-    { name = 'path' }
-  }, {
-    { name = 'cmdline' }
-  })
-})
-
+require('hop').setup()
 EOF
 
-" Add Telescope command line functions.
+" theme
+set termguicolors
+let ayucolor="dark"
+colorscheme ayu
+
+" keybindings
+
+" Telescope
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+" Jump browsing
+nnoremap <silent>s <cmd>HopPattern<cr>
+
+" Tabbuffer
+" These commands will navigate through buffers in order regardless of which mode you are using
+nnoremap <silent>[b :BufferLineCycleNext<CR>
+nnoremap <silent>]b :BufferLineCyclePrev<CR>
+
+" These commands will move the current buffer backwards or forwards in the bufferline
+nnoremap <silent><mymap> :BufferLineMoveNext<CR>
+nnoremap <silent><mymap> :BufferLineMovePrev<CR>
+
+" These commands will sort buffers by directory, language, or a custom criteria
+nnoremap <silent>be :BufferLineSortByExtension<CR>
+nnoremap <silent>bd :BufferLineSortByDirectory<CR>
+
+" NvimTree
+nnoremap <leader>e <cmd>NvimTreeFocus<cr>
+nnoremap <leader>c <cmd>NvimTreeClose<cr> 
+
+" other options
 
 " Options
 set background=dark
 set clipboard=unnamedplus
 set completeopt=noinsert,menuone,noselect
 set cursorline
-set hidden
 set inccommand=split
 set mouse=a
 set number

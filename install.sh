@@ -36,18 +36,23 @@ if [ "$(uname)" == "Darwin" ]; then
    then
       /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
    fi
-   brew install neovim fnm ruby miniforge lazygit lazydocker
+   brew install neovim fnm ruby miniforge lazygit lazydocker code-minimap rust rustup
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
    # install miniforge
    curl -fsSL https://fnm.vercel.app/install | bash
-   export PATH=/root/.fnm:$PATH
    eval "`fnm env`"
    apt-get update -y
    apt-get install -y software-properties-common
    add-apt-repository -y ppa:neovim-ppa/stable
    apt-get update -y
    apt-get install -y neovim ruby-full python2 python3 pip
+   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+   cargo install --locked code-minimap
 fi
+
+export PATH=~/.cargo/bin:/root/.fnm:$PATH
+
+cargo install fnm
 
 # activate NodeJS
 fnm use 18.4.0 --install-if-missing

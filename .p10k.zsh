@@ -1582,7 +1582,9 @@
   }
 
   function prompt_my_node() {
-    p10k segment -f "#68A063" -i "" -t $(node -v)
+    if [ -x "$(command -v node)" ]; then
+      p10k segment -f "#68A063" -i "" -t $(node -v)
+    fi
   }
 
   typeset -g POWERLEVEL9K_MY_NODE_SHOW_ON_COMMAND="node|npm|yarn|pnpm|nx|npx"
