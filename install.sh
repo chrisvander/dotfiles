@@ -24,22 +24,31 @@ fi
 
 include ~/.zshrc.local
 
-# install homebrew
-if ! command -v brew &> /dev/null
-then
-   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+if [ "$(uname)" == "Darwin" ]; then
+   # install homebrew
+   if ! command -v brew &> /dev/null
+   then
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   fi
+   brew install neovim fnm ruby miniforge lazygit lazydocker
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+   # install miniforge
+   if ! command -v pip3 &> /dev/null
+   then
+      curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh"
+      bash Mambaforge-$(uname)-$(uname -m).sh
+   fi
+   curl -fsSL https://fnm.vercel.app/install | bash
+   apt-get install neovim ruby
 fi
-
-# install brew packages
-brew install neovim fnm ruby miniforge jesseduffield/lazygit/lazygit lazydocker docker
 
 # activate NodeJS
 fnm use 18.4.0
+
+# install neovim support packages
 pip install neovim
 gem install neovim
-
-# install global package
-npm i -g neovim
+npm install -g neovim
 
 # install vim-plug
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
