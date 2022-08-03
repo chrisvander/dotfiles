@@ -13,15 +13,16 @@ Plug 'lewis6991/impatient.nvim'
 
 " navigation
 Plug 'phaazon/hop.nvim'
+Plug 'romgrk/barbar.nvim'
 
 " multi select
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
 " themes
-Plug 'joshdick/onedark.vim'
 Plug 'tomasr/molokai'
 Plug 'sickill/vim-monokai'
 Plug 'ayu-theme/ayu-vim'
+Plug 'olimorris/onedarkpro.nvim'
 
 " commenting
 Plug 'scrooloose/nerdcommenter'
@@ -96,6 +97,8 @@ require('hop').setup()
 require('telescope').setup()
 require('telescope').load_extension('file_browser')
 require('which-key').setup()
+require('bufferline').setup()
+
 EOF
 
 " minimap config
@@ -104,8 +107,7 @@ let g:minimap_block_filetypes = ['fzf', 'CHADTree']
 
 " theme
 set termguicolors
-let ayucolor="mirage"
-colorscheme ayu
+colorscheme ayu 
 
 " keybindings
 " Telescope
