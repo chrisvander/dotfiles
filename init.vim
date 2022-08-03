@@ -24,6 +24,9 @@ Plug 'tomasr/molokai'
 Plug 'sickill/vim-monokai'
 Plug 'ayu-theme/ayu-vim'
 
+" commenting
+Plug 'scrooloose/nerdcommenter'
+
 " powerline
 Plug 'nvim-lualine/lualine.nvim'
 
@@ -34,27 +37,22 @@ Plug 'akinsho/bufferline.nvim'
 Plug 'mhinz/vim-signify' " git status in left bar
 Plug 'kdheepak/lazygit.nvim' " lazygit integration
 Plug 'f-person/git-blame.nvim' " git blame
+Plug 'petertriho/cmp-git'
 
 " language servers / managers
-Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
+Plug 'neovim/nvim-lspconfig'
 Plug 'mfussenegger/nvim-dap'
 Plug 'mfussenegger/nvim-lint'
 Plug 'mhartington/formatter.nvim'
 
-" autocomplete
-Plug 'ms-jpq/coq_nvim'
-
 " completions
-Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
-
-" For vsnip users.
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 
@@ -74,14 +72,24 @@ Plug 'folke/which-key.nvim'
 
 call plug#end()
 
-" autoinstall
+" autoinstall plugins
 autocmd VimEnter *
   \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
   \|   PlugInstall --sync | q
   \| endif
 
+set completeopt=menu,menuone,noselect
+
 " lua plugin setups
 lua << EOF
+require('cmp').setup({
+  snippet = {
+    expand = function(args)
+      vim.fn['vsnip#anonymous'](args.body)
+    end,
+  }
+})
+
 require('impatient')
 require('lualine').setup {
   sections = {
@@ -94,18 +102,40 @@ require('lualine').setup {
   },
   extensions = { 'chadtree', 'fzf' }
 }
-require("bufferline").setup {
+require('bufferline').setup {
   options = {
-    diagnostics = "nvim_lsp",
-    separator_style = "slant" 
+    diagnostics = 'nvim_lsp',
+    separator_style = 'slant' 
   }
 }
-require("mason").setup {}
-require("mason-lspconfig").setup()
+require('mason').setup()
+require('mason-lspconfig').setup({
+  ensure_installed = { 
+    'angularls',
+    'bashls',
+    'clangd',
+    'cssls',
+    'cssmodules_ls',
+    'dockerls',
+    'eslint',
+    'golangci_lint_ls',
+    'html',
+    'jsonls',
+    'pylsp',
+    'rust_analyzer',
+    'tailwindcss',
+    'tsserver',
+    'vimls',
+    'yamlls',
+    'sumneko_lua', 
+    'rust_analyzer'
+  },
+  automatic_installation = true
+})
 require('hop').setup()
-require("telescope").setup {}
-require("telescope").load_extension "file_browser"
-require("which-key").setup()
+require('telescope').setup()
+require('telescope').load_extension('file_browser')
+require('which-key').setup()
 EOF
 
 " theme
@@ -114,14 +144,12 @@ let ayucolor="mirage"
 colorscheme ayu
 
 " keybindings
-
 " Telescope
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>fb <cmd>Telescope file_browser<cr>
-nnoremap <leader>db <cmd>Telescope cder<cr>
 
 " Jump browsing
 nnoremap <silent>s <cmd>HopPattern<cr>
@@ -131,19 +159,14 @@ nnoremap <silent>s <cmd>HopPattern<cr>
 nnoremap <silent>[b :BufferLineCycleNext<CR>
 nnoremap <silent>]b :BufferLineCyclePrev<CR>
 
-" These commands will move the current buffer backwards or forwards in the bufferline
-nnoremap <silent><mymap> :BufferLineMoveNext<CR>
-nnoremap <silent><mymap> :BufferLineMovePrev<CR>
-
 " These commands will sort buffers by directory, language, or a custom criteria
 nnoremap <silent>be :BufferLineSortByExtension<CR>
 nnoremap <silent>bd :BufferLineSortByDirectory<CR>
 
-" NvimTree
+" CHADTree
 nnoremap <leader>e <cmd>CHADopen<cr>
 
 " other options
-
 " Options
 set background=dark
 set clipboard=unnamedplus

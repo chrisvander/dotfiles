@@ -36,7 +36,7 @@ if [ "$(uname)" == "Darwin" ]; then
    then
       /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
    fi
-   brew install neovim fnm ruby miniforge lazygit lazydocker code-minimap rust rustup
+   brew install neovim fnm ruby miniforge lazygit lazydocker code-minimap rust rustup ripgrep
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
    # install miniforge
    curl -fsSL https://fnm.vercel.app/install | bash
