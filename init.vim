@@ -13,6 +13,7 @@ Plug 'lewis6991/impatient.nvim'
 
 " navigation
 Plug 'phaazon/hop.nvim'
+Plug 'nanozuki/tabby.nvim'
 
 " multi select
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
@@ -96,6 +97,7 @@ require('hop').setup()
 require('telescope').setup()
 require('telescope').load_extension('file_browser')
 require('which-key').setup()
+require("tabby").setup()
 EOF
 
 " minimap config
