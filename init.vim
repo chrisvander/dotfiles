@@ -13,7 +13,6 @@ Plug 'lewis6991/impatient.nvim'
 
 " navigation
 Plug 'phaazon/hop.nvim'
-Plug 'wfxr/minimap.vim'
 
 " multi select
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
@@ -29,9 +28,6 @@ Plug 'scrooloose/nerdcommenter'
 
 " powerline
 Plug 'nvim-lualine/lualine.nvim'
-
-" tabs
-Plug 'akinsho/bufferline.nvim'
 
 " git
 Plug 'mhinz/vim-signify' " git status in left bar
@@ -96,12 +92,6 @@ require('lualine').setup {
   },
   extensions = { 'chadtree', 'fzf' }
 }
-require('bufferline').setup {
-  options = {
-    diagnostics = 'nvim_lsp',
-    separator_style = 'slant' 
-  }
-}
 require('hop').setup()
 require('telescope').setup()
 require('telescope').load_extension('file_browser')
@@ -110,7 +100,7 @@ EOF
 
 " minimap config
 let g:minimap_auto_start = 1
-let g:minimap_block_filetypes = ['fzf', 'CHADTree', 'bufferline']
+let g:minimap_block_filetypes = ['fzf', 'CHADTree']
 
 " theme
 set termguicolors
@@ -128,17 +118,11 @@ nnoremap <leader>fb <cmd>Telescope file_browser<cr>
 " Jump browsing
 nnoremap <silent>s <cmd>HopPattern<cr>
 
-" Tabbuffer
-" These commands will navigate through buffers in order regardless of which mode you are using
-nnoremap <silent>[b :BufferLineCycleNext<CR>
-nnoremap <silent>]b :BufferLineCyclePrev<CR>
-
-" These commands will sort buffers by directory, language, or a custom criteria
-nnoremap <silent>be :BufferLineSortByExtension<CR>
-nnoremap <silent>bd :BufferLineSortByDirectory<CR>
-
 " CHADTree
 nnoremap <leader>e <cmd>CHADopen<cr>
+
+" LazyGit
+nnoremap <leader>g <cmd>LazyGit<cr>
 
 " other options
 " Options
