@@ -39,22 +39,23 @@ Plug 'kdheepak/lazygit.nvim' " lazygit integration
 Plug 'f-person/git-blame.nvim' " git blame
 Plug 'petertriho/cmp-git'
 
-" language servers / managers
-Plug 'williamboman/mason.nvim'
-Plug 'williamboman/mason-lspconfig.nvim'
-Plug 'neovim/nvim-lspconfig'
-Plug 'mfussenegger/nvim-dap'
-Plug 'mfussenegger/nvim-lint'
-Plug 'mhartington/formatter.nvim'
-
 " completions
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-cmdline'
-Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/cmp-vsnip'
-Plug 'hrsh7th/vim-vsnip'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
+Plug 'josa42/coc-docker', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
+
+" snippets
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 " telescope fuzzy finder
 Plug 'nvim-lua/popup.nvim'
@@ -79,17 +80,10 @@ autocmd VimEnter *
   \| endif
 
 set completeopt=menu,menuone,noselect
+set guifont=JetBrainsMono\ Nerd\ Font\ Mono:h14
 
 " lua plugin setups
 lua << EOF
-require('cmp').setup({
-  snippet = {
-    expand = function(args)
-      vim.fn['vsnip#anonymous'](args.body)
-    end,
-  }
-})
-
 require('impatient')
 require('lualine').setup {
   sections = {
@@ -108,35 +102,15 @@ require('bufferline').setup {
     separator_style = 'slant' 
   }
 }
-require('mason').setup()
-require('mason-lspconfig').setup({
-  ensure_installed = { 
-    'angularls',
-    'bashls',
-    'clangd',
-    'cssls',
-    'cssmodules_ls',
-    'dockerls',
-    'eslint',
-    'golangci_lint_ls',
-    'html',
-    'jsonls',
-    'pylsp',
-    'rust_analyzer',
-    'tailwindcss',
-    'tsserver',
-    'vimls',
-    'yamlls',
-    'sumneko_lua', 
-    'rust_analyzer'
-  },
-  automatic_installation = true
-})
 require('hop').setup()
 require('telescope').setup()
 require('telescope').load_extension('file_browser')
 require('which-key').setup()
 EOF
+
+" minimap config
+let g:minimap_auto_start = 1
+let g:minimap_block_filetypes = ['fzf', 'CHADTree', 'bufferline']
 
 " theme
 set termguicolors
