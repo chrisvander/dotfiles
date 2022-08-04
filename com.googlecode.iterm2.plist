@@ -600,7 +600,7 @@
 			<key>Non-ASCII Ligatures</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>MesloLGSNerdFontCompleteM-Regular 13</string>
+			<string>FiraCodeNerdFontCompleteM-Retina 13</string>
 			<key>Only The Default BG Color Uses Transparency</key>
 			<true/>
 			<key>Option Key Sends</key>
