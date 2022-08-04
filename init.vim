@@ -15,6 +15,9 @@ Plug 'lewis6991/impatient.nvim'
 Plug 'phaazon/hop.nvim'
 Plug 'romgrk/barbar.nvim'
 
+" terminal
+Plug 'numToStr/FTerm.nvim'
+
 " multi select
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
@@ -63,7 +66,6 @@ Plug 'nvim-telescope/telescope-file-browser.nvim'
 
 " file tree
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
 
 " which key bindings
 Plug 'folke/which-key.nvim'
@@ -77,7 +79,7 @@ autocmd VimEnter *
   \| endif
 
 set completeopt=menu,menuone,noselect
-set guifont=JetBrainsMono\ Nerd\ Font\ Mono:h14
+set guifont=FiraCode\ Nerd\ Font\ Mono:h13
 
 " lua plugin setups
 lua << EOF
@@ -91,19 +93,26 @@ require('lualine').setup {
     lualine_y = {'progress'},
     lualine_z = {'location'}
   },
-  extensions = { 'chadtree', 'fzf' }
+  extensions = { 'fzf' }
 }
 require('hop').setup()
 require('telescope').setup()
 require('telescope').load_extension('file_browser')
 require('which-key').setup()
 require('bufferline').setup()
+require('FTerm').setup {
+  border = 'double'
+}
+vim.api.nvim_create_user_command('FTermOpen', require('FTerm').open, { bang = true })
+vim.api.nvim_create_user_command('FTermClose', require('FTerm').close, { bang = true })
+vim.api.nvim_create_user_command('FTermExit', require('FTerm').exit, { bang = true })
+vim.api.nvim_create_user_command('FTermToggle', require('FTerm').toggle, { bang = true })
 
 EOF
 
 " minimap config
 let g:minimap_auto_start = 1
-let g:minimap_block_filetypes = ['fzf', 'CHADTree']
+let g:minimap_block_filetypes = ['fzf']
 
 " theme
 set termguicolors
@@ -120,11 +129,38 @@ nnoremap <leader>fb <cmd>Telescope file_browser<cr>
 " Jump browsing
 nnoremap <silent>s <cmd>HopPattern<cr>
 
-" CHADTree
-nnoremap <leader>e <cmd>CHADopen<cr>
+" Terminal
+nnoremap <silent>t <cmd>FTermToggle<cr>
+tnoremap <silent><C-t> <cmd>FTermToggle<cr>
 
 " LazyGit
 nnoremap <leader>g <cmd>LazyGit<cr>
+
+" Magic buffer-picking mode
+nnoremap <silent> <C-p>    <Cmd>BufferPick<CR>
+
+" Move to previous/next
+nnoremap <silent>    <C-,> <Cmd>BufferPrevious<CR>
+nnoremap <silent>    <C-.> <Cmd>BufferNext<CR>
+
+" Re-order to previous/next
+nnoremap <silent>    <C-<> <Cmd>BufferMovePrevious<CR>
+nnoremap <silent>    <C->> <Cmd>BufferMoveNext<CR>
+
+" Goto buffer in position...
+nnoremap <silent>    <C-1> <Cmd>BufferGoto 1<CR>
+nnoremap <silent>    <C-2> <Cmd>BufferGoto 2<CR>
+nnoremap <silent>    <C-3> <Cmd>BufferGoto 3<CR>
+nnoremap <silent>    <C-4> <Cmd>BufferGoto 4<CR>
+nnoremap <silent>    <C-5> <Cmd>BufferGoto 5<CR>
+nnoremap <silent>    <C-6> <Cmd>BufferGoto 6<CR>
+nnoremap <silent>    <C-7> <Cmd>BufferGoto 7<CR>
+nnoremap <silent>    <C-8> <Cmd>BufferGoto 8<CR>
+nnoremap <silent>    <C-9> <Cmd>BufferGoto 9<CR>
+nnoremap <silent>    <C-0> <Cmd>BufferLast<CR>
+
+" Close buffer
+nnoremap <silent>    <C-c> <Cmd>BufferClose<CR> 
 
 " other options
 " Options
@@ -140,6 +176,7 @@ set splitbelow splitright
 set title
 set timeoutlen=0
 set wildmenu
+set winblend=20
 hi NonText guifg=bg
 syntax on
 
