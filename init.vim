@@ -22,10 +22,9 @@ Plug 'numToStr/FTerm.nvim'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
 " themes
-Plug 'tomasr/molokai'
-Plug 'sickill/vim-monokai'
 Plug 'ayu-theme/ayu-vim'
 Plug 'olimorris/onedarkpro.nvim'
+Plug 'projekt0n/github-nvim-theme'
 
 " commenting
 Plug 'scrooloose/nerdcommenter'
@@ -101,7 +100,7 @@ require('telescope').load_extension('file_browser')
 require('which-key').setup()
 require('bufferline').setup()
 require('FTerm').setup {
-  border = 'double'
+  border = 'single'
 }
 vim.api.nvim_create_user_command('FTermOpen', require('FTerm').open, { bang = true })
 vim.api.nvim_create_user_command('FTermClose', require('FTerm').close, { bang = true })
@@ -110,13 +109,9 @@ vim.api.nvim_create_user_command('FTermToggle', require('FTerm').toggle, { bang 
 
 EOF
 
-" minimap config
-let g:minimap_auto_start = 1
-let g:minimap_block_filetypes = ['fzf']
-
 " theme
 set termguicolors
-colorscheme ayu 
+colorscheme github_*
 
 " keybindings
 " Telescope
@@ -130,11 +125,11 @@ nnoremap <leader>fb <cmd>Telescope file_browser<cr>
 nnoremap <silent>s <cmd>HopPattern<cr>
 
 " Terminal
-nnoremap <silent>t <cmd>FTermToggle<cr>
+nnoremap <silent>t     <cmd>FTermToggle<cr>
 tnoremap <silent><C-t> <cmd>FTermToggle<cr>
 
 " LazyGit
-nnoremap <leader>g <cmd>LazyGit<cr>
+nnoremap <leader>g         <cmd>LazyGit<cr>
 
 " Magic buffer-picking mode
 nnoremap <silent> <C-p>    <Cmd>BufferPick<CR>
@@ -176,7 +171,6 @@ set splitbelow splitright
 set title
 set timeoutlen=0
 set wildmenu
-set winblend=20
 hi NonText guifg=bg
 syntax on
 
