@@ -64,6 +64,8 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-telescope/telescope-file-browser.nvim'
+Plug 'nvim-telescope/telescope-frecency.nvim'
+Plug 'kkharji/sqlite.lua'
 
 " file tree
 Plug 'kyazdani42/nvim-web-devicons'
@@ -99,6 +101,7 @@ require('lualine').setup {
 require('hop').setup()
 require('telescope').setup()
 require('telescope').load_extension('file_browser')
+require('telescope').load_extension('frecency')
 require('which-key').setup()
 require('bufferline').setup()
 require('FTerm').setup {
@@ -147,28 +150,19 @@ db.custom_header = {
 }
 
 db.custom_center = {
-      {icon = '  ',
-      desc = 'Recently latest session                  ',
-      shortcut = '<leader> s l',
-      action ='SessionLoad'},
       {icon = '  ',
-      desc = 'Recently opened files                   ',
-      action =  'DashboardFindHistory',
+      desc = 'Recently Opened                         ',
+      action =  'Telescope frecency',
       shortcut = '<leader> f h'},
       {icon = '  ',
-      desc = 'Find  File                              ',
-      action = 'Telescope find_files find_command=rg,--hidden,--files',
+      desc = 'Find File                               ',
+      action = 'Telescope find_files',
       shortcut = '<leader> f f'},
       {icon = '  ',
-      desc ='File Browser                            ',
+      desc = 'File Browser                            ',
       action =  'Telescope file_browser',
       shortcut = '<leader> f b'},
-      {icon = '  ',
-      desc = 'Open Personal dotfiles                  ',
-      action = 'Telescope dotfiles path=' .. home ..'/.dotfiles',
-      shortcut = '<leader> f d'},
-    }
-
+      }
 EOF
 
 " theme
@@ -177,11 +171,10 @@ colorscheme github_*
 
 " keybindings
 " Telescope
-nnoremap <leader>sl <cmd>SessionLoad<cr>
-nnoremap <leader>fh <cmd>DashboardFindHistory<cr>
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope file_browser<cr>
+nnoremap <leader>fh <cmd>Telescope frecency theme=dropdown<cr>
+nnoremap <leader>ff <cmd>Telescope find_files theme=dropdown<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep theme=dropdown<cr>
+nnoremap <leader>fb <cmd>Telescope file_browser theme=dropdown<cr>
 
 " Jump browsing
 nnoremap <silent>s <cmd>HopPattern<cr>
