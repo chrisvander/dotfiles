@@ -95,13 +95,17 @@ colorscheme xcodedark
 lua << EOF
 require('impatient')
 require('lualine').setup {
+  options = {
+    section_separators = { left = "\u{E0B4}", right = "\u{E0B6}" },
+    component_separators = "" 
+  },
   sections = {
-    lualine_a = {'mode'},
-    lualine_b = {'branch', 'diff', 'diagnostics'},
-    lualine_c = {'filename'},
-    lualine_x = {'encoding', 'filetype'},
-    lualine_y = {'progress'},
-    lualine_z = {'location'}
+    lualine_a = {{'mode', separator = { left = '\u{E0B6}', right = '\u{E0B4}' }, left_padding = 4 }},
+    lualine_b = { 'branch', 'diff', 'diagnostics' },
+    lualine_c = { 'windows' },
+    lualine_x = { 'encoding', 'filetype' },
+    lualine_y = { 'tabs' },
+    lualine_z = {{'location', separator = { right = '\u{E0B4}', left = "\u{E0B6}" }, right_padding = 4 }}
   },
   extensions = { 'fzf', 'chadtree' }
 }
