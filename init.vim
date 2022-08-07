@@ -13,9 +13,9 @@ Plug 'lewis6991/impatient.nvim'
 
 " navigation
 Plug 'phaazon/hop.nvim'
-Plug 'romgrk/barbar.nvim'
 Plug 'liuchengxu/vista.vim'
 Plug 'ms-jpq/chadtree'
+Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
 Plug 'glepnir/dashboard-nvim'
 
 " terminal
@@ -27,7 +27,7 @@ Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 " themes
 Plug 'ayu-theme/ayu-vim'
 Plug 'olimorris/onedarkpro.nvim'
-Plug 'projekt0n/github-nvim-theme'
+Plug 'arzg/vim-colors-xcode'
 
 " commenting
 Plug 'scrooloose/nerdcommenter'
@@ -84,7 +84,13 @@ autocmd VimEnter *
 
 set completeopt=menu,menuone,noselect
 set guifont=FiraCode\ Nerd\ Font\ Mono:h13
+set background=dark
 
+" theme
+set termguicolors
+colorscheme xcodedark
+
+ 
 " lua plugin setups
 lua << EOF
 require('impatient')
@@ -104,7 +110,13 @@ require('telescope').setup()
 require('telescope').load_extension('file_browser')
 require('telescope').load_extension('frecency')
 require('which-key').setup()
-require('bufferline').setup()
+require('bufferline').setup {
+  options = {
+    mode = 'tabs',
+    separator_style = 'slant',
+    offsets = {{filetype = "CHADTree", text = "File Explorer", text_align = "center" }},
+  }
+}
 require('FTerm').setup {
   border = 'single'
 }
@@ -166,10 +178,6 @@ db.custom_center = {
       }
 EOF
 
-" theme
-set termguicolors
-colorscheme github_*
-
 " keybindings
 " Telescope
 nnoremap <leader>fh <cmd>Telescope frecency theme=dropdown<cr>
@@ -178,7 +186,7 @@ nnoremap <leader>fg <cmd>Telescope live_grep theme=dropdown<cr>
 nnoremap <leader>fb <cmd>Telescope file_browser theme=dropdown<cr>
 
 " CHADtree
-nnoremap <silent><C-e> <cmd>CHADopen<cr> 
+nnoremap <silent><C-e> <cmd>CHADopen --nofocus<cr> 
 
 " Jump browsing
 nnoremap <silent>s <cmd>HopPattern<cr>
@@ -191,34 +199,33 @@ tnoremap <silent><C-t> <cmd>FTermToggle<cr>
 nnoremap <leader>g         <cmd>LazyGit<cr>
 
 " Magic buffer-picking mode
-nnoremap <silent> <C-p>    <Cmd>BufferPick<CR>
+nnoremap <silent> <C-p>    <Cmd>BufferLinePick<CR>
 
 " Move to previous/next
-nnoremap <silent>    <C-,> <Cmd>BufferPrevious<CR>
-nnoremap <silent>    <C-.> <Cmd>BufferNext<CR>
+nnoremap <silent>    <C-,> <Cmd>BufferLineCyclePrev<CR>
+nnoremap <silent>    <C-.> <Cmd>BufferLineCycleNext<CR>
 
 " Re-order to previous/next
-nnoremap <silent>    <C-<> <Cmd>BufferMovePrevious<CR>
-nnoremap <silent>    <C->> <Cmd>BufferMoveNext<CR>
+nnoremap <silent>    <C-<> <Cmd>BufferLineMovePrev<CR>
+nnoremap <silent>    <C->> <Cmd>BufferLineMoveNext<CR>
 
 " Goto buffer in position...
-nnoremap <silent>    <C-1> <Cmd>BufferGoto 1<CR>
-nnoremap <silent>    <C-2> <Cmd>BufferGoto 2<CR>
-nnoremap <silent>    <C-3> <Cmd>BufferGoto 3<CR>
-nnoremap <silent>    <C-4> <Cmd>BufferGoto 4<CR>
-nnoremap <silent>    <C-5> <Cmd>BufferGoto 5<CR>
-nnoremap <silent>    <C-6> <Cmd>BufferGoto 6<CR>
-nnoremap <silent>    <C-7> <Cmd>BufferGoto 7<CR>
-nnoremap <silent>    <C-8> <Cmd>BufferGoto 8<CR>
-nnoremap <silent>    <C-9> <Cmd>BufferGoto 9<CR>
-nnoremap <silent>    <C-0> <Cmd>BufferLast<CR>
+nnoremap <silent>    <C-1> <Cmd>BufferLineGoToBuffer 1<CR>
+nnoremap <silent>    <C-2> <Cmd>BufferLineGoToBuffer 2<CR>
+nnoremap <silent>    <C-3> <Cmd>BufferLineGoToBuffer 3<CR>
+nnoremap <silent>    <C-4> <Cmd>BufferLineGoToBuffer 4<CR>
+nnoremap <silent>    <C-5> <Cmd>BufferLineGoToBuffer 5<CR>
+nnoremap <silent>    <C-6> <Cmd>BufferLineGoToBuffer 6<CR>
+nnoremap <silent>    <C-7> <Cmd>BufferLineGoToBuffer 7<CR>
+nnoremap <silent>    <C-8> <Cmd>BufferLineGoToBuffer 8<CR>
+nnoremap <silent>    <C-9> <Cmd>BufferLineGoToBuffer 9<CR>
+nnoremap <silent>    <C-0> <Cmd>BufferLineGoToBuffer -1<CR>
 
 " Close buffer
-nnoremap <silent>    <C-c> <Cmd>BufferClose<CR> 
+nnoremap <silent>    <C-c> <Cmd>BufferLineGroupClose<CR> 
 
 " other options
 " Options
-set background=dark
 set clipboard=unnamedplus
 set completeopt=noinsert,menuone,noselect
 set cursorline
@@ -230,7 +237,6 @@ set splitbelow splitright
 set title
 set timeoutlen=0
 set wildmenu
-hi NonText guifg=bg
 syntax on
 
 " Tabs size
