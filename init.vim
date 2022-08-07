@@ -101,10 +101,10 @@ require('lualine').setup {
   },
   sections = {
     lualine_a = {{'mode', separator = { left = '\u{E0B6}', right = '\u{E0B4}' }, left_padding = 4 }},
-    lualine_b = { 'branch', 'diff', 'diagnostics' },
-    lualine_c = { 'windows' },
-    lualine_x = { 'encoding', 'filetype' },
-    lualine_y = { 'tabs' },
+    lualine_b = { 'filename' },
+    lualine_c = { 'branch', 'diff', 'diagnostics' },
+    lualine_x = {},
+    lualine_y = { 'encoding', 'filetype' },
     lualine_z = {{'location', separator = { right = '\u{E0B4}', left = "\u{E0B6}" }, right_padding = 4 }}
   },
   extensions = { 'fzf', 'chadtree' }
@@ -167,37 +167,37 @@ db.custom_header = {
 }
 
 db.custom_center = {
-      {icon = '  ',
-      desc = 'Recently Opened                         ',
-      action =  'Telescope frecency',
-      shortcut = '<leader> f h'},
-      {icon = '  ',
-      desc = 'Find File                               ',
-      action = 'Telescope find_files',
-      shortcut = '<leader> f f'},
-      {icon = '  ',
-      desc = 'File Browser                            ',
-      action =  'Telescope file_browser',
-      shortcut = '<leader> f b'},
-      }
+      { icon = '  ',
+        desc = 'Recently Opened                         ',
+        action =  'Telescope frecency',
+        shortcut = '<leader> f h'},
+      { icon = '  ',
+        desc = 'Find File                               ',
+        action = 'Telescope find_files',
+        shortcut = '<leader> f f'},
+      { icon = '  ',
+        desc = 'File Browser                            ',
+        action =  'Telescope file_browser',
+        shortcut = '<leader> f b'},
+}
 EOF
 
 " keybindings
 " Telescope
-nnoremap <leader>fh <cmd>Telescope frecency theme=dropdown<cr>
-nnoremap <leader>ff <cmd>Telescope find_files theme=dropdown<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep theme=dropdown<cr>
-nnoremap <leader>fb <cmd>Telescope file_browser theme=dropdown<cr>
+nnoremap <leader>fh        <cmd>Telescope frecency<cr>
+nnoremap <leader>ff        <cmd>Telescope find_files<cr>
+nnoremap <leader>fg        <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb        <cmd>Telescope file_browser<cr>
 
 " CHADtree
-nnoremap <silent><C-e> <cmd>CHADopen --nofocus<cr> 
+nnoremap <silent><C-e>     <cmd>CHADopen --nofocus<cr> 
 
 " Jump browsing
-nnoremap <silent>s <cmd>HopPattern<cr>
+nnoremap <silent>s         <cmd>HopPattern<cr>
 
 " Terminal
-nnoremap <silent>t     <cmd>FTermToggle<cr>
-tnoremap <silent><C-t> <cmd>FTermToggle<cr>
+nnoremap <silent>t         <cmd>FTermToggle<cr>
+tnoremap <silent><C-t>     <C-\><C-n>
 
 " LazyGit
 nnoremap <leader>g         <cmd>LazyGit<cr>
@@ -214,16 +214,16 @@ nnoremap <silent>    <C-<> <Cmd>BufferLineMovePrev<CR>
 nnoremap <silent>    <C->> <Cmd>BufferLineMoveNext<CR>
 
 " Goto buffer in position...
-nnoremap <silent>    <C-1> <Cmd>BufferLineGoToBuffer 1<CR>
-nnoremap <silent>    <C-2> <Cmd>BufferLineGoToBuffer 2<CR>
-nnoremap <silent>    <C-3> <Cmd>BufferLineGoToBuffer 3<CR>
-nnoremap <silent>    <C-4> <Cmd>BufferLineGoToBuffer 4<CR>
-nnoremap <silent>    <C-5> <Cmd>BufferLineGoToBuffer 5<CR>
-nnoremap <silent>    <C-6> <Cmd>BufferLineGoToBuffer 6<CR>
-nnoremap <silent>    <C-7> <Cmd>BufferLineGoToBuffer 7<CR>
-nnoremap <silent>    <C-8> <Cmd>BufferLineGoToBuffer 8<CR>
-nnoremap <silent>    <C-9> <Cmd>BufferLineGoToBuffer 9<CR>
-nnoremap <silent>    <C-0> <Cmd>BufferLineGoToBuffer -1<CR>
+nnoremap <silent>    <C-1> <Cmd>lua require("bufferline").go_to_buffer(1, true)<CR>
+nnoremap <silent>    <C-2> <Cmd>lua require("bufferline").go_to_buffer(2, true)<CR>
+nnoremap <silent>    <C-3> <Cmd>lua require("bufferline").go_to_buffer(3, true)<CR>
+nnoremap <silent>    <C-4> <Cmd>lua require("bufferline").go_to_buffer(4, true)<CR>
+nnoremap <silent>    <C-5> <Cmd>lua require("bufferline").go_to_buffer(5, true)<CR>
+nnoremap <silent>    <C-6> <Cmd>lua require("bufferline").go_to_buffer(6, true)<CR>
+nnoremap <silent>    <C-7> <Cmd>lua require("bufferline").go_to_buffer(7, true)<CR>
+nnoremap <silent>    <C-8> <Cmd>lua require("bufferline").go_to_buffer(8, true)<CR>
+nnoremap <silent>    <C-9> <Cmd>lua require("bufferline").go_to_buffer(9, true)<CR>
+nnoremap <silent>    <C-0> <Cmd>lua require("bufferline").go_to_buffer(-1, true)<CR>
 
 " Close buffer
 nnoremap <silent>    <C-c> <Cmd>BufferLineGroupClose<CR> 
