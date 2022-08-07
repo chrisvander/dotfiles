@@ -15,6 +15,7 @@ Plug 'lewis6991/impatient.nvim'
 Plug 'phaazon/hop.nvim'
 Plug 'romgrk/barbar.nvim'
 Plug 'liuchengxu/vista.vim'
+Plug 'ms-jpq/chadtree'
 Plug 'glepnir/dashboard-nvim'
 
 " terminal
@@ -96,7 +97,7 @@ require('lualine').setup {
     lualine_y = {'progress'},
     lualine_z = {'location'}
   },
-  extensions = { 'fzf' }
+  extensions = { 'fzf', 'chadtree' }
 }
 require('hop').setup()
 require('telescope').setup()
@@ -175,6 +176,9 @@ nnoremap <leader>fh <cmd>Telescope frecency theme=dropdown<cr>
 nnoremap <leader>ff <cmd>Telescope find_files theme=dropdown<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep theme=dropdown<cr>
 nnoremap <leader>fb <cmd>Telescope file_browser theme=dropdown<cr>
+
+" CHADtree
+nnoremap <silent><C-e> <cmd>CHADopen<cr> 
 
 " Jump browsing
 nnoremap <silent>s <cmd>HopPattern<cr>
