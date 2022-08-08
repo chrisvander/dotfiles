@@ -88,7 +88,7 @@ set background=dark
 
 " theme
 set termguicolors
-colorscheme xcodedark
+colorscheme xcodedarkhc
 
  
 " lua plugin setups
@@ -201,6 +201,10 @@ tnoremap <silent><C-t>     <C-\><C-n>
 
 " LazyGit
 nnoremap <leader>g         <cmd>LazyGit<cr>
+
+" Tabs
+nnoremap <leader>t         <cmd>tabnew<cr>
+nnoremap <leader>w         <cmd>tabclose<cr>
 
 " Magic buffer-picking mode
 nnoremap <silent> <C-p>    <Cmd>BufferLinePick<CR>
