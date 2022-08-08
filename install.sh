@@ -153,8 +153,8 @@ export SHELL=$(which zsh)
 $SHELL -c "source $HOME/.zshrc && exit"
 $SHELL -c "$PATH_TO_ZSH_DIR/custom/themes/powerlevel10k/gitstatus/install"
 
-git config --global user.email "chris.vanderloo@yahoo.com"
-git config --global user.name "Christian van der Loo"
+# git config --global user.email "chris.vanderloo@yahoo.com"
+# git config --global user.name "Christian van der Loo"
 
 [[ -x "$(command -v defaults)" ]] && defaults write com.googlecode.iterm2 PrefsCustomFolder -string "~/.dotfiles/"
 [[ -x "$(command -v defaults)" ]] && defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
