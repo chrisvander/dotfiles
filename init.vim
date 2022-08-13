@@ -44,6 +44,7 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'nvim-telescope/telescope-frecency.nvim'
+Plug 'fannheyward/telescope-coc.nvim'
 Plug 'kkharji/sqlite.lua'
 
 " file tree
@@ -85,9 +86,16 @@ require('lualine').setup {
   },
   extensions = { 'fzf', 'chadtree' }
 }
-require('telescope').setup()
+require('telescope').setup({
+  extensions = {
+    coc = {
+        theme = 'ivy',
+        prefer_locations = true 
+    }}
+})
 require('telescope').load_extension('file_browser')
 require('telescope').load_extension('frecency')
+require('telescope').load_extension('coc')
 require('which-key').setup()
 require('tabby').setup()
 require('toggleterm').setup()
@@ -141,6 +149,11 @@ db.custom_center = {
         desc = 'File Browser                            ',
         action =  'Telescope file_browser',
         shortcut = '<leader> f b'},
+      { icon = '  ',
+        desc = 'Search in Files                         ',
+        action =  'Telescope live_grep',
+        shortcut = '<leader> f g'},
+
 }
 EOF
 
@@ -152,14 +165,72 @@ let g:coc_global_extensions = [
   \ 'coc-eslint', 
   \ 'coc-prettier', 
   \ 'coc-json', 
+  \ 'coc-rust-analyzer',
+  \ 'coc-tailwindcss',
+  \ 'coc-vimlsp',
+  \ 'coc-pyright',
+  \ 'coc-css',
+  \ 'coc-docker',
+  \ 'coc-java',
+  \ 'coc-json',
+  \ 'coc-julia'
   \ ]
 
 " keybindings
+" coc
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1):
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice.
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" gd - go to definition of word under cursor
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nnoremap <silent> gh :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" rename the current word in the cursor
+nmap <leader>cr  <Plug>(coc-rename)
+nmap <leader>cf  <Plug>(coc-format-selected)
+vmap <leader>cf  <Plug>(coc-format-selected)
+
+" run code actions
+vmap <leader>ca  <Plug>(coc-codeaction-selected)
+nmap <leader>ca  <Plug>(coc-codeaction-selected)
+
 " Telescope
 nnoremap <leader>fh        <cmd>Telescope frecency<cr>
 nnoremap <leader>ff        <cmd>Telescope find_files<cr>
 nnoremap <leader>fg        <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb        <cmd>Telescope file_browser<cr>
+nnoremap <leader>fc        <cmd>Telescope coc<cr>
 
 " CHADtree
 nnoremap <silent><C-e>     <cmd>CHADopen --nofocus<cr> 
@@ -175,32 +246,10 @@ nnoremap <leader>g         <cmd>LazyGit<cr>
 " Tabs
 nnoremap <leader>t         <cmd>tabnew<cr>
 nnoremap <leader>w         <cmd>tabclose<cr>
-
-" Magic buffer-picking mode
-nnoremap <silent> <C-p>    <Cmd>BufferLinePick<CR>
-
-" Move to previous/next
-nnoremap <silent>    <C-,> <Cmd>BufferLineCyclePrev<CR>
-nnoremap <silent>    <C-.> <Cmd>BufferLineCycleNext<CR>
-
-" Re-order to previous/next
-nnoremap <silent>    <C-<> <Cmd>BufferLineMovePrev<CR>
-nnoremap <silent>    <C->> <Cmd>BufferLineMoveNext<CR>
-
-" Goto buffer in position...
-nnoremap <silent>    <C-1> <Cmd>lua require("bufferline").go_to_buffer(1, true)<CR>
-nnoremap <silent>    <C-2> <Cmd>lua require("bufferline").go_to_buffer(2, true)<CR>
-nnoremap <silent>    <C-3> <Cmd>lua require("bufferline").go_to_buffer(3, true)<CR>
-nnoremap <silent>    <C-4> <Cmd>lua require("bufferline").go_to_buffer(4, true)<CR>
-nnoremap <silent>    <C-5> <Cmd>lua require("bufferline").go_to_buffer(5, true)<CR>
-nnoremap <silent>    <C-6> <Cmd>lua require("bufferline").go_to_buffer(6, true)<CR>
-nnoremap <silent>    <C-7> <Cmd>lua require("bufferline").go_to_buffer(7, true)<CR>
-nnoremap <silent>    <C-8> <Cmd>lua require("bufferline").go_to_buffer(8, true)<CR>
-nnoremap <silent>    <C-9> <Cmd>lua require("bufferline").go_to_buffer(9, true)<CR>
-nnoremap <silent>    <C-0> <Cmd>lua require("bufferline").go_to_buffer(-1, true)<CR>
-
-" Close buffer
-nnoremap <silent>    <C-c> <Cmd>BufferLineGroupClose<CR> 
+nnoremap <silent><C-,>     <cmd>tabp<cr>
+nnoremap <silent><C-.>     <cmd>tabn<cr>
+nnoremap <silent><C-<>     <cmd>-tabmove<cr>
+nnoremap <silent><C->>     <cmd>+tabmove<cr>
 
 " other options
 " Options
