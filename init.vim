@@ -5,26 +5,19 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
 endif
 
 call plug#begin()
-" sensible starting point
-Plug 'tpope/vim-sensible'
-
-" faster loading
-Plug 'lewis6991/impatient.nvim'
-
 " navigation
-Plug 'phaazon/hop.nvim'
+Plug 'ggandor/lightspeed.nvim'
+Plug 'tpope/vim-surround'
 Plug 'liuchengxu/vista.vim'
 Plug 'ms-jpq/chadtree'
-Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
+Plug 'nanozuki/tabby.nvim' 
 Plug 'glepnir/dashboard-nvim'
 
 " terminal
-Plug 'numToStr/FTerm.nvim'
-
-" multi select
-Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+Plug 'akinsho/toggleterm.nvim'
 
 " themes
+Plug 'EdenEast/nightfox.nvim'
 Plug 'ayu-theme/ayu-vim'
 Plug 'olimorris/onedarkpro.nvim'
 Plug 'arzg/vim-colors-xcode'
@@ -43,21 +36,6 @@ Plug 'petertriho/cmp-git'
 
 " completions
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
-Plug 'josa42/coc-docker', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
-
-" snippets
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
 
 " telescope fuzzy finder
 Plug 'nvim-lua/popup.nvim'
@@ -88,12 +66,10 @@ set background=dark
 
 " theme
 set termguicolors
-colorscheme xcodedarkhc
+colorscheme nightfox
 
- 
 " lua plugin setups
 lua << EOF
-require('impatient')
 require('lualine').setup {
   options = {
     section_separators = { left = "\u{E0B4}", right = "\u{E0B6}" },
@@ -109,26 +85,12 @@ require('lualine').setup {
   },
   extensions = { 'fzf', 'chadtree' }
 }
-require('hop').setup()
 require('telescope').setup()
 require('telescope').load_extension('file_browser')
 require('telescope').load_extension('frecency')
 require('which-key').setup()
-require('bufferline').setup {
-  options = {
-    mode = 'tabs',
-    separator_style = 'slant',
-    offsets = {{filetype = "CHADTree", text = "File Explorer", text_align = "center" }},
-  }
-}
-require('FTerm').setup {
-  border = 'single'
-}
-
-vim.api.nvim_create_user_command('FTermOpen', require('FTerm').open, { bang = true })
-vim.api.nvim_create_user_command('FTermClose', require('FTerm').close, { bang = true })
-vim.api.nvim_create_user_command('FTermExit', require('FTerm').exit, { bang = true })
-vim.api.nvim_create_user_command('FTermToggle', require('FTerm').toggle, { bang = true })
+require('tabby').setup()
+require('toggleterm').setup()
 
 local home = os.getenv('HOME')
 local db = require("dashboard")
@@ -182,6 +144,16 @@ db.custom_center = {
 }
 EOF
 
+" coc config
+let g:coc_global_extensions = [
+  \ 'coc-snippets',
+  \ 'coc-pairs',
+  \ 'coc-tsserver',
+  \ 'coc-eslint', 
+  \ 'coc-prettier', 
+  \ 'coc-json', 
+  \ ]
+
 " keybindings
 " Telescope
 nnoremap <leader>fh        <cmd>Telescope frecency<cr>
@@ -192,11 +164,9 @@ nnoremap <leader>fb        <cmd>Telescope file_browser<cr>
 " CHADtree
 nnoremap <silent><C-e>     <cmd>CHADopen --nofocus<cr> 
 
-" Jump browsing
-nnoremap <silent>s         <cmd>HopPattern<cr>
-
 " Terminal
-nnoremap <silent>t         <cmd>FTermToggle<cr>
+nnoremap <silent><C-j>     <cmd>ToggleTerm<cr>
+tnoremap <silent><C-j>     <cmd>ToggleTerm<cr>
 tnoremap <silent><C-t>     <C-\><C-n>
 
 " LazyGit
