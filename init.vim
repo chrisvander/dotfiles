@@ -63,6 +63,7 @@ set completeopt=menu,menuone,noselect
 set guifont=FiraCode\ Nerd\ Font\ Mono:h13
 set background=dark
 set hidden
+let mapleader = " "
 
 " theme
 set termguicolors
@@ -87,13 +88,11 @@ require('lualine').setup {
   extensions = { 'fzf', 'chadtree', vista_extension }
 }
 require('telescope').setup({
-  defaults = {
-    file_ignore_patterns = { "node_modules" }
-  },
   extensions = {
     coc = {
         prefer_locations = true 
-    }}
+    }
+  }
 })
 require('telescope').load_extension('file_browser')
 require('telescope').load_extension('coc')
@@ -156,15 +155,15 @@ db.custom_center = {
       { icon = '  ',
         desc = 'Find File                               ',
         action = 'Telescope find_files',
-        shortcut = '<leader> f f'},
+        shortcut = 'SPC f f'},
       { icon = '  ',
         desc = 'File Browser                            ',
         action =  'Telescope file_browser',
-        shortcut = '<leader> f b'},
+        shortcut = 'SPC f b'},
       { icon = '  ',
         desc = 'Search in Files                         ',
         action =  'Telescope live_grep',
-        shortcut = '<leader> f g'},
+        shortcut = 'SPC f g'},
 
 }
 EOF
@@ -245,8 +244,8 @@ nnoremap <leader>ld        <cmd>Telescope coc definitions theme=ivy<cr>
 nnoremap <leader>le        <cmd>Telescope coc commands theme=ivy<cr>
 
 " CHADtree
-nmap <silent><C-e>         <cmd>CHADopen --nofocus<cr> 
-vmap <silent><C-e>         <cmd>CHADopen --nofocus<cr> 
+nmap <silent><leader>e     <cmd>CHADopen --nofocus<cr> 
+vmap <silent><leader>e     <cmd>CHADopen --nofocus<cr> 
 
 " Terminal
 nnoremap <silent><C-j>     <cmd>ToggleTerm<cr>
