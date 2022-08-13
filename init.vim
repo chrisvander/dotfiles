@@ -65,26 +65,30 @@ set background=dark
 
 " theme
 set termguicolors
-colorscheme nightfox
+colorscheme carbonfox
 
 " lua plugin setups
 lua << EOF
+local vista_extension = { sections = { }, filetypes = {'vista'} }
 require('lualine').setup {
   options = {
-    section_separators = { left = "\u{E0B4}", right = "\u{E0B6}" },
+    section_separators = { left = "\u{E0BC}", right = "\u{E0BA}" },
     component_separators = "" 
   },
   sections = {
-    lualine_a = {{'mode', separator = { left = '\u{E0B6}', right = '\u{E0B4}' }, left_padding = 4 }},
+    lualine_a = {{'mode', separator = { left = '\u{E0BA}', right = '\u{E0BC}' }, left_padding = 4 }},
     lualine_b = { 'filename' },
     lualine_c = { 'branch', 'diff', 'diagnostics' },
     lualine_x = {},
     lualine_y = { 'encoding', 'filetype' },
-    lualine_z = {{'location', separator = { right = '\u{E0B4}', left = "\u{E0B6}" }, right_padding = 4 }}
+    lualine_z = {{'location', separator = { right = '\u{E0BC}', left = "\u{E0BA}" }, right_padding = 4 }}
   },
-  extensions = { 'fzf', 'chadtree' }
+  extensions = { 'fzf', 'chadtree', vista_extension }
 }
 require('telescope').setup({
+  defaults = {
+    file_ignore_patterns = { "node_modules" }
+  },
   extensions = {
     coc = {
         prefer_locations = true 
@@ -239,7 +243,8 @@ nnoremap <leader>ld        <cmd>Telescope coc diagnostics theme=ivy<cr>
 nnoremap <leader>le        <cmd>Telescope coc commands theme=ivy<cr>
 
 " CHADtree
-nnoremap <silent><C-e>     <cmd>CHADopen --nofocus<cr> 
+nmap <silent><C-e>         <cmd>CHADopen --nofocus<cr> 
+vmap <silent><C-e>         <cmd>CHADopen --nofocus<cr> 
 
 " Terminal
 nnoremap <silent><C-j>     <cmd>ToggleTerm<cr>
@@ -254,8 +259,10 @@ nnoremap <silent><C-.>     <cmd>tabn<cr>
 nnoremap <silent><C-<>     <cmd>-tabmove<cr>
 nnoremap <silent><C->>     <cmd>+tabmove<cr>
 
-" autoopen
-autocmd VimEnter * Vista coc
+" Vista 
+nmap <silent><C-i>         <Cmd>Vista!!<cr>
+vmap <silent><C-i>         <Cmd>Vista!!<cr>
+let g:vista#renderer#enable_icon = 1
 
 " other options
 " Options
