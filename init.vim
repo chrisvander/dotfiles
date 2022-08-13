@@ -30,7 +30,6 @@ Plug 'nvim-lualine/lualine.nvim'
 
 " git
 Plug 'mhinz/vim-signify' " git status in left bar
-Plug 'kdheepak/lazygit.nvim' " lazygit integration
 Plug 'f-person/git-blame.nvim' " git blame
 Plug 'petertriho/cmp-git'
 
@@ -43,7 +42,6 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-telescope/telescope-file-browser.nvim'
-Plug 'nvim-telescope/telescope-frecency.nvim'
 Plug 'fannheyward/telescope-coc.nvim'
 Plug 'kkharji/sqlite.lua'
 
@@ -89,16 +87,29 @@ require('lualine').setup {
 require('telescope').setup({
   extensions = {
     coc = {
-        theme = 'ivy',
         prefer_locations = true 
     }}
 })
 require('telescope').load_extension('file_browser')
-require('telescope').load_extension('frecency')
 require('telescope').load_extension('coc')
 require('which-key').setup()
 require('tabby').setup()
 require('toggleterm').setup()
+
+local Terminal  = require('toggleterm.terminal').Terminal
+local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, direction = "float" })
+local lazydocker = Terminal:new({ cmd = "lazydocker", hidden = true, direction = "float" })
+
+function _lazygit_toggle()
+  lazygit:toggle()
+end
+
+function _lazydocker_toggle()
+  lazydocker:toggle()
+end
+
+vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<leader>d", "<cmd>lua _lazydocker_toggle()<CR>", {noremap = true, silent = true})
 
 local home = os.getenv('HOME')
 local db = require("dashboard")
@@ -137,10 +148,6 @@ db.custom_header = {
 }
 
 db.custom_center = {
-      { icon = '  ',
-        desc = 'Recently Opened                         ',
-        action =  'Telescope frecency',
-        shortcut = '<leader> f h'},
       { icon = '  ',
         desc = 'Find File                               ',
         action = 'Telescope find_files',
@@ -217,20 +224,19 @@ function! s:show_documentation()
 endfunction
 
 " rename the current word in the cursor
-nmap <leader>cr  <Plug>(coc-rename)
-nmap <leader>cf  <Plug>(coc-format-selected)
-vmap <leader>cf  <Plug>(coc-format-selected)
-
-" run code actions
-vmap <leader>ca  <Plug>(coc-codeaction-selected)
-nmap <leader>ca  <Plug>(coc-codeaction-selected)
+nmap <leader>lr  <Plug>(coc-rename)
+nmap <leader>lf  <Plug>(coc-format-selected)<cr>
+vmap <leader>lf  <Plug>(coc-format-selected)<cr>
+vmap <leader>la  <cmd>Telescope coc code_actions theme=cursor<cr>
+nmap <leader>la  <cmd>Telescope coc code_actions theme=cursor<cr>
 
 " Telescope
-nnoremap <leader>fh        <cmd>Telescope frecency<cr>
 nnoremap <leader>ff        <cmd>Telescope find_files<cr>
 nnoremap <leader>fg        <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb        <cmd>Telescope file_browser<cr>
-nnoremap <leader>fc        <cmd>Telescope coc<cr>
+nnoremap <leader>lc        <cmd>Telescope coc theme=ivy<cr>
+nnoremap <leader>ld        <cmd>Telescope coc diagnostics theme=ivy<cr>
+nnoremap <leader>le        <cmd>Telescope coc commands theme=ivy<cr>
 
 " CHADtree
 nnoremap <silent><C-e>     <cmd>CHADopen --nofocus<cr> 
@@ -240,9 +246,6 @@ nnoremap <silent><C-j>     <cmd>ToggleTerm<cr>
 tnoremap <silent><C-j>     <cmd>ToggleTerm<cr>
 tnoremap <silent><C-t>     <C-\><C-n>
 
-" LazyGit
-nnoremap <leader>g         <cmd>LazyGit<cr>
-
 " Tabs
 nnoremap <leader>t         <cmd>tabnew<cr>
 nnoremap <leader>w         <cmd>tabclose<cr>
@@ -250,6 +253,9 @@ nnoremap <silent><C-,>     <cmd>tabp<cr>
 nnoremap <silent><C-.>     <cmd>tabn<cr>
 nnoremap <silent><C-<>     <cmd>-tabmove<cr>
 nnoremap <silent><C->>     <cmd>+tabmove<cr>
+
+" autoopen
+autocmd VimEnter * Vista coc
 
 " other options
 " Options
