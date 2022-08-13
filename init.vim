@@ -62,10 +62,11 @@ autocmd VimEnter *
 set completeopt=menu,menuone,noselect
 set guifont=FiraCode\ Nerd\ Font\ Mono:h13
 set background=dark
+set hidden
 
 " theme
 set termguicolors
-colorscheme carbonfox
+colorscheme duskfox  
 
 " lua plugin setups
 lua << EOF
@@ -239,7 +240,8 @@ nnoremap <leader>ff        <cmd>Telescope find_files<cr>
 nnoremap <leader>fg        <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb        <cmd>Telescope file_browser<cr>
 nnoremap <leader>lc        <cmd>Telescope coc theme=ivy<cr>
-nnoremap <leader>ld        <cmd>Telescope coc diagnostics theme=ivy<cr>
+nnoremap <leader>li        <cmd>Telescope coc diagnostics theme=ivy<cr>
+nnoremap <leader>ld        <cmd>Telescope coc definitions theme=ivy<cr>
 nnoremap <leader>le        <cmd>Telescope coc commands theme=ivy<cr>
 
 " CHADtree
@@ -260,9 +262,9 @@ nnoremap <silent><C-<>     <cmd>-tabmove<cr>
 nnoremap <silent><C->>     <cmd>+tabmove<cr>
 
 " Vista 
-nmap <silent><C-i>         <Cmd>Vista!!<cr>
-vmap <silent><C-i>         <Cmd>Vista!!<cr>
-let g:vista#renderer#enable_icon = 1
+nmap <leader>i             <Cmd>Vista!!<cr>
+vmap <leader>i             <Cmd>Vista!!<cr>
+let g:vista#renderer#enable_icon = 0
 
 " other options
 " Options
