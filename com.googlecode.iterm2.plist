@@ -4,6 +4,8 @@
 <dict>
 	<key>Default Bookmark Guid</key>
 	<string>555ABCCE-915E-4645-A642-D2CBAFEABB45</string>
+	<key>DimInactiveSplitPanes</key>
+	<true/>
 	<key>DisableFullscreenTransparency</key>
 	<true/>
 	<key>GlobalKeyMap</key>
@@ -118,7 +120,7 @@
 	<key>HotkeyMigratedFromSingleToMulti</key>
 	<true/>
 	<key>LeftCommand</key>
-	<integer>1</integer>
+	<integer>7</integer>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -813,6 +815,8 @@
 	<false/>
 	<key>SoundForEsc</key>
 	<false/>
+	<key>SplitPaneDimmingAmount</key>
+	<real>0.14861005764563107</real>
 	<key>StatusBarPosition</key>
 	<integer>0</integer>
 	<key>TabStyleWithAutomaticOption</key>

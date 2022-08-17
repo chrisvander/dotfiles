@@ -168,6 +168,8 @@ db.custom_center = {
 }
 EOF
 
+let g:vista_default_executive = "coc"
+
 " coc config
 let g:coc_global_extensions = [
   \ 'coc-snippets',
@@ -212,6 +214,9 @@ else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
+" format on save
+autocmd BufWritePre * lua vim.lsp.buf.formatting_sync()
+
 " gd - go to definition of word under cursor
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -242,6 +247,7 @@ nnoremap <leader>lc        <cmd>Telescope coc theme=ivy<cr>
 nnoremap <leader>li        <cmd>Telescope coc diagnostics theme=ivy<cr>
 nnoremap <leader>ld        <cmd>Telescope coc definitions theme=ivy<cr>
 nnoremap <leader>le        <cmd>Telescope coc commands theme=ivy<cr>
+nnoremap <leader>lu        <cmd>Telescope coc references_used theme=ivy<cr>
 
 " CHADtree
 nmap <silent><leader>e     <cmd>CHADopen --nofocus<cr> 
