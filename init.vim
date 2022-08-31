@@ -67,24 +67,29 @@ let mapleader = " "
 
 " theme
 set termguicolors
-colorscheme ayu-mirage 
+colorscheme ayu
 
-" lua plugin setups
 lua << EOF
 local vista_extension = { sections = { }, filetypes = {'vista'} }
 require('lualine').setup {
   options = {
-    section_separators = { left = "\u{E0BC}", right = "\u{E0BA}" },
-    component_separators = "",
-    theme = "ayu"
+    global_status = true
   },
   sections = {
-    lualine_a = {{'mode', separator = { left = '\u{E0BA}', right = '\u{E0BC}' }, left_padding = 4 }},
-    lualine_b = { 'filename' },
+    lualine_a = {'mode'},
+    lualine_b = { },
     lualine_c = { 'branch', 'diff', 'diagnostics' },
     lualine_x = {},
-    lualine_y = { 'encoding', 'filetype' },
-    lualine_z = {{'location', separator = { right = '\u{E0BC}', left = "\u{E0BA}" }, right_padding = 4 }}
+    lualine_y = { 'filetype' },
+    lualine_z = {'location'}
+  },
+  tabline = {
+    lualine_a = {{'tabs', mode = 2}},
+    lualine_b = {},
+    lualine_c = {},
+    lualine_x = {},
+    lualine_y = {'windows'},
+    lualine_z = {}
   },
   extensions = { 'fzf', 'chadtree', vista_extension }
 }
@@ -98,7 +103,6 @@ require('telescope').setup({
 require('telescope').load_extension('file_browser')
 require('telescope').load_extension('coc')
 require('which-key').setup()
-require('tabby').setup()
 require('toggleterm').setup()
 
 local Terminal  = require('toggleterm.terminal').Terminal

@@ -2,10 +2,20 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>AutoCommandHistory</key>
+	<false/>
+	<key>Coprocess MRU</key>
+	<array>
+		<string>watch ls</string>
+	</array>
 	<key>Default Bookmark Guid</key>
 	<string>555ABCCE-915E-4645-A642-D2CBAFEABB45</string>
+	<key>DimBackgroundWindows</key>
+	<false/>
 	<key>DimInactiveSplitPanes</key>
 	<true/>
+	<key>DimOnlyText</key>
+	<false/>
 	<key>DisableFullscreenTransparency</key>
 	<true/>
 	<key>GlobalKeyMap</key>
@@ -278,12 +288,16 @@
 			<true/>
 			<key>Background Color</key>
 			<dict>
+				<key>Alpha Component</key>
+				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.0</real>
+				<real>0.078431372549019607</real>
+				<key>Color Space</key>
+				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.0</real>
+				<real>0.054901960784313725</real>
 				<key>Red Component</key>
-				<real>0.0</real>
+				<real>0.039215686274509803</real>
 			</dict>
 			<key>Background Image Mode</key>
 			<integer>2</integer>
@@ -301,7 +315,7 @@
 				<real>1</real>
 			</dict>
 			<key>Blend</key>
-			<real>0.050000000000000003</real>
+			<real>0.094477468297101463</real>
 			<key>Blink Allowed</key>
 			<false/>
 			<key>Blinking Cursor</key>
@@ -309,7 +323,7 @@
 			<key>Blur</key>
 			<true/>
 			<key>Blur Radius</key>
-			<real>8.992112699468084</real>
+			<real>0.10000000000000001</real>
 			<key>Bold Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -707,7 +721,7 @@
 			<key>Normal Font</key>
 			<string>MesloLGS-NF-Regular 13</string>
 			<key>Only The Default BG Color Uses Transparency</key>
-			<true/>
+			<false/>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
@@ -751,7 +765,7 @@
 			<key>Terminal Type</key>
 			<string>xterm-256color</string>
 			<key>Transparency</key>
-			<real>0.14640957446808511</real>
+			<real>0.0</real>
 			<key>Unicode Version</key>
 			<integer>9</integer>
 			<key>Unlimited Scrollback</key>
@@ -816,12 +830,16 @@
 	<key>SoundForEsc</key>
 	<false/>
 	<key>SplitPaneDimmingAmount</key>
-	<real>0.14861005764563107</real>
+	<real>0.053733123483009709</real>
 	<key>StatusBarPosition</key>
 	<integer>0</integer>
 	<key>TabStyleWithAutomaticOption</key>
-	<integer>1</integer>
+	<integer>5</integer>
 	<key>TabViewType</key>
+	<integer>0</integer>
+	<key>TerminalMargin</key>
+	<integer>20</integer>
+	<key>TerminalVMargin</key>
 	<integer>0</integer>
 	<key>UseBorder</key>
 	<false/>
@@ -829,5 +847,9 @@
 	<false/>
 	<key>findMode_iTerm</key>
 	<integer>0</integer>
+	<key>kCPKSelectionViewPreferredModeKey</key>
+	<integer>0</integer>
+	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
+	<false/>
 </dict>
 </plist>
