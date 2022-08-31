@@ -10,7 +10,6 @@ Plug 'ggandor/lightspeed.nvim'
 Plug 'tpope/vim-surround'
 Plug 'liuchengxu/vista.vim'
 Plug 'ms-jpq/chadtree'
-Plug 'nanozuki/tabby.nvim' 
 Plug 'glepnir/dashboard-nvim'
 
 " terminal
