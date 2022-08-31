@@ -103,6 +103,7 @@ require('toggleterm').setup()
 local Terminal  = require('toggleterm.terminal').Terminal
 local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, direction = "float" })
 local lazydocker = Terminal:new({ cmd = "lazydocker", hidden = true, direction = "float" })
+local k9s = Terminal:new({ cmd = "k9s", hidden = true, direction = "float" })
 
 function _lazygit_toggle()
   lazygit:toggle()
@@ -112,8 +113,13 @@ function _lazydocker_toggle()
   lazydocker:toggle()
 end
 
+function _k9s_toggle()
+  k9s:toggle()
+end
+
 vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true})
 vim.api.nvim_set_keymap("n", "<leader>d", "<cmd>lua _lazydocker_toggle()<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<leader>k", "<cmd>lua _k9s_toggle()<CR>", {noremap = true, silent = true })
 
 local home = os.getenv('HOME')
 local db = require("dashboard")
