@@ -67,7 +67,7 @@ let mapleader = " "
 
 " theme
 set termguicolors
-colorscheme ayu 
+colorscheme ayu-mirage 
 
 " lua plugin setups
 lua << EOF
