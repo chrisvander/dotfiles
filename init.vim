@@ -18,7 +18,7 @@ Plug 'akinsho/toggleterm.nvim'
 
 " themes
 Plug 'EdenEast/nightfox.nvim'
-Plug 'ayu-theme/ayu-vim'
+Plug 'Shatur/neovim-ayu'
 Plug 'olimorris/onedarkpro.nvim'
 Plug 'arzg/vim-colors-xcode'
 
@@ -67,7 +67,7 @@ let mapleader = " "
 
 " theme
 set termguicolors
-colorscheme duskfox  
+colorscheme ayu 
 
 " lua plugin setups
 lua << EOF
@@ -75,7 +75,8 @@ local vista_extension = { sections = { }, filetypes = {'vista'} }
 require('lualine').setup {
   options = {
     section_separators = { left = "\u{E0BC}", right = "\u{E0BA}" },
-    component_separators = "" 
+    component_separators = "",
+    theme = "ayu"
   },
   sections = {
     lualine_a = {{'mode', separator = { left = '\u{E0BA}', right = '\u{E0BC}' }, left_padding = 4 }},
