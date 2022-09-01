@@ -31,6 +31,7 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug 'mhinz/vim-signify' " git status in left bar
 Plug 'f-person/git-blame.nvim' " git blame
 Plug 'petertriho/cmp-git'
+Plug 'pwntester/octo.nvim'
 
 " completions
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -70,6 +71,7 @@ colorscheme ayu
 
 lua << EOF
 local vista_extension = { sections = { }, filetypes = {'vista'} }
+require('octo').setup()
 require('lualine').setup {
   options = {
     global_status = true
@@ -101,6 +103,7 @@ require('telescope').setup({
 })
 require('telescope').load_extension('file_browser')
 require('telescope').load_extension('coc')
+require('telescope').load_extension('fzf')
 require('which-key').setup()
 require('toggleterm').setup()
 
