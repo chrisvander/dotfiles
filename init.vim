@@ -5,6 +5,7 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
 endif
 
 call plug#begin()
+
 " navigation
 Plug 'ggandor/lightspeed.nvim'
 Plug 'tpope/vim-surround'
@@ -67,7 +68,7 @@ let mapleader = " "
 
 " theme
 set termguicolors
-colorscheme ayu
+colorscheme ayu-mirage
 
 lua << EOF
 local vista_extension = { sections = { }, filetypes = {'vista'} }
