@@ -12,6 +12,7 @@ Plug 'tpope/vim-surround'
 Plug 'liuchengxu/vista.vim'
 Plug 'ms-jpq/chadtree'
 Plug 'glepnir/dashboard-nvim'
+Plug 'ThePrimeagen/harpoon'
 
 " terminal
 Plug 'akinsho/toggleterm.nvim'
