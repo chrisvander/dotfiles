@@ -138,6 +138,7 @@ else
    rm -r $HOME/.config/nvim/init.vim
    mkdir -p $HOME/.config/nvim
    ln -s $BASEDIR/init.vim $HOME/.config/nvim/init.vim
+   ln -s $BASEDIR/vim-plug.vim $HOME/.config/nvim/vim-plug.vim
    echo "✅ Successfully symlinked your init.vim file"
 fi
 

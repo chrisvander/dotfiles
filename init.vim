@@ -5,6 +5,7 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
 endif
 
 call plug#begin()
+Plug 'ldelossa/nvim-ide'
 
 " navigation
 Plug 'ggandor/lightspeed.nvim'
@@ -12,7 +13,6 @@ Plug 'tpope/vim-surround'
 Plug 'liuchengxu/vista.vim'
 Plug 'ms-jpq/chadtree'
 Plug 'glepnir/dashboard-nvim'
-Plug 'ThePrimeagen/harpoon'
 
 " terminal
 Plug 'akinsho/toggleterm.nvim'
@@ -26,6 +26,10 @@ Plug 'arzg/vim-colors-xcode'
 " commenting
 Plug 'scrooloose/nerdcommenter'
 
+" docs
+Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+Plug 'danymat/neogen'
+
 " powerline
 Plug 'nvim-lualine/lualine.nvim'
 
@@ -37,6 +41,9 @@ Plug 'pwntester/octo.nvim'
 
 " completions
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" highlights
+Plug 'jxnblk/vim-mdx-js'
 
 " telescope fuzzy finder
 Plug 'nvim-lua/popup.nvim'
@@ -53,6 +60,9 @@ Plug 'kyazdani42/nvim-web-devicons'
 " which key bindings
 Plug 'folke/which-key.nvim'
 
+" astro lang support
+Plug 'wuelnerdotexe/vim-astro'
+
 call plug#end()
 
 " autoinstall plugins
@@ -61,8 +71,8 @@ autocmd VimEnter *
   \|   PlugInstall --sync | q
   \| endif
 
-set completeopt=menu,menuone,noselect
-set guifont=FiraCode\ Nerd\ Font\ Mono:h13
+lua require('init')
+
 set background=dark
 set hidden
 let mapleader = " "
@@ -70,118 +80,6 @@ let mapleader = " "
 " theme
 set termguicolors
 colorscheme ayu-mirage
-
-lua << EOF
-local vista_extension = { sections = { }, filetypes = {'vista'} }
-require('octo').setup()
-require('lualine').setup {
-  options = {
-    global_status = true
-  },
-  sections = {
-    lualine_a = {'mode'},
-    lualine_b = { },
-    lualine_c = { 'branch', 'diff', 'diagnostics' },
-    lualine_x = {},
-    lualine_y = { 'filetype' },
-    lualine_z = {'location'}
-  },
-  tabline = {
-    lualine_a = {{'tabs', mode = 2}},
-    lualine_b = {},
-    lualine_c = {},
-    lualine_x = {},
-    lualine_y = {'windows'},
-    lualine_z = {}
-  },
-  extensions = { 'fzf', 'chadtree', vista_extension }
-}
-require('telescope').setup({
-  extensions = {
-    coc = {
-        prefer_locations = true 
-    }
-  }
-})
-require('telescope').load_extension('file_browser')
-require('telescope').load_extension('coc')
-require('telescope').load_extension('fzf')
-require('which-key').setup()
-require('toggleterm').setup()
-
-local Terminal  = require('toggleterm.terminal').Terminal
-local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, direction = "float" })
-local lazydocker = Terminal:new({ cmd = "lazydocker", hidden = true, direction = "float" })
-local k9s = Terminal:new({ cmd = "k9s", hidden = true, direction = "float" })
-
-function _lazygit_toggle()
-  lazygit:toggle()
-end
-
-function _lazydocker_toggle()
-  lazydocker:toggle()
-end
-
-function _k9s_toggle()
-  k9s:toggle()
-end
-
-vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true})
-vim.api.nvim_set_keymap("n", "<leader>d", "<cmd>lua _lazydocker_toggle()<CR>", {noremap = true, silent = true})
-vim.api.nvim_set_keymap("n", "<leader>k", "<cmd>lua _k9s_toggle()<CR>", {noremap = true, silent = true })
-
-local home = os.getenv('HOME')
-local db = require("dashboard")
-
-db.custom_header = {
-[[                   ⢀⢄⢄⠢⡠⡀⢀⠄⡀⡀⠄⠄⠄⠄⠐⠡⠄⠉⠻⣻⣟⣿⣿⣄        ]],
-[[              ⠄⠄⠄⠄⢠⢣⠣⡎⡪⢂⠊⡜⣔⠰⡐⠠⠄⡾⠄⠈⠠⡁⡂⠄⠔⠸⣻⣿⣿⣯⢂      ]],
-[[        ⡀⠄⠄⠄⠄⠄⠄⠄⠐⢰⡱⣝⢕⡇⡪⢂⢊⢪⢎⢗⠕⢕⢠⣻⠄⠄⠄⠂⠢⠌⡀⠄⠨⢚⢿⣿⣧⢄     ]],
-[[       ⡐⡈⠌⠄⠄⠄⠄⠄⠄⠄⡧⣟⢼⣕⢝⢬⠨⡪⡚⡺⡸⡌⡆⠜⣾⠄⠄⠄⠁⡐⠠⣐⠨⠄⠁⠹⡹⡻⣷⡕⢄   ]],
-[[      ⢄⠇⠂⠄⠄⠄⠄⠄⠄⠄⢸⣻⣕⢗⠵⣍⣖⣕⡼⡼⣕⢭⢮⡆⠱⣽⡇⠄⠄⠂⠁⠄⢁⠢⡁⠄⠄⠐⠈⠺⢽⣳⣄  ]],
-[[     ⢔⢕⢌⠄⠄⠄⠄⠄⢀⠄⠄⣾⢯⢳⠹⠪⡺⡺⣚⢜⣽⣮⣳⡻⡇⡙⣜⡇⠄⠄⢸⠄⠄⠂⡀⢠⠂⠄⢶⠊⢉⡁⠨⡒  ]],
-[[    ⡨⣪⣿⢰⠈⠄⠄⠄⡀⠄⠄⠄⣽⣵⢿⣸⢵⣫⣳⢅⠕⡗⣝⣼⣺⠇⡘⡲⠇⠄⠄⠨⠄⠐⢀⠐⠐⠡⢰⠁⠄⣴⣾⣷⣮⣇⠄]],
-[[    ⡮⣷⣿⠪⠄⠄⠄⠠⠄⠂⠠⠄⡿⡞⡇⡟⣺⣺⢷⣿⣱⢕⢵⢺⢼⡁⠪⣘⡇⠄⠄⢨⠄⠐⠄⠄⢀⠄⢸⠄⠄⣿⣿⣿⣿⣿⡆]],
-[[   ⢸⣺⣿⣿⣇⠄⠄⠄⠄⢀⣤⣖⢯⣻⡑⢕⢭⢷⣻⣽⡾⣮⡳⡵⣕⣗⡇⠡⡣⣃⠄⠄⠸⠄⠄⠄⠄⠄⠄⠈⠄⠄⢻⣿⣿⣵⡿⣹]],
-[[   ⢸⣿⣿⣟⣯⢄⢤⢲⣺⣻⣻⡺⡕⡔⡊⡎⡮⣿⣿⣽⡿⣿⣻⣼⣼⣺⡇⡀⢎⢨⢐⢄⡀⠄⢁⠠⠄⠄⠐⠄⠣⠄⠸⣿⣿⣯⣷⣿]],
-[[   ⢸⣿⣿⣿⢽⠲⡑⢕⢵⢱⢪⡳⣕⢇⢕⡕⣟⣽⣽⣿⣿⣿⣿⣿⣿⣿⢗⢜⢜⢬⡳⣝⢸⣢⢀⠄⠄⠐⢀⠄⡀⠆⠄⠸⣿⣿⣿⣿]],
-[[   ⢸⣿⣿⣿⢽⣝⢎⡪⡰⡢⡱⡝⡮⡪⡣⣫⢎⣿⣿⣿⣿⣿⣿⠟⠋⠄⢄⠄⠈⠑⠑⠭⡪⡪⢏⠗⡦⡀⠐⠄⠄⠈⠄⠄⠙⣿⣿⣿]],
-[[   ⠘⣿⣿⣿⣿⡲⣝⢮⢪⢊⢎⢪⢺⠪⣝⢮⣯⢯⣟⡯⠷⠋⢀⣠⣶⣾⡿⠿⢀⣴⣖⢅⠪⠘⡌⡎⢍⣻⠠⠅⠄⠄⠈⠢⠄⠄⠙⠿]],
-[[    ⣿⣿⣿⣿⣽⢺⢍⢎⢎⢪⡪⡮⣪⣿⣞⡟⠛⠋⢁⣠⣶⣿⡿⠛⠋⢀⣤⢾⢿⣕⢇⠡⢁⢑⠪⡳⡏⠄⠄⠄⠄⠄⠄⢑⠤⢀⢠]],
-[[    ⢸⣿⣿⣿⣟⣮⡳⣭⢪⡣⡯⡮⠗⠋⠁⠄⠄⠈⠿⠟⠋⣁⣀⣴⣾⣿⣗⡯⡳⡕⡕⡕⡡⢂⠊⢮⠃⠄⠄⠄⠄⠄⢀⠐⠨⢁⠨]],
-[[    ⠈⢿⣿⣿⣿⠷⠯⠽⠐⠁⠁⢀⡀⣤⢖⣽⢿⣦⣶⣾⣿⣿⣿⣿⣿⣿⢎⠇⡪⣸⡪⡮⠊⠄⠌⠎⡄⠄⠄⠄⠄⠄⠄⡂⢁⠉⡀]],
-[[     ⠈⠛⠚⠒⠵⣶⣶⣶⣶⢪⢃⢇⠏⡳⡕⣝⢽⡽⣻⣿⣿⣿⣿⡿⣺⠰⡱⢜⢮⡟⠁⠄⠄⠅⠅⢂⠐⠄⠐⢀⠄⠄⠄⠂⡁⠂]],
-[[       ⠰⠄⠐⢒⣠⣿⣟⢖⠅⠆⢝⢸⡪⡗⡅⡯⣻⣺⢯⡷⡯⡏⡇⡅⡏⣯⡟⠄⠄⠄⠨⡊⢔⢁⠠⠄⠄⠄⠄⠄⢀⠄⠄⠄]],
-[[        ⠹⣿⣿⣿⣿⢿⢕⢇⢣⢸⢐⢇⢯⢪⢪⠢⡣⠣⢱⢑⢑⠰⡸⡸⡇⠁⠄⠄⠠⡱⠨⢘⠄⠂⡀⠂⠄⠄⠄⠄⠈⠂⠄]],
-[[         ⢻⣿⣿⣿⣟⣝⢔⢅⠸⡘⢌⠮⡨⡪⠨⡂⠅⡑⡠⢂⢇⢇⢿⠁⠄⢀⠠⠨⡘⢌⡐⡈⠄⠄⠠⠄⠄⠄⠄⠄⠄⠁]],
-[[          ⠹⣿⣿⣿⣯⢢⢊⢌⢂⠢⠑⠔⢌⡂⢎⠔⢔⢌⠎⡎⡮⡃⢀⠐⡐⠨⡐⠌⠄⡑⠄⢂⠐⢀⠄⠄⠈    ]],
-[[           ⠙⣿⣿⣿⣯⠂⡀⠔⢔⠡⡹⠰⡑⡅⡕⡱⠰⡑⡜⣜⡅⡢⡈⡢⡑⡢⠁⠰⠄⠨⢀⠐⠄⠄⠄     ]],
-[[            ⠈⠻⢿⣿⣷⣢⢱⠡⡊⢌⠌⡪⢨⢘⠜⡌⢆⢕⢢⢇⢆⢪⢢⡑⡅⢁⡖⡄⠄⠄⠄⢀       ]],
-[[               ⠛⢿⣿⣵⡝⣜⢐⠕⢌⠢⡑⢌⠌⠆⠅⠑⠑⠑⠝⢜⠌⠠⢯⡚⡜⢕⢄⠄⠁       ]],
-[[                 ⠙⢿⣷⡣⣇⠃⠅⠁⠈⡠⡠⡔⠜⠜⣿⣗⡖⡦⣰⢹⢸⢸⢸⡘⠌         ]],
-[[                  ⠈⠋⢍⣠⡤⡆⣎⢇⣇⢧⡳⡍⡆⢿⣯⢯⣞⡮⣗⣝⢎⠇           ]],
-[[                    ⠁⣿⣿⣎⢦⠣⠳⠑⠓⠑⠃⠩⠉⠈⠈⠉⠄⠁⠉            ]],
-[[                     ⠈⡿⡞⠁⠄⠄⢀⠐⢐⠠⠈⡌⠌⠂⡁⠌              ]],
-[[                      ⠈⢂⢂⢀⠡⠄⣈⠠⢄⠡⠒⠈                 ]],
-[[                        ⠢⠠⠊⠨⠐⠈                     ]]
-}
-
-db.custom_center = {
-      { icon = '  ',
-        desc = 'Find File                               ',
-        action = 'Telescope find_files',
-        shortcut = 'SPC f f'},
-      { icon = '  ',
-        desc = 'File Browser                            ',
-        action =  'Telescope file_browser',
-        shortcut = 'SPC f b'},
-      { icon = '  ',
-        desc = 'Search in Files                         ',
-        action =  'Telescope live_grep',
-        shortcut = 'SPC f g'},
-
-}
-EOF
 
 let g:vista_default_executive = "coc"
 
@@ -194,7 +92,6 @@ let g:coc_global_extensions = [
   \ 'coc-prettier', 
   \ 'coc-json', 
   \ 'coc-rust-analyzer',
-  \ 'coc-tailwindcss',
   \ 'coc-vimlsp',
   \ 'coc-pyright',
   \ 'coc-css',
@@ -232,13 +129,6 @@ endif
 " format on save
 autocmd BufWritePre * lua vim.lsp.buf.formatting_sync()
 
-" gd - go to definition of word under cursor
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-nnoremap <silent> gh :call <SID>show_documentation()<CR>
-
 function! s:show_documentation()
   if &filetype == 'vim'
     execute 'h '.expand('<cword>')
@@ -247,22 +137,31 @@ function! s:show_documentation()
   endif
 endfunction
 
-" rename the current word in the cursor
-nmap <leader>lr  <Plug>(coc-rename)
-nmap <leader>lf  <Plug>(coc-format-selected)<cr>
-vmap <leader>lf  <Plug>(coc-format-selected)<cr>
-vmap <leader>la  <cmd>Telescope coc code_actions theme=cursor<cr>
-nmap <leader>la  <cmd>Telescope coc code_actions theme=cursor<cr>
 
 " Telescope
 nnoremap <leader>ff        <cmd>Telescope find_files<cr>
 nnoremap <leader>fg        <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb        <cmd>Telescope file_browser<cr>
-nnoremap <leader>lc        <cmd>Telescope coc theme=ivy<cr>
-nnoremap <leader>li        <cmd>Telescope coc diagnostics theme=ivy<cr>
-nnoremap <leader>ld        <cmd>Telescope coc definitions theme=ivy<cr>
-nnoremap <leader>le        <cmd>Telescope coc commands theme=ivy<cr>
+
+nnoremap <leader>la        <cmd>Telescope coc code_actions theme=cursor<cr>
+nnoremap <leader>lm        <cmd>Telescope coc <cr>
+nnoremap <leader>li        <cmd>Telescope coc diagnostics theme=dropdown<cr>
+nnoremap <leader>lc        <cmd>Telescope coc commands theme=ivy<cr>
 nnoremap <leader>lu        <cmd>Telescope coc references_used theme=ivy<cr>
+
+nmap <leader>lt            <Plug>(coc-type-definition)
+nmap <leader>ld            <Plug>(coc-definition)
+map <leader>lr             <Plug>(coc-rename)
+map <leader>lf             <Plug>(coc-format-selected)
+map <leader>li             <Plug>(coc-implementation)
+
+" quick tools
+nnoremap <leader>g             <cmd>lua _lazygit_toggle()<cr>
+nnoremap <leader>d             <cmd>lua _lazydocker_toggle()<cr>
+nnoremap <leader>k             <cmd>lua _k9s_toggle()<cr>
+
+" coc
+nnoremap <silent> gh :call <SID>show_documentation()<CR>
 
 " CHADtree
 nmap <silent><leader>e     <cmd>CHADopen --nofocus<cr> 
@@ -286,8 +185,8 @@ nmap <leader>i             <Cmd>Vista!!<cr>
 vmap <leader>i             <Cmd>Vista!!<cr>
 let g:vista#renderer#enable_icon = 0
 
-" other options
 " Options
+set autoread
 set clipboard=unnamedplus
 set completeopt=noinsert,menuone,noselect
 set cursorline
@@ -296,6 +195,7 @@ set mouse=a
 set number
 set relativenumber
 set splitbelow splitright
+set showmatch
 set title
 set timeoutlen=0
 set wildmenu
