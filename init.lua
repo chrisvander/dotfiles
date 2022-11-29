@@ -1,7 +1,7 @@
 require('lualine').setup {
   options = {
     global_status = true,
-    disabled_filetypes = { 'filetree' }
+    disabled_filetypes = { 'filetree', 'vista' }
   },
   sections = {
     lualine_a = {'mode'},
@@ -16,10 +16,20 @@ require('lualine').setup {
     lualine_b = {},
     lualine_c = {},
     lualine_x = {},
-    lualine_y = {'windows'},
+    lualine_y = {{
+      'windows',
+
+      filetype_names = {
+        TelescopePrompt = 'Telescope',
+        dashboard = 'Dashboard',
+        fzf = 'FZF',
+        vista = 'Vista'
+      },
+      disabled_buftypes = { 'vista', 'prompt' },
+    }},
     lualine_z = {}
   },
-  extensions = { 'fzf', 'chadtree', vista_extension }
+  extensions = { 'fzf', 'chadtree' }
 }
 require('telescope').setup({
   extensions = {
@@ -31,7 +41,24 @@ require('telescope').setup({
 require('telescope').load_extension('file_browser')
 require('telescope').load_extension('coc')
 require('telescope').load_extension('fzf')
-require('toggleterm').setup()
+require('toggleterm').setup({
+  open_mapping = [[<C-j>]],
+})
+
+function _G.set_terminal_keymaps()
+  local opts = {buffer = 0}
+  vim.keymap.set('t', '<C-t>', [[<C-\><C-n>]], opts)
+  vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
+  vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
+  vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
+end
+
+-- if you only want these mappings for toggle term use term://*toggleterm#* instead
+vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
+vim.keymap.set('t', '<C-S-j>', '<Cmd>ToggleTermToggleAll<CR>')
+vim.keymap.set('n', '<C-S-j>', '<Cmd>ToggleTermToggleAll<CR>')
+vim.keymap.set('i', '<C-S-j>', '<Cmd>ToggleTermToggleAll<CR>')
+
 require('which-key').setup()
 require('neogen').setup {
     input_after_comment = true, -- (default: true) automatic jump (with insert mode) on inserted annotation
@@ -54,13 +81,7 @@ function _k9s_toggle()
   k9s:toggle()
 end
 
-vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true})
-vim.api.nvim_set_keymap("n", "<leader>d", "<cmd>lua _lazydocker_toggle()<CR>", {noremap = true, silent = true})
-vim.api.nvim_set_keymap("n", "<leader>k", "<cmd>lua _k9s_toggle()<CR>", {noremap = true, silent = true })
-
-local home = os.getenv('HOME')
 local db = require("dashboard")
-
 db.custom_header = {
 [[                   ⢀⢄⢄⠢⡠⡀⢀⠄⡀⡀⠄⠄⠄⠄⠐⠡⠄⠉⠻⣻⣟⣿⣿⣄        ]],
 [[              ⠄⠄⠄⠄⢠⢣⠣⡎⡪⢂⠊⡜⣔⠰⡐⠠⠄⡾⠄⠈⠠⡁⡂⠄⠔⠸⣻⣿⣿⣯⢂      ]],

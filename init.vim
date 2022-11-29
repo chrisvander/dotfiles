@@ -96,7 +96,8 @@ let g:coc_global_extensions = [
   \ 'coc-docker',
   \ 'coc-java',
   \ 'coc-json',
-  \ 'coc-julia'
+  \ 'coc-julia',
+  \ 'coc-lua'
   \ ]
 
 " keybindings
@@ -164,11 +165,6 @@ nnoremap <silent> gh :call <SID>show_documentation()<CR>
 " CHADtree
 nmap <silent><leader>e     <cmd>CHADopen --nofocus<cr> 
 vmap <silent><leader>e     <cmd>CHADopen --nofocus<cr> 
-
-" Terminal
-nnoremap <silent><C-j>     <cmd>ToggleTerm<cr>
-tnoremap <silent><C-j>     <cmd>ToggleTerm<cr>
-tnoremap <silent><C-t>     <C-\><C-n>
 
 " Tabs
 nnoremap <leader>t         <cmd>tabnew<cr>
