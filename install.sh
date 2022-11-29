@@ -134,12 +134,11 @@ else
    else
       touch $VIMRC_DOTFILE
    fi
-   echo "⤵ Symlinking your init.vim file"
+   echo "⤵ Symlinking your .config/nvim folder"
    rm -r $HOME/.config/nvim/init.vim
    mkdir -p $HOME/.config/nvim
-   ln -s $BASEDIR/init.vim $HOME/.config/nvim/init.vim
-   ln -s $BASEDIR/vim-plug.vim $HOME/.config/nvim/vim-plug.vim
-   echo "✅ Successfully symlinked your init.vim file"
+   ln -s $BASEDIR/nvim $HOME/.config/nvim
+   echo "✅ Successfully symlinked your .config/nvim folder"
 fi
 
 # add zinit

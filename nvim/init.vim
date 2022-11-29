@@ -10,7 +10,6 @@ call plug#begin()
 Plug 'ggandor/lightspeed.nvim'
 Plug 'tpope/vim-surround'
 Plug 'liuchengxu/vista.vim'
-Plug 'ms-jpq/chadtree'
 Plug 'glepnir/dashboard-nvim'
 
 " terminal
@@ -40,9 +39,6 @@ Plug 'petertriho/cmp-git'
 " completions
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" highlights
-Plug 'jxnblk/vim-mdx-js'
-
 " telescope fuzzy finder
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
@@ -54,12 +50,17 @@ Plug 'kkharji/sqlite.lua'
 
 " file tree
 Plug 'kyazdani42/nvim-web-devicons'
+Plug 'nvim-tree/nvim-tree.lua'
 
-" which key bindings
-Plug 'folke/which-key.nvim'
 
-" astro lang support
+" languages
 Plug 'wuelnerdotexe/vim-astro'
+
+" misc
+Plug 'folke/which-key.nvim'
+Plug 'jxnblk/vim-mdx-js'
+Plug 'norcalli/nvim-colorizer.lua'
+Plug 'karb94/neoscroll.nvim'
 
 call plug#end()
 
@@ -69,15 +70,17 @@ autocmd VimEnter *
   \|   PlugInstall --sync | q
   \| endif
 
-lua require('init')
 
+
+let g:loaded_netrw=1
+let g:loaded_netrwPlugin=1
 set background=dark
-set hidden
 let mapleader = " "
 
 " theme
 set termguicolors
 colorscheme ayu-mirage
+hi EndOfBuffer guifg=#1f2330 
 
 let g:vista_default_executive = "coc"
 
@@ -162,9 +165,9 @@ nnoremap <leader>k             <cmd>lua _k9s_toggle()<cr>
 " coc
 nnoremap <silent> gh :call <SID>show_documentation()<CR>
 
-" CHADtree
-nmap <silent><leader>e     <cmd>CHADopen --nofocus<cr> 
-vmap <silent><leader>e     <cmd>CHADopen --nofocus<cr> 
+" tree
+nmap <silent><leader>e     <cmd>NvimTreeToggle<cr> 
+vmap <silent><leader>e     <cmd>NvimTreeToggle<cr> 
 
 " Tabs
 nnoremap <leader>t         <cmd>tabnew<cr>
@@ -183,6 +186,7 @@ let g:vista#renderer#enable_icon = 0
 set autoread
 set clipboard=unnamedplus
 set completeopt=noinsert,menuone,noselect
+set cursorcolumn
 set cursorline
 set inccommand=split
 set mouse=a

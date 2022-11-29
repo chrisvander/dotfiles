@@ -1,0 +1,20 @@
+{
+  "prettier.requireConfig": false,
+
+  "Lua.workspace.library": {
+    "/usr/local/share/nvim/runtime/lua": true,
+    "/usr/local/share/nvim/runtime/lua/vim": true,
+    "/usr/local/share/nvim/runtime/lua/vim/lsp": true
+  },
+  "Lua.diagnostics.globals": ["vim"],
+
+  "coc.preferences.formatOnSaveFiletypes": ["*"],
+  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+
+  "yaml.schemas": {
+    "kubernetes": "*/*.k8s.yml"
+  },
+
+  "css.lint.unknownAtRules": "ignore",
+  "scss.lint.unknownAtRules": "ignore"
+}

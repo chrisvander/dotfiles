@@ -1,3 +1,4 @@
+require('nvim-tree').setup()
 require('lualine').setup {
   options = {
     global_status = true,
@@ -29,12 +30,12 @@ require('lualine').setup {
     }},
     lualine_z = {}
   },
-  extensions = { 'fzf', 'chadtree' }
+  extensions = { 'fzf', 'nvim-tree', 'toggleterm' }
 }
 require('telescope').setup({
   extensions = {
     coc = {
-        prefer_locations = true 
+        prefer_locations = true
     }
   }
 })
@@ -59,6 +60,8 @@ vim.keymap.set('t', '<C-S-j>', '<Cmd>ToggleTermToggleAll<CR>')
 vim.keymap.set('n', '<C-S-j>', '<Cmd>ToggleTermToggleAll<CR>')
 vim.keymap.set('i', '<C-S-j>', '<Cmd>ToggleTermToggleAll<CR>')
 
+require('colorizer').setup()
+require('neoscroll').setup({ easing_function = "cubic" })
 require('which-key').setup()
 require('neogen').setup {
     input_after_comment = true, -- (default: true) automatic jump (with insert mode) on inserted annotation
