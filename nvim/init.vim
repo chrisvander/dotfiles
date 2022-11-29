@@ -70,14 +70,12 @@ autocmd VimEnter *
   \|   PlugInstall --sync | q
   \| endif
 
-
-
 let g:loaded_netrw=1
 let g:loaded_netrwPlugin=1
-set background=dark
 let mapleader = " "
 
 " theme
+set background=dark
 set termguicolors
 colorscheme ayu-mirage
 hi EndOfBuffer guifg=#1f2330 
@@ -156,11 +154,6 @@ nmap <leader>ld            <Plug>(coc-definition)
 map <leader>lr             <Plug>(coc-rename)
 map <leader>lf             <Plug>(coc-format-selected)
 map <leader>li             <Plug>(coc-implementation)
-
-" quick tools
-nnoremap <leader>g             <cmd>lua _lazygit_toggle()<cr>
-nnoremap <leader>d             <cmd>lua _lazydocker_toggle()<cr>
-nnoremap <leader>k             <cmd>lua _k9s_toggle()<cr>
 
 " coc
 nnoremap <silent> gh :call <SID>show_documentation()<CR>
