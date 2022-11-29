@@ -5,7 +5,6 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
 endif
 
 call plug#begin()
-Plug 'ldelossa/nvim-ide'
 
 " navigation
 Plug 'ggandor/lightspeed.nvim'
@@ -37,7 +36,6 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug 'mhinz/vim-signify' " git status in left bar
 Plug 'f-person/git-blame.nvim' " git blame
 Plug 'petertriho/cmp-git'
-Plug 'pwntester/octo.nvim'
 
 " completions
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
