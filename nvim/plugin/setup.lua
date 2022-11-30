@@ -15,3 +15,17 @@ require('which-key').setup()
 require('neogen').setup({
     input_after_comment = true, -- (default: true) automatic jump (with insert mode) on inserted annotation
 })
+require('overseer').setup({
+  strategy = "toggleterm",
+  log = {
+    {
+      type = "echo",
+      level = vim.log.levels.WARN,
+    },
+    {
+      type = "file",
+      filename = "overseer.log",
+      level = vim.log.levels.DEBUG,
+    },
+  },
+})

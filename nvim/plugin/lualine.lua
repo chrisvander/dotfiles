@@ -1,13 +1,13 @@
 require('lualine').setup {
   options = {
     global_status = true,
-    disabled_filetypes = { 'filetree', 'vista' }
+    disabled_filetypes = { 'filetree', 'vista', 'OverseerList' }
   },
   sections = {
     lualine_a = {'mode'},
     lualine_b = { },
     lualine_c = { 'branch', 'diff', 'diagnostics' },
-    lualine_x = {},
+    lualine_x = { 'overseer'},
     lualine_y = { 'filetype' },
     lualine_z = {'location'}
   },
@@ -25,7 +25,7 @@ require('lualine').setup {
         fzf = 'FZF',
         vista = 'Vista'
       },
-      disabled_buftypes = { 'vista', 'prompt' },
+      disabled_buftypes = { 'vista', 'prompt', 'OverseerList' },
     }},
     lualine_z = {}
   },

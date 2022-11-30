@@ -21,6 +21,9 @@ Plug 'Shatur/neovim-ayu'
 Plug 'olimorris/onedarkpro.nvim'
 Plug 'arzg/vim-colors-xcode'
 
+" ui
+Plug 'stevearc/dressing.nvim'
+
 " commenting
 Plug 'scrooloose/nerdcommenter'
 
@@ -52,6 +55,8 @@ Plug 'kkharji/sqlite.lua'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-tree/nvim-tree.lua'
 
+" taskrunner
+Plug 'stevearc/overseer.nvim'
 
 " languages
 Plug 'wuelnerdotexe/vim-astro'
@@ -84,6 +89,7 @@ let g:vista_default_executive = "coc"
 
 " coc config
 let g:coc_global_extensions = [
+  \ 'coc-tasks',
   \ 'coc-snippets',
   \ 'coc-pairs',
   \ 'coc-tsserver',
@@ -174,6 +180,10 @@ nnoremap <silent><C->>     <cmd>+tabmove<cr>
 nmap <leader>i             <Cmd>Vista!!<cr>
 vmap <leader>i             <Cmd>Vista!!<cr>
 let g:vista#renderer#enable_icon = 0
+
+" Overseer
+nnoremap <leader>r         <cmd>OverseerRun<cr>
+nnoremap <leader>o         <cmd>OverseerToggle right<cr>
 
 " Options
 set autoread
