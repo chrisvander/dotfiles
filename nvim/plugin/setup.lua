@@ -17,15 +17,4 @@ require('neogen').setup({
 })
 require('overseer').setup({
   strategy = "toggleterm",
-  log = {
-    {
-      type = "echo",
-      level = vim.log.levels.WARN,
-    },
-    {
-      type = "file",
-      filename = "overseer.log",
-      level = vim.log.levels.DEBUG,
-    },
-  },
 })
