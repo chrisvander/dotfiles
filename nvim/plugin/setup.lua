@@ -16,8 +16,5 @@ require('neogen').setup({
     input_after_comment = true, -- (default: true) automatic jump (with insert mode) on inserted annotation
 })
 require('overseer').setup({
-  strategy = {
-    "toggleterm",
-    open_on_start = false,
-  },
+  strategy = "toggleterm",
 })
