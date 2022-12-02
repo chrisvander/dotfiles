@@ -1,4 +1,3 @@
-local log = require("overseer.log")
 local jobs = require("overseer.strategy._jobs")
 local util = require("overseer.util")
 
@@ -6,19 +5,22 @@ local terminal = require('toggleterm.terminal')
 
 local ToggleTermStrategy = {}
 
-local function with_cr(...)
-  local result = {}
-  for _, str in ipairs({ ... }) do
-    table.insert(result, str .. " ")
-  end
-  return table.concat(result, "")
-end
-
 ---@return overseer.Strategy
-function ToggleTermStrategy.new()
+function ToggleTermStrategy.new(opts)
+  opts = vim.tbl_extend("keep", opts or {}, {
+    use_shell = false,     -- load user shell before running task
+    direction = nil,       -- "vertical" | "horizontal" | "tab" | "float"
+    dir = nil,             -- open ToggleTerm at specified directory before task
+    highlights = nil,      -- map to a highlight group name and a table of it's values
+    auto_scroll = nil,     -- automatically scroll to the bottom on task output
+    close_on_exit = false, -- close the terminal (if open) after task exits
+    open_on_start = true,  -- toggle open the terminal automatically when task starts
+    hidden = false         -- cannot be toggled with normal ToggleTerm commands
+  })
   return setmetatable({
     bufnr = nil,
     chan_id = nil,
+    opts = opts
   }, { __index = ToggleTermStrategy })
 end
 
@@ -42,7 +44,6 @@ function ToggleTermStrategy:start(task)
   local stdout_iter = util.get_stdout_line_iter()
 
   local function on_stdout(data)
-    log:debug("Provided output %s", data)
     task:dispatch("on_output", data)
     local lines = stdout_iter(data)
     if not vim.tbl_isempty(lines) then
@@ -50,14 +51,35 @@ function ToggleTermStrategy:start(task)
     end
   end
 
-  
-  local cmd = type(task.cmd) == "table" and with_cr(unpack(task.cmd)) or with_cr(task.cmd)
 
-  log:debug("%s", tostring(cmd))
+  local cmd = task.cmd
+  if type(task.cmd) == "table" then
+    cmd = table.concat(vim.tbl_map(vim.fn.shellescape, task.cmd), " ")
+  end
+
+  local passed_cmd
+  if self.opts.use_shell then
+    passed_cmd = nil
+  else
+    passed_cmd = cmd
+  end
+
   local term = terminal.Terminal:new({
-    cmd = cmd,
+    cmd = passed_cmd,
     cwd = task.cwd,
     env = task.env,
+    highlights = self.opts.highlights,
+    dir = self.opts.dir,
+    direction = self.opts.direction,
+    auto_scroll = self.opts.auto_scroll,
+    close_on_exit = self.opts.close_on_exit,
+    hidden = self.opts.hidden,
+    on_create = function(t)
+      if self.opts.use_shell then
+        t:send(cmd)
+        t:send("exit $?")
+      end
+    end,
     on_stdout = function(j, d)
       if self.chan_id ~= j then
         return
@@ -69,30 +91,23 @@ function ToggleTermStrategy:start(task)
       if self.chan_id ~= j then
         return
       end
-      log:debug("Task %s exited with code %s", task.name, c)
       -- Feed one last line end to flush the output
       on_stdout({ "" })
       self.chan_id = nil
-      -- If we're exiting vim, don't call the on_exit handler
-      -- We manually kill processes during VimLeavePre cleanup, and we don't want to trigger user
-      -- code because of that
       if vim.v.exiting == vim.NIL then
         task:on_exit(c)
       end
     end,
-    on_close = function(_)
-      log:debug("Closing terminal")
-    end,
-    auto_scroll = true,
-    close_on_exit = false,
-    hidden = false,
   })
 
-  term:toggle()
+  if self.opts.open_on_start then
+    term:toggle()
+  else
+    term:spawn()
+  end
 
   chan_id = term.job_id
   self.bufnr = term.bufnr
-  log:debug("Assigned job ID %s", chan_id)
 
   util.hack_around_termopen_autocmd(mode)
 
