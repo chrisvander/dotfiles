@@ -43,6 +43,15 @@ Plug 'pwntester/octo.nvim'
 " completions
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+" testing
+Plug 'antoinemadec/FixCursorHold.nvim'
+Plug 'nvim-neotest/neotest'
+Plug 'nvim-neotest/neotest-python'
+Plug 'marilari88/neotest-vitest'
+Plug 'haydenmeade/neotest-jest'
+Plug 'nvim-neotest/neotest-go'
+Plug 'rouge8/neotest-rust'
+
 " telescope fuzzy finder
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
