@@ -38,6 +38,7 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug 'mhinz/vim-signify' " git status in left bar
 Plug 'f-person/git-blame.nvim' " git blame
 Plug 'petertriho/cmp-git'
+Plug 'pwntester/octo.nvim'
 
 " completions
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -75,6 +76,7 @@ autocmd VimEnter *
   \|   PlugInstall --sync | q
   \| endif
 
+let g:astro_typescript = 'enable'
 let g:loaded_netrw=1
 let g:loaded_netrwPlugin=1
 let mapleader = " "
