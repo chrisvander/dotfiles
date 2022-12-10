@@ -80,3 +80,4 @@ zsh-defer ~/.dotfiles/update.sh
 
 export PATH="/usr/local/sbin:$PATH"
 
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
