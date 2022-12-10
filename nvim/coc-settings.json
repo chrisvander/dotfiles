@@ -12,7 +12,7 @@
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
 
   "yaml.schemas": {
-    "kubernetes": "*/*.k8s.yml"
+    "kubernetes": "*/*.k8s.y*ml"
   },
 
   "css.lint.unknownAtRules": "ignore",

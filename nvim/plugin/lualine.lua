@@ -1,7 +1,7 @@
 require('lualine').setup {
   options = {
     global_status = true,
-    disabled_filetypes = { 'filetree', 'vista', 'OverseerList' }
+    disabled_filetypes = { 'NvimTree', 'vista', 'OverseerList' }
   },
   sections = {
     lualine_a = {'mode'},
@@ -12,6 +12,8 @@ require('lualine').setup {
     lualine_z = {'location'}
   },
   tabline = {
+  },
+  winbar = {
     lualine_a = {{'tabs', mode = 2}},
     lualine_b = {},
     lualine_c = {},
@@ -21,6 +23,7 @@ require('lualine').setup {
 
       filetype_names = {
         TelescopePrompt = 'Telescope',
+        NvimTree = 'Filetree',
         dashboard = 'Dashboard',
         fzf = 'FZF',
         vista = 'Vista'
