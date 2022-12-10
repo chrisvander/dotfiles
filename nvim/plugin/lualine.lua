@@ -47,7 +47,7 @@ end
 require('lualine').setup {
   options = {
     global_status = true,
-    disabled_filetypes = { 'NvimTree', 'vista', 'OverseerList' },
+    --disabled_filetypes = { 'NvimTree', 'vista', 'OverseerList' },
     theme=theme()
   },
   sections = {

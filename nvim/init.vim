@@ -20,6 +20,7 @@ Plug 'EdenEast/nightfox.nvim'
 Plug 'Shatur/neovim-ayu'
 Plug 'olimorris/onedarkpro.nvim'
 Plug 'arzg/vim-colors-xcode'
+Plug 'rebelot/kanagawa.nvim'
 
 " ui
 Plug 'stevearc/dressing.nvim'
@@ -79,6 +80,8 @@ Plug 'karb94/neoscroll.nvim'
 
 call plug#end()
 
+autocmd VimEnter * Vista
+
 " autoinstall plugins
 autocmd VimEnter *
   \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
@@ -93,10 +96,11 @@ let mapleader = " "
 " theme
 set background=dark
 set termguicolors
-colorscheme ayu-mirage
-hi EndOfBuffer guifg=#1f2330 
+colorscheme kanagawa
+"hi EndOfBuffer guifg=#1f2330 
 
 let g:vista_default_executive = "coc"
+let g:vista_stay_on_open=0
 
 " coc config
 let g:coc_global_extensions = [
@@ -200,7 +204,6 @@ nnoremap <leader>o         <cmd>OverseerToggle right<cr>
 set autoread
 set clipboard=unnamedplus
 set completeopt=noinsert,menuone,noselect
-set cursorcolumn
 set cursorline
 set inccommand=split
 set mouse=a
@@ -209,7 +212,8 @@ set relativenumber
 set splitbelow splitright
 set showmatch
 set title
-set timeoutlen=0
+set timeoutlen=700
+set laststatus=3
 set wildmenu
 syntax on
 
