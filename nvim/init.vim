@@ -9,7 +9,6 @@ call plug#begin()
 " navigation
 Plug 'ggandor/lightspeed.nvim'
 Plug 'tpope/vim-surround'
-Plug 'liuchengxu/vista.vim'
 Plug 'glepnir/dashboard-nvim'
 
 " terminal
@@ -79,8 +78,6 @@ Plug 'norcalli/nvim-colorizer.lua'
 Plug 'karb94/neoscroll.nvim'
 
 call plug#end()
-
-autocmd VimEnter * Vista
 
 " autoinstall plugins
 autocmd VimEnter *
@@ -190,11 +187,6 @@ nnoremap <silent><C-,>     <cmd>tabp<cr>
 nnoremap <silent><C-.>     <cmd>tabn<cr>
 nnoremap <silent><C-<>     <cmd>-tabmove<cr>
 nnoremap <silent><C->>     <cmd>+tabmove<cr>
-
-" Vista 
-nmap <leader>i             <Cmd>Vista!!<cr>
-vmap <leader>i             <Cmd>Vista!!<cr>
-let g:vista#renderer#enable_icon = 0
 
 " Overseer
 nnoremap <leader>r         <cmd>OverseerRun<cr>
