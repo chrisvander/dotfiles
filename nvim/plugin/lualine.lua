@@ -59,10 +59,10 @@ require('lualine').setup {
     lualine_z = { 'location' }
   },
   tabline = {
-    lualine_a = {},
+    lualine_a = {{ 'tabs', mode = 2 }},
     lualine_b = {},
     lualine_c = {},
-    lualine_x = {{ 'tabs', mode = 2 }},
+    lualine_x = {},
     lualine_y = {},
     lualine_z = {{
       'windows',

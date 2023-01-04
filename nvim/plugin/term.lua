@@ -3,7 +3,7 @@ require('toggleterm').setup({
 })
 
 function _G.set_terminal_keymaps()
-  local opts = {buffer = 0}
+  local opts = { buffer = 0 }
   vim.keymap.set('t', '<C-t>', [[<C-\><C-n>]], opts)
   vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
   vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
@@ -16,10 +16,10 @@ vim.keymap.set('t', '<C-S-j>', '<Cmd>ToggleTermToggleAll<CR>')
 vim.keymap.set('n', '<C-S-j>', '<Cmd>ToggleTermToggleAll<CR>')
 vim.keymap.set('i', '<C-S-j>', '<Cmd>ToggleTermToggleAll<CR>')
 
-local Terminal  = require('toggleterm.terminal').Terminal
-local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, direction = "float" })
+local Terminal   = require('toggleterm.terminal').Terminal
+local lazygit    = Terminal:new({ cmd = "lazygit", hidden = true, direction = "float" })
 local lazydocker = Terminal:new({ cmd = "lazydocker", hidden = true, direction = "float" })
-local k9s = Terminal:new({ cmd = "k9s", hidden = true, direction = "float" })
+local k9s        = Terminal:new({ cmd = "k9s", hidden = true, direction = "float" })
 
 function _Lazygit_toggle()
   lazygit:toggle()
@@ -36,4 +36,3 @@ end
 vim.keymap.set('n', '<leader>g', '<cmd>lua _Lazygit_toggle()<cr>')
 vim.keymap.set('n', '<leader>d', '<cmd>lua _Lazydocker_toggle()<cr>')
 vim.keymap.set('n', '<leader>k', '<cmd>lua _K9s_toggle()<cr>')
-

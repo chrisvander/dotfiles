@@ -29,6 +29,7 @@ Plug 'scrooloose/nerdcommenter'
 
 " docs
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+Plug 'mrjones2014/dash.nvim', { 'do': 'make install' }
 Plug 'danymat/neogen'
 
 " powerline
@@ -40,8 +41,26 @@ Plug 'f-person/git-blame.nvim' " git blame
 Plug 'petertriho/cmp-git'
 Plug 'pwntester/octo.nvim'
 
-" completions
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" LSP Support
+Plug 'neovim/nvim-lspconfig'
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
+Plug 'jose-elias-alvarez/null-ls.nvim'
+
+" Autocompletion
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'saadparwaiz1/cmp_luasnip'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-nvim-lua'
+
+"  Snippets
+Plug 'L3MON4D3/LuaSnip'
+Plug 'rafamadriz/friendly-snippets'
+
+Plug 'VonHeikemen/lsp-zero.nvim'
+Plug 'gbrlsnchs/telescope-lsp-handlers.nvim'
 
 " testing
 Plug 'antoinemadec/FixCursorHold.nvim'
@@ -93,88 +112,24 @@ let mapleader = " "
 " theme
 set background=dark
 set termguicolors
-colorscheme kanagawa
+colorscheme ayu-dark
 "hi EndOfBuffer guifg=#1f2330 
 
-let g:vista_default_executive = "coc"
-let g:vista_stay_on_open=0
-
-" coc config
-let g:coc_global_extensions = [
-  \ 'coc-tasks',
-  \ 'coc-snippets',
-  \ 'coc-pairs',
-  \ 'coc-tsserver',
-  \ 'coc-eslint', 
-  \ 'coc-prettier', 
-  \ 'coc-json', 
-  \ 'coc-rust-analyzer',
-  \ 'coc-vimlsp',
-  \ 'coc-pyright',
-  \ 'coc-css',
-  \ 'coc-docker',
-  \ 'coc-java',
-  \ 'coc-json',
-  \ 'coc-julia',
-  \ 'coc-lua'
-  \ ]
-
-" keybindings
-" coc
-inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1):
-      \ CheckBackspace() ? "\<Tab>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-
-" Make <CR> to accept selected completion item or notify coc.nvim to format
-" <C-g>u breaks current undo, please make your own choice.
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Use <c-space> to trigger completion.
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
-
-" format on save
-autocmd BufWritePre * lua vim.lsp.buf.formatting_sync()
-
-function! s:show_documentation()
-  if &filetype == 'vim'
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
+autocmd BufWritePre * lua vim.lsp.buf.format({ async = true })
 
 " Telescope
+nnoremap <leader>ft        <cmd>Telescope<cr>
 nnoremap <leader>ff        <cmd>Telescope find_files<cr>
 nnoremap <leader>fg        <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb        <cmd>Telescope file_browser<cr>
 
-nnoremap <leader>la        <cmd>Telescope coc code_actions theme=cursor<cr>
-nnoremap <leader>lm        <cmd>Telescope coc <cr>
-nnoremap <leader>li        <cmd>Telescope coc diagnostics theme=dropdown<cr>
-nnoremap <leader>lc        <cmd>Telescope coc commands theme=ivy<cr>
-nnoremap <leader>lu        <cmd>Telescope coc references_used theme=ivy<cr>
-
-nmap <leader>lt            <Plug>(coc-type-definition)
-nmap <leader>ld            <Plug>(coc-definition)
-map <leader>lr             <Plug>(coc-rename)
-map <leader>lf             <Plug>(coc-format-selected)
-map <leader>li             <Plug>(coc-implementation)
-
-" coc
-nnoremap <silent> gh :call <SID>show_documentation()<CR>
+nnoremap <silent>ga        <cmd>lua vim.lsp.buf.code_action()<cr>
+nnoremap <silent>gd        <cmd>Telescope lsp_definitions theme=ivy<cr>
+nnoremap <silent>gi        <cmd>Telescope diagnostics theme=ivy<cr>
+nnoremap <silent>gr        <cmd>lua vim.lsp.buf.rename()<cr> 
+nnoremap <silent>gu        <cmd>Telescope lsp_references theme=ivy<cr>
+nnoremap <silent>gt        <cmd>Telescope lsp_type_definitions theme=ivy<cr>
+nnoremap <silent>gf        <cmd>lua vim.lsp.buf.format()<cr>
 
 " tree
 nmap <silent><leader>e     <cmd>NvimTreeToggle<cr> 
@@ -187,6 +142,9 @@ nnoremap <silent><C-,>     <cmd>tabp<cr>
 nnoremap <silent><C-.>     <cmd>tabn<cr>
 nnoremap <silent><C-<>     <cmd>-tabmove<cr>
 nnoremap <silent><C->>     <cmd>+tabmove<cr>
+
+" Dash
+nnoremap <silent>gh        <cmd>DashWord<cr>
 
 " Overseer
 nnoremap <leader>r         <cmd>OverseerRun<cr>
@@ -206,6 +164,7 @@ set showmatch
 set title
 set timeoutlen=700
 set laststatus=3
+set signcolumn=yes
 set wildmenu
 syntax on
 
