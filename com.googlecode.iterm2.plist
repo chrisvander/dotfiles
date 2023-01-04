@@ -512,7 +512,7 @@
 			<key>Non-ASCII Ligatures</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>LigaSFMonoNerdFont-Medium 13</string>
+			<string>LigaSFMonoNerdFont-Medium 15</string>
 			<key>Only The Default BG Color Uses Transparency</key>
 			<true/>
 			<key>Option Key Sends</key>
@@ -565,6 +565,8 @@
 			<array/>
 			<key>Terminal Type</key>
 			<string>xterm-256color</string>
+			<key>Thin Strokes</key>
+			<integer>4</integer>
 			<key>Transparency</key>
 			<real>0.20078956117021277</real>
 			<key>Unicode Version</key>
