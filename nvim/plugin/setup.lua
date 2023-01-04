@@ -42,7 +42,7 @@ lsp.nvim_workspace({
   library = vim.api.nvim_get_runtime_file('', true)
 })
 lsp.set_preferences({
-  set_lsp_keymaps = { omit = { '<F2>', 'gl', 'gr', 'go', 'gd' } }
+  set_lsp_keymaps = { omit = { '<F2>', 'gi', 'gl', 'gr', 'go', 'gd' } }
 })
 lsp.setup()
 
