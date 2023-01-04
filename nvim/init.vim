@@ -115,7 +115,7 @@ set termguicolors
 colorscheme ayu-dark
 "hi EndOfBuffer guifg=#1f2330 
 
-autocmd BufWritePre * lua vim.lsp.buf.format({ async = true })
+autocmd BufWritePre * lua vim.lsp.buf.format({ async = true, filter = function(client) return client.name ~= "tsserver" end })
 
 " Telescope
 nnoremap <leader>ft        <cmd>Telescope<cr>
@@ -129,7 +129,7 @@ nnoremap <silent>gi        <cmd>Telescope diagnostics theme=ivy<cr>
 nnoremap <silent>gr        <cmd>lua vim.lsp.buf.rename()<cr> 
 nnoremap <silent>gu        <cmd>Telescope lsp_references theme=ivy<cr>
 nnoremap <silent>gt        <cmd>Telescope lsp_type_definitions theme=ivy<cr>
-nnoremap <silent>gf        <cmd>lua vim.lsp.buf.format()<cr>
+nnoremap <silent>gf        <cmd>lua vim.lsp.buf.format({ filter = function(client) return client.name ~= "tsserver" end })<cr>
 
 " tree
 nmap <silent><leader>e     <cmd>NvimTreeToggle<cr> 
