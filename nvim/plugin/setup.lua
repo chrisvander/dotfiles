@@ -1,18 +1,28 @@
 require('nvim-tree').setup({
   open_on_setup = true,
   filters = {
-    dotfiles = true,
+    custom = { '.git', 'node_modules', '.cache', '*.lock' },
   },
   git = {
     ignore = false,
   }
 })
 require('telescope').setup({
+  defaults = {
+    file_ignore_patterns = {
+      "node_modules", ".git", ".cache", "*.lock"
+    },
+  },
   extensions = {
     lsp_handlers = {
       code_action = {
         telescope = require('telescope.themes').get_dropdown({}),
       },
+    },
+    file_browser = {
+      hidden = true,
+      respect_gitignore = true,
+      depth = false
     },
   }
 })
@@ -28,7 +38,8 @@ require('neogen').setup({
 require('overseer').setup({
   strategy = "toggleterm",
 })
-require("octo").setup()
+
+--require("copilot").setup()
 
 local lsp = require('lsp-zero')
 lsp.preset('recommended')
@@ -36,14 +47,17 @@ lsp.ensure_installed({
   'tsserver',
   'eslint',
   'sumneko_lua',
+  'tailwindcss',
 })
 
 lsp.nvim_workspace({
   library = vim.api.nvim_get_runtime_file('', true)
 })
+
 lsp.set_preferences({
   set_lsp_keymaps = { omit = { '<F2>', 'gi', 'gl', 'gr', 'go', 'gd' } }
 })
+
 lsp.setup()
 
 local null_ls = require('null-ls')

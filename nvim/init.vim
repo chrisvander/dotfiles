@@ -39,7 +39,6 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug 'mhinz/vim-signify' " git status in left bar
 Plug 'f-person/git-blame.nvim' " git blame
 Plug 'petertriho/cmp-git'
-Plug 'pwntester/octo.nvim'
 
 " LSP Support
 Plug 'neovim/nvim-lspconfig'
@@ -48,12 +47,19 @@ Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'jose-elias-alvarez/null-ls.nvim'
 
 " Autocompletion
-Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
-Plug 'saadparwaiz1/cmp_luasnip'
-Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/cmp-nvim-lua'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'saadparwaiz1/cmp_luasnip'
+
+" Copilot
+Plug 'github/copilot.vim'
+
+" Copilot Alternative
+"Plug 'Exafunction/codeium.vim'
 
 "  Snippets
 Plug 'L3MON4D3/LuaSnip'
@@ -109,6 +115,9 @@ let g:loaded_netrw=1
 let g:loaded_netrwPlugin=1
 let mapleader = " "
 
+let g:copilot_assume_mapped = v:true
+let g:copilot_no_tab_map = v:true
+
 " theme
 set background=dark
 set termguicolors
@@ -116,16 +125,17 @@ colorscheme ayu-dark
 "hi EndOfBuffer guifg=#1f2330 
 
 autocmd BufWritePre * lua vim.lsp.buf.format({ async = true, filter = function(client) return client.name ~= "tsserver" end })
+autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})
 
 " Telescope
 nnoremap <leader>ft        <cmd>Telescope<cr>
-nnoremap <leader>ff        <cmd>Telescope find_files<cr>
-nnoremap <leader>fg        <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb        <cmd>Telescope file_browser<cr>
+nnoremap <leader>ff        <cmd>Telescope find_files hidden=true<cr>
+nnoremap <leader>fg        <cmd>Telescope live_grep hidden=true<cr>
+nnoremap <leader>fb        <cmd>Telescope file_browser hidden=true<cr>
 
 nnoremap <silent>ga        <cmd>lua vim.lsp.buf.code_action()<cr>
 nnoremap <silent>gd        <cmd>Telescope lsp_definitions theme=ivy<cr>
-nnoremap <silent>gi        <cmd>Telescope diagnostics theme=ivy<cr>
+nnoremap <silent>gi        <cmd>lua vim.diagnostic.open_float(nil, {focus=false})<cr>
 nnoremap <silent>gr        <cmd>lua vim.lsp.buf.rename()<cr> 
 nnoremap <silent>gu        <cmd>Telescope lsp_references theme=ivy<cr>
 nnoremap <silent>gt        <cmd>Telescope lsp_type_definitions theme=ivy<cr>
@@ -142,6 +152,17 @@ nnoremap <silent><C-,>     <cmd>tabp<cr>
 nnoremap <silent><C-.>     <cmd>tabn<cr>
 nnoremap <silent><C-<>     <cmd>-tabmove<cr>
 nnoremap <silent><C->>     <cmd>+tabmove<cr>
+
+" Copilot
+inoremap <silent><script><expr> <C-K> copilot#Accept('\<CR>')
+inoremap <silent><script><expr> <C-L> copilot#Next()
+inoremap <silent><script><expr> <C-H> copilot#Previous()
+
+" Codeium
+"inoremap <silent><script><expr> <C-K> codeium#Accept('\<CR>')
+"inoremap <silent><script><expr> <C-L> copilot#Next()
+"inoremap <silent><script><expr> <C-H> copilot#Previous()
+
 
 " Dash
 nnoremap <silent>gh        <cmd>DashWord<cr>
@@ -162,7 +183,7 @@ set relativenumber
 set splitbelow splitright
 set showmatch
 set title
-set timeoutlen=700
+set timeoutlen=200
 set laststatus=3
 set signcolumn=yes
 set wildmenu

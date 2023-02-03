@@ -79,5 +79,5 @@ zsh-defer ~/.dotfiles/update.sh
 [[ ! -f $HOME/.kube/config ]] || export KUBECONFIG=$HOME/.kube/config
 
 export PATH="/usr/local/sbin:$PATH"
-
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+eval "$(direnv hook zsh)"
