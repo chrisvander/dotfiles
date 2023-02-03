@@ -164,6 +164,10 @@ inoremap <silent><script><expr> <C-H> copilot#Previous()
 "inoremap <silent><script><expr> <C-L> copilot#Next()
 "inoremap <silent><script><expr> <C-H> copilot#Previous()
 
+" Octo
+nnoremap <leader><S-g>        <cmd>Octo actions<cr>
+
+
 
 " Dash
 nnoremap <silent>gh        <cmd>DashWord<cr>
