@@ -38,8 +38,8 @@ require('neogen').setup({
 require('overseer').setup({
   strategy = "toggleterm",
 })
+require('octo').setup()
 
---require("copilot").setup()
 
 local lsp = require('lsp-zero')
 lsp.preset('recommended')

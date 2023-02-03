@@ -8,8 +8,8 @@ call plug#begin()
 
 " navigation
 Plug 'ggandor/lightspeed.nvim'
-Plug 'tpope/vim-surround'
 Plug 'glepnir/dashboard-nvim'
+Plug 'tpope/vim-surround'
 
 " terminal
 Plug 'akinsho/toggleterm.nvim'
@@ -39,6 +39,7 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug 'mhinz/vim-signify' " git status in left bar
 Plug 'f-person/git-blame.nvim' " git blame
 Plug 'petertriho/cmp-git'
+Plug 'pwntester/octo.nvim'
 
 " LSP Support
 Plug 'neovim/nvim-lspconfig'
