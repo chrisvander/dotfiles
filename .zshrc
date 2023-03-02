@@ -4,13 +4,7 @@ include () {
 
 bindkey -v
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-#typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
-#export POWERLEVEL9K_INSTANT_PROMPT=quiet
-# include "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-
+include ~/.p10k.zsh
 include ~/.secrets
 include ~/.zshrc.local
 
@@ -29,8 +23,6 @@ if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
 fi
 
 include "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
 
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)
@@ -42,17 +34,26 @@ zinit light-mode for \
 
 ### End of Zinit's installer chunk
 
-zinit ice wait lucid
-zinit ice depth=1; zinit light romkatv/powerlevel10k
-zinit for \
+# add completions
+zi for \
+    atload"zicompinit; zicdreplay" \
+    blockf \
+    lucid \
+    wait \
+  zsh-users/zsh-completions
+
+# add powerlevel10k and defer
+zinit ice depth=1 
+zinit light romkatv/powerlevel10k
+zinit light romkatv/zsh-defer
+
+# add some most-used zsh plugins
+zinit wait lucid for \
   light-mode  zsh-users/zsh-autosuggestions \
-  light-mode  zdharma-continuum/fast-syntax-highlighting \
+              zdharma-continuum/fast-syntax-highlighting \
               zdharma-continuum/history-search-multi-word \
               sroze/docker-compose-zsh-plugin \
               chrisvander/docker-helpers.zshplugin \
-              romkatv/zsh-defer
-
-[[ ! -f ~/.p10k.zsh ]] || include ~/.p10k.zsh
 
 alias lzd=lazydocker
 
@@ -74,10 +75,7 @@ unset __conda_setup
 }
 zsh-defer __setup_conda
 zsh-defer ~/.dotfiles/update.sh
+zsh-defer eval "$(rtx activate zsh)"
 
 # kubectl
 [[ ! -f $HOME/.kube/config ]] || export KUBECONFIG=$HOME/.kube/config
-
-export PATH="/usr/local/sbin:$PATH"
-export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
-eval "$(direnv hook zsh)"
