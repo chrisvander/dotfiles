@@ -30,32 +30,12 @@ fi
 
 include ~/.zshrc.local
 
-if [ "$(uname)" == "Darwin" ]; then
-   # install homebrew
-   if ! command -v brew &> /dev/null
-   then
-      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-   fi
-   brew tap universal-ctags/universal-ctags
-   brew install neovim fzf fnm ruby miniforge lazygit lazydocker code-minimap rust rustup ripgrep
-   brew install --HEAD universal-ctags/universal-ctags/universal-ctags
-elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-   # install miniforge
-   curl -fsSL https://fnm.vercel.app/install | bash
-   eval "`fnm env`"
-   apt-get update -y
-   apt-get install -y software-properties-common
-   add-apt-repository -y ppa:neovim-ppa/stable
-   apt-get update -y
-   apt-get install -y neovim ruby-full python2 python3 pip
-   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-   cargo install --locked code-minimap
+if ! command -v brew &> /dev/null
+then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-export PATH=~/.cargo/bin:/root/.fnm:$PATH
-
-# activate NodeJS
-fnm use 18.4.0 --install-if-missing
+brew bundle install --file $HOME/.dotfiles/Brewfile
 
 export NVIM_PLUGIN_HOME=$HOME/.config/nvim/site/autoload
 mkdir -p $NVIM_PLUGIN_HOME
