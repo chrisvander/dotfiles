@@ -37,9 +37,6 @@ fi
 
 brew bundle install --file $HOME/.dotfiles/Brewfile
 
-export NVIM_PLUGIN_HOME=$HOME/.config/nvim/site/autoload
-mkdir -p $NVIM_PLUGIN_HOME
-
 # Set up symlink for .zshrc
 BASEDIR=$(pwd)
 ZSHRC_LINK=$HOME/.zshrc
