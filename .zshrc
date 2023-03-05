@@ -2,16 +2,13 @@ include () {
     [[ -f "$1" ]] && source "$1"
 }
 
+FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+
 bindkey -v
 
 include ~/.p10k.zsh
 include ~/.secrets
 include ~/.zshrc.local
-
-export PATH=/root/.fnm:/opt/homebrew/opt/ruby/bin:$PATH
-if [ -x "$(command -v fnm)" ]; then
-    eval "$(fnm env --use-on-cd)"
-fi
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
@@ -55,8 +52,6 @@ zinit wait lucid for \
               sroze/docker-compose-zsh-plugin \
               chrisvander/docker-helpers.zshplugin \
 
-alias lzd=lazydocker
-
 __setup_conda() {
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -76,6 +71,8 @@ unset __conda_setup
 zsh-defer __setup_conda
 zsh-defer ~/.dotfiles/update.sh
 zsh-defer eval "$(rtx activate zsh)"
+zsh-defer eval "$(direnv hook zsh)"
+zsh-defer eval "$(zoxide init zsh)"
 
 # kubectl
 [[ ! -f $HOME/.kube/config ]] || export KUBECONFIG=$HOME/.kube/config

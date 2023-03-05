@@ -40,17 +40,6 @@ brew bundle install --file $HOME/.dotfiles/Brewfile
 export NVIM_PLUGIN_HOME=$HOME/.config/nvim/site/autoload
 mkdir -p $NVIM_PLUGIN_HOME
 
-# Set up zsh tools
-PATH_TO_ZSH_DIR=$HOME/.oh-my-zsh
-if [ -d $PATH_TO_ZSH_DIR ]
-then
-   echo "$PATH_TO_ZSH_DIR directory exists! Skipping installation of zsh tools."
-else
-   echo "⤵ Configuring zsh tools in the $HOME directory..."
-   (cd $HOME && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended)
-   echo "✅ Successfully installed zsh tools"
-fi
-
 # Set up symlink for .zshrc
 BASEDIR=$(pwd)
 ZSHRC_LINK=$HOME/.zshrc
@@ -104,12 +93,12 @@ else
 fi
 
 # nvim init
-VIMRC_DOTFILE=$HOME/.config/nvim/init.vim
+VIMRC_DOTFILE=$HOME/.config/nvim/init.lua
 if [[ -L ${VIMRC_DOTFILE} && -e ${VIMRC_DOTFILE} ]] ; then
-   echo "init.vim exists and is symlinked corrected"
+   echo "init.lua exists and is symlinked corrected"
 else
    if [ -e ${VIMRC_DOTFILE} ] ; then
-      echo "Your init.vim exists but is not symlinked."
+      echo "Your init.lua exists but is not symlinked."
       rm $VIMRC_DOTFILE
    else
       touch $VIMRC_DOTFILE
