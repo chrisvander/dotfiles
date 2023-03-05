@@ -37,7 +37,7 @@ return {
 					"yaml",
 				},
 				highlight = {
-					enable = true,
+					enable = false,
 				},
 			})
 		end,
