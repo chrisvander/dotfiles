@@ -55,23 +55,6 @@ else
    echo "✅ Successfully symlinked your .zshrc file"
 fi
 
-# p10k
-P10K_DOTFILE=$HOME/.p10k.zsh
-if [[ -L ${P10K_DOTFILE} && -e ${P10K_DOTFILE} ]] ; then
-   echo ".p10k.zsh exists and is symlinked corrected"
-else
-   if [ -e ${P10K_DOTFILE} ] ; then
-      echo "Your .p10k.zsh exists but is not symlinked."
-      rm $P10K_DOTFILE
-   else
-      touch $P10K_DOTFILE
-   fi
-   echo "⤵ Symlinking your .p10k.zsh file"
-   rm -r ~/.p10k.zsh
-   ln -s $BASEDIR/.p10k.zsh $HOME/.p10k.zsh
-   echo "✅ Successfully symlinked your .p10k.zsh file"
-fi
-
 # dotfiles
 F_DOTFILES=$HOME/.dotfiles
 if [[ -L ${F_DOTFILES} && -e ${F_DOTFILES} ]] ; then
