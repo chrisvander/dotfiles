@@ -3,7 +3,7 @@ local theme = function()
 		darkgray = "#16161d",
 		gray = "#727169",
 		innerbg = nil,
-		outerbg = "#16161D",
+		outerbg = "#26262d",
 		normal = "#7e9cd8",
 		insert = "#98bb6c",
 		visual = "#ffa066",
@@ -70,7 +70,6 @@ return {
 				lualine_b = { "branch" },
 				lualine_c = { "lsp_progress", "diff", "diagnostics" },
 				lualine_x = { "overseer" },
-
 				lualine_y = { "filetype" },
 				lualine_z = { { "location", separator = { right = "", left = "" }, left_padding = 2 } },
 			},
