@@ -43,8 +43,8 @@ return {
 			k9s:toggle()
 		end
 
-		vim.keymap.set("n", "<leader>og", "<cmd>lua _Lazygit_toggle()<cr>")
-		vim.keymap.set("n", "<leader>od", "<cmd>lua _Lazydocker_toggle()<cr>")
-		vim.keymap.set("n", "<leader>ok", "<cmd>lua _K9s_toggle()<cr>")
+		vim.keymap.set("n", "<leader>g", "<cmd>lua _Lazygit_toggle()<cr>")
+		vim.keymap.set("n", "<leader>d", "<cmd>lua _Lazydocker_toggle()<cr>")
+		vim.keymap.set("n", "<leader>k", "<cmd>lua _K9s_toggle()<cr>")
 	end,
 }
