@@ -70,7 +70,7 @@ return {
 		config = true,
 		keys = {
 			{ "<leader>r", "<cmd>OverseerRun<CR>" },
-			{ "<leader>oo", "<cmd>OverseerToggle right<CR>" },
+			{ "<leader>o", "<cmd>OverseerToggle right<CR>" },
 		},
 	},
 	{
