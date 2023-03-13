@@ -12,6 +12,7 @@ return {
 	},
 	{
 		"lewis6991/gitsigns.nvim",
+		lazy = false,
 		config = true,
 		opts = {
 			current_line_blame = true,
