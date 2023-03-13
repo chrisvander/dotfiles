@@ -43,6 +43,7 @@ vim.opt.autoread = true
 vim.opt.clipboard = "unnamedplus"
 vim.opt.completeopt = { "menuone", "noselect" }
 vim.opt.cursorline = true
+vim.opt.fillchars = { eob = " ", vert = " ", fold = " " }
 vim.opt.inccommand = "split"
 vim.opt.mouse = "a"
 vim.opt.number = true
