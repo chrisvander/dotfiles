@@ -43,6 +43,6 @@ return {
 		{ "<leader>fb", "<cmd>Telescope buffers<CR>" },
 		{ "gd", "<cmd>Telescope lsp_definitions theme=ivy<CR>", { silent = true } },
 		{ "gu", "<cmd>Telescope lsp_references theme=ivy<CR>", { silent = true } },
-		{ "gt", "<cmd>Telescope lsp_type_definitions theme=ivy<CR>", { silent = true } },
+		{ "<leader>lt", "<cmd>Telescope lsp_type_definitions theme=ivy<CR>", { silent = true } },
 	},
 }

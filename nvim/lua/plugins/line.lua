@@ -117,21 +117,6 @@ local function setup_galaxyline()
 		},
 	}
 
-	gls.mid[1] = {
-		ShowLspClient = {
-			provider = "GetLspClient",
-			condition = function()
-				local tbl = { ["dashboard"] = true, [""] = true }
-				if tbl[vim.bo.filetype] then
-					return false
-				end
-				return true
-			end,
-			icon = " LSP:",
-			highlight = { colors.cyan, colors.bg, "bold" },
-		},
-	}
-
 	gls.right[1] = {
 		FileEncode = {
 			provider = "FileEncode",
@@ -231,18 +216,71 @@ local function setup_galaxyline()
 	}
 end
 
+local inactive = {
+	black = "#000000",
+	white = "#ffffff",
+	fg = "#696969",
+	bg_2 = "#202728",
+	index = "#61afef",
+}
+
+local active = vim.tbl_extend("force", inactive, {
+	fg = "#abb2bf",
+	bg_2 = "#282c34",
+	index = "#d19a66",
+})
+
+local render = function(f)
+	f.make_tabs(function(info)
+		local colors = info.current and active or inactive
+
+		f.add({
+			" " .. info.index .. " ",
+			fg = colors.index,
+		})
+
+		f.set_colors({ fg = colors.fg, bg = nil })
+
+		f.add(" ")
+		if info.filename then
+			f.add(info.modified and "+")
+			f.add(info.filename)
+			f.add({
+				" " .. f.icon(info.filename),
+				fg = info.current and f.icon_color(info.filename) or nil,
+			})
+		else
+			f.add(info.modified and "[+]" or "[-]")
+		end
+		f.add(" ")
+		f.add(" ")
+	end)
+
+	f.add_spacer()
+end
+
 return {
-	"glepnir/galaxyline.nvim",
-	dependencies = {
-		{
-			"utilyre/barbecue.nvim",
-			dependencies = {
-				"SmiteshP/nvim-navic",
-				"nvim-web-devicons",
-			},
-			opts = { attach_navic = false },
+	{
+		"utilyre/barbecue.nvim",
+		dependencies = {
+			"SmiteshP/nvim-navic",
+			"nvim-web-devicons",
 		},
-		"arkav/lualine-lsp-progress",
+		opts = { attach_navic = false },
 	},
-	config = setup_galaxyline,
+	{
+		"glepnir/galaxyline.nvim",
+		dependencies = {
+			"arkav/lualine-lsp-progress",
+		},
+		config = setup_galaxyline,
+	},
+	{
+		"rafcamlet/tabline-framework.nvim",
+		config = function()
+			require("tabline_framework").setup({
+				render = render,
+			})
+		end,
+	},
 }
