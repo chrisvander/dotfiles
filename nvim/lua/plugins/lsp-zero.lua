@@ -124,20 +124,13 @@ return {
 
 		lsp.setup()
 
-    local orig_handler = vim.lsp.handlers["textDocument/hover"]
-    vim.lsp.handlers['textDocument/hover'] = function(_, result, ctx, config)
-  config = config or {}
-  config.focus_id = ctx.method
-  if not (result and result.contents) then
-    return
-  end
-  local markdown_lines = vim.lsp.util.convert_input_to_markdown_lines(result.contents)
-  markdown_lines = vim.lsp.util.trim_empty_lines(markdown_lines)
-  if vim.tbl_isempty(markdown_lines) then
-    return
-  end
-  return vim.lsp.util.open_floating_preview(markdown_lines, 'markdown', config)
-end
+		local orig_handler = vim.lsp.handlers["textDocument/hover"]
+		vim.lsp.handlers["textDocument/hover"] = function(_, result, ctx, config)
+			if not result or not result.contents or vim.tbl_isempty(result.contents) then
+				return
+			end
+			return orig_handler(_, result, ctx, config)
+		end
 
 		local null_ls = require("null-ls")
 		local null_opts = lsp.build_options("null-ls", {})
