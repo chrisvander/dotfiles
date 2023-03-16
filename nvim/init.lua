@@ -44,6 +44,10 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.completeopt = { "menuone", "noselect" }
 vim.opt.cursorline = true
 vim.opt.fillchars = { eob = " ", vert = " ", fold = " " }
+vim.opt.foldcolumn = '1'
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.opt.foldenable = true
 vim.opt.inccommand = "split"
 vim.opt.mouse = "a"
 vim.opt.number = true

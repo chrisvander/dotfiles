@@ -42,6 +42,36 @@ return {
 			})
 		end,
 	},
+	{
+		"kevinhwang91/nvim-ufo",
+		dependencies = {
+			"kevinhwang91/promise-async",
+			"nvim-treesitter",
+		},
+		event = "BufReadPre",
+		opts = {
+			provider_selector = function()
+				return { "treesitter", "indent" }
+			end,
+		},
+		config = true,
+		keys = {
+			{
+				"n",
+				"zM",
+				function()
+					require("ufo").closeAllFolds()
+				end,
+			},
+			{
+				"n",
+				"zR",
+				function()
+					require("ufo").openAllFolds()
+				end,
+			},
+		},
+	},
 	"kkharji/sqlite.lua",
 	"scrooloose/nerdcommenter",
 	{
