@@ -6,10 +6,6 @@ return {
 		"lukas-reineke/indent-blankline.nvim",
 		event = "VeryLazy",
 		config = true,
-		opts = {
-			show_current_context = true,
-			show_current_context_start = true,
-		},
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
@@ -46,15 +42,23 @@ return {
 		"kevinhwang91/nvim-ufo",
 		dependencies = {
 			"kevinhwang91/promise-async",
-			"nvim-treesitter",
+			"lsp-zero.nvim",
 		},
-		event = "BufReadPre",
-		opts = {
-			provider_selector = function()
-				return { "treesitter", "indent" }
-			end,
-		},
-		config = true,
+		event = "BufRead",
+		config = function()
+			local capabilities = vim.lsp.protocol.make_client_capabilities()
+			capabilities.textDocument.foldingRange = {
+				dynamicRegistration = false,
+				lineFoldingOnly = true,
+			}
+			local language_servers = require("lspconfig").util.available_servers()
+			for _, ls in ipairs(language_servers) do
+				require("lspconfig")[ls].setup({
+					capabilities = capabilities,
+				})
+			end
+			require("ufo").setup()
+		end,
 		keys = {
 			{
 				"n",
