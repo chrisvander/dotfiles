@@ -10,7 +10,7 @@ return {
 		config = function()
 			require("toggleterm").setup({
 				open_mapping = [[<C-j>]],
-				direction = "horizontal",
+				direction = "vertical",
 				winbar = { enabled = true },
 			})
 
