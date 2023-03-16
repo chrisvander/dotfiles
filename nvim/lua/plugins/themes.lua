@@ -7,8 +7,8 @@ return {
 			vim.cmd([[colorscheme catppuccin-mocha]])
 		end,
 	},
-	"olimorris/onedarkpro.nvim",
-	"arzg/vim-colors-xcode",
-	"rebelot/kanagawa.nvim",
-	"Shatur/neovim-ayu",
+	--"olimorris/onedarkpro.nvim",
+	--"arzg/vim-colors-xcode",
+	--"rebelot/kanagawa.nvim",
+	--"Shatur/neovim-ayu",
 }
