@@ -12,6 +12,13 @@ return {
 				open_mapping = [[<C-j>]],
 				direction = "vertical",
 				winbar = { enabled = true },
+				size = function(term)
+					if term.direction == "horizontal" then
+						return 30
+					elseif term.direction == "vertical" then
+						return 80
+					end
+				end,
 			})
 
 			local function set_terminal_keymaps()
