@@ -126,7 +126,12 @@ return {
 
 		local orig_handler = vim.lsp.handlers["textDocument/hover"]
 		vim.lsp.handlers["textDocument/hover"] = function(_, result, ctx, config)
-			if not result or not result.contents or vim.tbl_isempty(result.contents) then
+			if
+				not result
+				or not result.contents
+        or (type(result.contents) == "string" and result.contents == "")
+				or (type(result.contents) == "table" and vim.tbl_isempty(result.contents))
+			then
 				return
 			end
 			return orig_handler(_, result, ctx, config)
