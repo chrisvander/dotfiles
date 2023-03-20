@@ -129,7 +129,7 @@ return {
 			if
 				not result
 				or not result.contents
-        or (type(result.contents) == "string" and result.contents == "")
+				or (type(result.contents) == "string" and result.contents == "")
 				or (type(result.contents) == "table" and vim.tbl_isempty(result.contents))
 			then
 				return
@@ -150,8 +150,8 @@ return {
 
 		require("mason-null-ls").setup({
 			ensure_installed = nil,
-			automatic_installation = true,
-			automatic_setup = true,
+			automatic_installation = false,
+			automatic_setup = false,
 		})
 
 		-- Required when `automatic_setup` is true
