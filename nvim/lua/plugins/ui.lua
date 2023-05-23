@@ -8,18 +8,6 @@ return {
       vim.cmd([[colorscheme catppuccin-mocha]])
     end,
   },
-  -- scrollbar
-  {
-    "petertriho/nvim-scrollbar",
-    config = true,
-    opts = {
-      excluded_filetypes = {
-        "prompt",
-        "TelescopePrompt",
-        "noice",
-      },
-    },
-  },
   -- git status
   {
     "lewis6991/gitsigns.nvim",
