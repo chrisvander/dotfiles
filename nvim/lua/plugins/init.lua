@@ -39,8 +39,8 @@ return {
     },
     config = true,
     keys = {
-      { "<leader>r", "<cmd>OverseerRun<CR>" },
-      { "<leader>o", "<cmd>OverseerTaskAction<CR>" },
+      { "<leader>r", "<cmd>OverseerRun<CR>",        desc = "Start task" },
+      { "<leader>o", "<cmd>OverseerTaskAction<CR>", desc = "Open running task(s)" },
     },
   },
   {
