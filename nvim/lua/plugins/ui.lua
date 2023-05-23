@@ -35,44 +35,15 @@ return {
       { "<leader>D", "<cmd>Gitsigns diffthis<CR>" },
     },
   },
-  "nvim-tree/nvim-web-devicons",
-  -- tree
-  -- {
-  --   "nvim-tree/nvim-tree.lua",
-  --   dependencies = {
-  --     "nvim-web-devicons"
-  --   },
-  --   config = true,
-  --   opts = {
-  --     filters = {
-  --       custom = { ".git", "node_modules", ".cache", "*.lock" },
-  --     },
-  --     git = {
-  --       ignore = false,
-  --     },
-  --   },
-  --   keys = {
-  --     { "<leader>e", "<cmd>NvimTreeToggle<CR>" },
-  --   },
-  -- },
   -- barbecue
   {
     "utilyre/barbecue.nvim",
     event = "BufRead",
     dependencies = {
       "SmiteshP/nvim-navic",
-      "nvim-web-devicons",
+      "nvim-tree/nvim-web-devicons",
     },
     opts = { attach_navic = false },
-  },
-  -- sidebar
-  {
-    'sidebar-nvim/sidebar.nvim',
-    config = true,
-    lazy = false,
-    keys = {
-      { "<leader>e", "<cmd>SidebarNvimToggle<CR>" },
-    },
   },
   -- IN-EDITOR --
   -- folding
