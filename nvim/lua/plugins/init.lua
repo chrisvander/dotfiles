@@ -69,12 +69,5 @@ return {
       },
     },
   },
-  {
-    "folke/todo-comments.nvim",
-    dependencies = "nvim-lua/plenary.nvim",
-    lazy = false,
-    config = true,
-    keys = { { "<leader>ft", "<cmd>TodoTelescope<CR>", "Open todo list" } },
-    cmd = "TodoTelescope",
-  }
+  
 }
