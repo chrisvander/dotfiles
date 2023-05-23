@@ -29,13 +29,6 @@ vim.keymap.set({ "n", "v", "i", "t" }, "<C-j>", [[<Cmd>wincmd j<CR>]])
 vim.keymap.set({ "n", "v", "i", "t" }, "<C-k>", [[<Cmd>wincmd k<CR>]])
 vim.keymap.set({ "n", "v", "i", "t" }, "<C-l>", [[<Cmd>wincmd l<CR>]])
 
--- vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
---   pattern = { "*" },
---   callback = function()
---     vim.diagnostic.open_float(nil, { focus = false })
---   end,
--- })
-
 -- Set leader key to space
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
@@ -66,7 +59,7 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.showmatch = true
 vim.opt.title = true
-vim.opt.timeoutlen = 200
+vim.opt.timeoutlen = 500
 vim.opt.laststatus = 3
 vim.opt.signcolumn = "yes"
 vim.opt.syntax = "on"

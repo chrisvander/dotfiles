@@ -1,7 +1,7 @@
 return {
   { "tpope/vim-surround",      event = "VeryLazy" },
   { "stevearc/dressing.nvim",  event = "VeryLazy" },
-  { 'jbyuki/instant.nvim',     event = "VeryLazy" },
+  { "jbyuki/instant.nvim",     event = "VeryLazy" },
   { "ggandor/lightspeed.nvim", event = "VeryLazy" },
   {
     "numToStr/Comment.nvim",
@@ -20,11 +20,6 @@ return {
       "<leader>n",
       "<cmd>Neogen<CR>",
     } },
-  },
-  {
-    "mrjones2014/dash.nvim",
-    build = "make install",
-    keys = { { "<silent>gh", "<cmd>DashWord<CR>" } },
   },
   {
     "stevearc/overseer.nvim",
@@ -79,7 +74,7 @@ return {
     dependencies = "nvim-lua/plenary.nvim",
     lazy = false,
     config = true,
-    keys = { { "<leader>ft", "<cmd>TodoTelescope<CR>" } },
+    keys = { { "<leader>ft", "<cmd>TodoTelescope<CR>", "Open todo list" } },
     cmd = "TodoTelescope",
   }
 }
