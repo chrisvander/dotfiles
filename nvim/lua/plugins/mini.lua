@@ -1,16 +1,9 @@
 return {
   {
     "echasnovski/mini.starter",
-    dependencies = { {
+    dependencies = {
       "folke/persistence.nvim",
-      event = "BufReadPre",
-      opts = { options = { "buffers", "curdir", "tabpages", "winsize", "help", "globals" } },
-      keys = {
-        { "<leader>qs", function() require("persistence").load() end,                desc = "Restore session" },
-        { "<leader>ql", function() require("persistence").load({ last = true }) end, desc = "Restore last session" },
-        { "<leader>qd", function() require("persistence").stop() end,                desc = "Don't save current session" },
-      },
-    } },
+    },
     event = "VimEnter",
     opts = function()
       local logo = table.concat({
@@ -37,12 +30,12 @@ return {
           new_section("Recent files", "Telescope oldfiles", "Telescope"),
           new_section("Grep find", "Telescope live_grep", "Telescope"),
           new_section("Todos", "TodoTelescope", "Telescope"),
-          new_section("Zoxide", "Telescope zoxide list", "Telescope"),
+          new_section("Workspace", "Telescope zoxide list", "Telescope"),
           new_section("init.lua", "e $MYVIMRC", "Config"),
           new_section("Lazy", "Lazy", "Config"),
-          new_section("New file", "ene | startinsert", "Built-in"),
-          new_section("Quit", "qa", "Built-in"),
-          new_section("Session restore", [[lua require("persistence").load()]], "Session"),
+          new_section("New file", "ene | startinsert", "General"),
+          new_section("Previous session", [[lua require("persistence").load()]], "General"),
+          new_section("Quit", "qa", "General"),
         },
         content_hooks = {
           starter.gen_hook.adding_bullet(pad .. "░ ", false),

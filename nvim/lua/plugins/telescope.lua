@@ -65,7 +65,7 @@ return {
       { "<leader>j", "<cmd>Telescope jumplist<CR>",                  desc = "Open jumplist" },
       { "<leader>s", vim.lsp.buf.document_symbol,                    desc = "Open symbols" },
       { "<leader>S", vim.lsp.buf.workspace_symbol,                   desc = "Open workspace symbols" },
-      { "<leader>z", "<cmd>Telescope zoxide list<CR>",               desc = "Open workspace folder picker" },
+      { "<leader>w", "<cmd>Telescope zoxide list<CR>",               desc = "Open workspace folder picker" },
       { "gd",        "<cmd>Telescope lsp_definitions theme=ivy<CR>", { silent = true } },
       { "gu",        "<cmd>Telescope lsp_references theme=ivy<CR>",  { silent = true } },
     },
