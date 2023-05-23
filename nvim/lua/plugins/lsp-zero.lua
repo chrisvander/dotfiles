@@ -10,101 +10,18 @@ return {
       require('lsp-zero.settings').preset({})
     end
   },
-  -- LSP
+  -- cmp
   {
-    'neovim/nvim-lspconfig',
-    cmd = 'LspInfo',
-    event = { 'BufReadPre', 'BufNewFile', 'InsertEnter' },
+    'hrsh7th/nvim-cmp',
+    event = 'InsertEnter',
     dependencies = {
-      { 'williamboman/mason-lspconfig.nvim' },
-      { 'mason.nvim' },
-      -- Navic
-      { "nvim-navic" },
-
-      -- Languages
-      { "wuelnerdotexe/vim-astro" },
-      { "jxnblk/vim-mdx-js" },
-      { "prisma/vim-prisma" },
-
-      -- Null-LS
-      "jose-elias-alvarez/null-ls.nvim", -- Optional
-      "jay-babu/mason-null-ls.nvim",     -- Optional
-
-      -- CMP
-      'hrsh7th/nvim-cmp',
-      'hrsh7th/cmp-nvim-lsp',
+      'lsp-zero.nvim',
       'L3MON4D3/LuaSnip',
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
     },
     config = function()
-      -- This is where all the LSP shenanigans will live
-
-      local lsp = require('lsp-zero').preset({})
-
-      lsp.on_attach(function(client, bufnr)
-        lsp.default_keymaps({ buffer = bufnr })
-      end)
-
-      -- (Optional) Configure lua language server for neovim
-      require('lspconfig').lua_ls.setup({
-        settings = {
-          Lua = {
-            diagnostics = {
-              -- Get the language server to recognize the `vim` global
-              globals = {
-                'vim',
-                'require'
-              },
-            },
-          }
-        }
-      })
-
-      lsp.ensure_installed({
-        "tsserver",
-        "eslint",
-        "tailwindcss",
-      })
-
-      lsp.nvim_workspace({
-        library = vim.api.nvim_get_runtime_file("", true),
-      })
-
-      lsp.set_preferences({
-        set_lsp_keymaps = { omit = { "<F2>", "gi", "gl", "gr", "go", "gd" } },
-      })
-
-      local navic = require("nvim-navic")
-
-      local on_attach = function(client, bufnr)
-        if client.server_capabilities.documentSymbolProvider and client.name ~= "astro" and client.name ~= "mdx" then
-          navic.attach(client, bufnr)
-        end
-      end
-
-      lsp.on_attach(on_attach)
-
-      local null_ls = require("null-ls")
-      local null_opts = lsp.build_options("null-ls", {})
-
-      null_ls.setup({
-        on_attach = null_opts.on_attach,
-        sources = {
-          null_ls.builtins.formatting.prettier,
-          null_ls.builtins.code_actions.eslint_d,
-        },
-      })
-
-      require("mason-null-ls").setup({
-        ensure_installed = nil,
-        automatic_installation = false,
-        automatic_setup = false,
-      })
-
-      lsp.setup()
-
       require('lsp-zero.cmp').extend()
       local cmp = require('cmp')
       local cmp_action = require('lsp-zero').cmp_action()
@@ -150,6 +67,107 @@ return {
           ['<C-e>'] = cmp.mapping.abort(),
         }
       })
+    end
+  },
+  -- LSP
+  {
+    'neovim/nvim-lspconfig',
+    cmd = 'LspInfo',
+    event = { 'BufReadPre', 'BufNewFile', 'InsertEnter' },
+    dependencies = {
+      'lsp-zero.nvim',
+
+      -- Mason
+      'mason.nvim',
+      { 'williamboman/mason-lspconfig.nvim', config = true },
+      "jay-babu/mason-null-ls.nvim", -- Optional
+
+      -- Navic
+      "nvim-navic",
+
+      -- Languages
+      "wuelnerdotexe/vim-astro",
+      "jxnblk/vim-mdx-js",
+      "prisma/vim-prisma",
+
+      -- Null-LS
+      "jose-elias-alvarez/null-ls.nvim", -- Optional
+    },
+    config = function()
+      local lsp = require('lsp-zero').preset({})
+      local navic = require("nvim-navic")
+
+      lsp.on_attach(function(client, bufnr)
+        lsp.default_keymaps({ buffer = bufnr })
+        if client.server_capabilities.documentSymbolProvider and client.name ~= "astro" and client.name ~= "mdx" then
+          navic.attach(client, bufnr)
+        end
+      end)
+
+      -- (Optional) Configure lua language server for neovim
+      require('lspconfig').lua_ls.setup({
+        settings = {
+          Lua = {
+            diagnostics = {
+              -- Get the language server to recognize the `vim` global
+              globals = {
+                'vim',
+                'require'
+              },
+            },
+          }
+        }
+      })
+
+      lsp.ensure_installed({
+        "tsserver",
+        "eslint",
+        "tailwindcss",
+      })
+
+      lsp.nvim_workspace({
+        library = vim.api.nvim_get_runtime_file("", true),
+      })
+
+      lsp.set_preferences({
+        set_lsp_keymaps = { omit = { "<F2>", "gi", "gl", "gr", "go", "gd" } },
+      })
+
+
+      local null_ls = require("null-ls")
+      local null_opts = lsp.build_options("null-ls", {})
+
+      null_ls.setup({
+        on_attach = null_opts.on_attach,
+        sources = {
+          null_ls.builtins.formatting.prettier,
+          null_ls.builtins.code_actions.eslint_d,
+        },
+      })
+
+      require("mason-null-ls").setup({
+        ensure_installed = nil,
+        automatic_installation = false,
+        automatic_setup = false,
+      })
+
+      lsp.setup()
+
+      -- Filter out empty messages from hover
+      local prev_hover = vim.lsp.handlers['textDocument/hover']
+      vim.lsp.handlers['textDocument/hover'] = function(_, result, ctx, config)
+        config = config or {}
+        config.focus_id = ctx.method
+        if not (result and result.contents) then
+          return
+        end
+        local markdown_lines = vim.lsp.util.convert_input_to_markdown_lines(result.contents)
+        markdown_lines = vim.lsp.util.trim_empty_lines(markdown_lines)
+        if vim.tbl_isempty(markdown_lines) then
+          return
+        end
+        return prev_hover(_, result, ctx, config)
+      end
     end,
     keys = {
       { "K",  vim.lsp.buf.hover },
