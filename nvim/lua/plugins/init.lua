@@ -5,8 +5,18 @@ return {
   { "ggandor/lightspeed.nvim", event = "VeryLazy" },
   {
     "numToStr/Comment.nvim",
+    opts = {
+      toggler = {
+        line = "<C-c>",
+        block = "<C-b>",
+      },
+      opleader = {
+        line = '<C-c>',
+        block = '<C-b>',
+      },
+      mappings = { extra = false },
+    },
     config = true,
-    event = "BufRead"
   },
   {
     "danymat/neogen",
@@ -69,5 +79,5 @@ return {
       },
     },
   },
-  
+
 }
