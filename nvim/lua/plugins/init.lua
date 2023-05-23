@@ -28,8 +28,9 @@ return {
     config = true,
     cmd = "Neogen",
     keys = { {
-      "<leader>n",
+      "<C-n>",
       "<cmd>Neogen<CR>",
+      desc = "Toggle documentation generation"
     } },
   },
   {
@@ -63,10 +64,16 @@ return {
     }
   },
   {
+    "rcarriga/nvim-notify",
+    opts = { render = "compact", stages = "fade", timeout = 2000 },
+    lazy = false,
+    keys = { { "<leader>n", "<cmd>Telescope notify<cr>", desc = "Open notifications" } }
+  },
+  {
     "folke/noice.nvim",
     dependencies = {
       "MunifTanjim/nui.nvim",
-      { "rcarriga/nvim-notify", opts = { render = "compact", top_down = false } },
+      "nvim-notify"
     },
     opts = {
       lsp = {
@@ -84,7 +91,7 @@ return {
         command_palette = true,       -- position the cmdline and popupmenu together
         long_message_to_split = true, -- long messages will be sent to a split
         inc_rename = false,           -- enables an input dialog for inc-rename.nvim
-        lsp_doc_border = true,        -- add a border to hover docs and signature help
+        lsp_doc_border = false,       -- add a border to hover docs and signature help
       },
     },
   },
