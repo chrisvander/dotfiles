@@ -8,56 +8,66 @@ local function project_files()
 end
 
 return {
-  "nvim-telescope/telescope.nvim",
-  dependencies = {
-    "nvim-lua/plenary.nvim",
-    "nvim-treesitter/nvim-treesitter",
-    "nvim-tree/nvim-web-devicons",
-    "gbrlsnchs/telescope-lsp-handlers.nvim",
-    'jvgrootveld/telescope-zoxide',
-    "nvim-telescope/telescope-file-browser.nvim",
-    "nvim-notify",
-    {
-      "nvim-telescope/telescope-fzf-native.nvim",
-      build = "make",
-    },
+  {
+    "folke/todo-comments.nvim",
+    dependencies = "nvim-lua/plenary.nvim",
+    lazy = false,
+    config = true,
+    keys = { { "<leader>t", "<cmd>TodoTelescope<CR>", desc = "Open todo list" } },
+    cmd = "TodoTelescope",
   },
-  config = function()
-    require("telescope").load_extension("fzf")
-    require("telescope").load_extension("lsp_handlers")
-    require("telescope").load_extension("notify")
-    require("telescope").load_extension("zoxide")
-    require("telescope").load_extension("file_browser")
-    require("telescope").setup({
-      defaults = {
-        hidden = true,
-        initial_mode = "insert",
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons",
+      "gbrlsnchs/telescope-lsp-handlers.nvim",
+      'jvgrootveld/telescope-zoxide',
+      "nvim-telescope/telescope-file-browser.nvim",
+      "nvim-notify",
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "make",
       },
-      pickers = {
-        find_files = {
-          find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
+    },
+    config = function()
+      require("telescope").load_extension("fzf")
+      require("telescope").load_extension("lsp_handlers")
+      require("telescope").load_extension("notify")
+      require("telescope").load_extension("zoxide")
+      require("telescope").load_extension("file_browser")
+      require("telescope").setup({
+        defaults = {
+          hidden = true,
+          initial_mode = "insert",
         },
-      },
-      extensions = {
-        lsp_handlers = {
-          code_action = {
-            telescope = require("telescope.themes").get_dropdown({}),
+        pickers = {
+          find_files = {
+            find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
           },
         },
-      },
-    })
-  end,
-  cmd = "Telescope",
-  keys = {
-    { "<leader>f/", "<cmd>Telescope<CR>" },
-    { "<leader>fF", "<cmd>Telescope find_files<CR>" },
-    { "<leader>ff", project_files },
-    { "<leader>fg", "<cmd>Telescope live_grep<CR>" },
-    { "<leader>fb", "<cmd>Telescope file_browser<CR>" },
-    { "<leader>fv", "<cmd>Telescope buffers<CR>" },
-    { "<leader>fr", "<cmd>Telescope oldfiles<CR>" },
-    { "<leader>fz", "<cmd>Telescope zoxide list<CR>" },
-    { "gd",         "<cmd>Telescope lsp_definitions theme=ivy<CR>", { silent = true } },
-    { "gu",         "<cmd>Telescope lsp_references theme=ivy<CR>",  { silent = true } },
-  },
+        extensions = {
+          lsp_handlers = {
+            code_action = {
+              telescope = require("telescope.themes").get_dropdown({}),
+            },
+          },
+        },
+      })
+    end,
+    cmd = "Telescope",
+    keys = {
+      { "<leader>f/", "<cmd>Telescope<CR>" },
+      { "<leader>f",  project_files,                                  desc = "Open file picker" },
+      { "<leader>F",  "<cmd>Telescope file_browser<CR>",                desc = "Open file browser" },
+      { "<leader>/",  "<cmd>Telescope live_grep<CR>",                 desc = "Global search in workspace folder" },
+      { "<leader>b",  "<cmd>Telescope buffers<CR>",                   desc = "Open buffer picker" },
+      { "<leader>j",  "<cmd>Telescope jumplist<CR>",                  desc = "Open jumplist" },
+      { "<leader>s",  vim.lsp.buf.document_symbol,                    desc = "Open symbols" },
+      { "<leader>z",  "<cmd>Telescope zoxide list<CR>",               desc = "Open workspace folder picker" },
+      { "gd",         "<cmd>Telescope lsp_definitions theme=ivy<CR>", { silent = true } },
+      { "gu",         "<cmd>Telescope lsp_references theme=ivy<CR>",  { silent = true } },
+    },
+  }
 }
