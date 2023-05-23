@@ -17,6 +17,7 @@ return {
       mappings = { extra = false },
     },
     config = true,
+    keys = { "<C-c>", "<C-b>" },
   },
   {
     "danymat/neogen",
