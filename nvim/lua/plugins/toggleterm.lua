@@ -37,7 +37,7 @@ return {
         pattern = { "term://*" },
         callback = set_terminal_keymaps,
       })
-      vim.keymap.set("n", "<leader>;", "<cmd>ToggleTermToggleAll<CR>")
+      vim.keymap.set("n", "<leader>;", "<cmd>ToggleTermToggleAll<CR>", { desc = "Toggle all ToggleTerm windows" })
 
       local Terminal = require("toggleterm.terminal").Terminal
       local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, direction = "float" })
