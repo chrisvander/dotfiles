@@ -1,87 +1,12 @@
 return {
-  { "ggandor/lightspeed.nvim", event = "VeryLazy" },
   { "tpope/vim-surround",      event = "VeryLazy" },
   { "stevearc/dressing.nvim",  event = "VeryLazy" },
+  { 'jbyuki/instant.nvim',     event = "VeryLazy" },
+  { "ggandor/lightspeed.nvim", event = "VeryLazy" },
   {
-    "lukas-reineke/indent-blankline.nvim",
-    event = "VeryLazy",
+    "numToStr/Comment.nvim",
     config = true,
-  },
-  {
-    "nvim-treesitter/nvim-treesitter",
-    run = ":TSUpdate",
-    event = "BufRead",
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = {
-          "bash",
-          "c",
-          "cpp",
-          "css",
-          "dockerfile",
-          "go",
-          "graphql",
-          "html",
-          "javascript",
-          "json",
-          "python",
-          "regex",
-          "rust",
-          "toml",
-          "tsx",
-          "typescript",
-          "yaml",
-        },
-        highlight = {
-          enable = true,
-        },
-      })
-    end,
-  },
-  {
-    "kevinhwang91/nvim-ufo",
-    dependencies = {
-      "kevinhwang91/promise-async",
-      "lsp-zero.nvim",
-    },
-    event = "BufRead",
-    config = function()
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities.textDocument.foldingRange = {
-        dynamicRegistration = false,
-        lineFoldingOnly = true,
-      }
-      local language_servers = require("lspconfig").util.available_servers()
-      for _, ls in ipairs(language_servers) do
-        require("lspconfig")[ls].setup({
-          capabilities = capabilities,
-        })
-      end
-      require("ufo").setup()
-    end,
-    keys = {
-      {
-        "n",
-        "zM",
-        function()
-          require("ufo").closeAllFolds()
-        end,
-      },
-      {
-        "n",
-        "zR",
-        function()
-          require("ufo").openAllFolds()
-        end,
-      },
-    },
-  },
-  "kkharji/sqlite.lua",
-  "scrooloose/nerdcommenter",
-  {
-    "mrjones2014/dash.nvim",
-    build = "make install",
-    keys = { { "<silent>gh", "<cmd>DashWord<CR>" } },
+    event = "BufRead"
   },
   {
     "danymat/neogen",
@@ -97,9 +22,14 @@ return {
     } },
   },
   {
+    "mrjones2014/dash.nvim",
+    build = "make install",
+    keys = { { "<silent>gh", "<cmd>DashWord<CR>" } },
+  },
+  {
     "stevearc/overseer.nvim",
     opts = {
-      strategy = { "toggleterm", open_on_start = false, close_on_exit = true },
+      strategy = { "toggleterm" },
     },
     config = true,
     keys = {
@@ -112,18 +42,25 @@ return {
     config = true,
   },
   {
+    "folke/zen-mode.nvim",
+    config = true,
+    keys = {
+      { "<leader>z", "<cmd>ZenMode<CR>" },
+    }
+  },
+  {
     "folke/noice.nvim",
     dependencies = {
       "MunifTanjim/nui.nvim",
-      { "rcarriga/nvim-notify", opts = { render = "compact", stages = "static" } },
+      { "rcarriga/nvim-notify", opts = { render = "compact", top_down = false } },
     },
     opts = {
       lsp = {
         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
         override = {
-              ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-              ["vim.lsp.util.stylize_markdown"] = true,
-              ["cmp.entry.get_documentation"] = true,
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+          ["vim.lsp.util.stylize_markdown"] = true,
+          ["cmp.entry.get_documentation"] = true,
         },
         hover = { enabled = false },
         signature = { enabled = false },
@@ -138,7 +75,11 @@ return {
     },
   },
   {
-    "norcalli/nvim-colorizer.lua",
+    "folke/todo-comments.nvim",
+    dependencies = "nvim-lua/plenary.nvim",
+    lazy = false,
     config = true,
-  },
+    keys = { { "<leader>ft", "<cmd>TodoTelescope<CR>" } },
+    cmd = "TodoTelescope",
+  }
 }

@@ -1,183 +1,178 @@
 return {
-	"VonHeikemen/lsp-zero.nvim",
-	event = "BufReadPre",
-	dependencies = {
-		-- LSP Support
-		"neovim/nvim-lspconfig", -- Required
-		"williamboman/mason.nvim", -- Optional
-		"williamboman/mason-lspconfig.nvim", -- Optional
+  {
+    'VonHeikemen/lsp-zero.nvim',
+    branch = 'v2.x',
+    lazy = true,
+    config = function()
+      -- This is where you modify the settings for lsp-zero
+      -- Note: autocompletion settings will not take effect
 
-		-- Null-LS
-		"jose-elias-alvarez/null-ls.nvim", -- Optional
-		"jay-babu/mason-null-ls.nvim", -- Optional
+      require('lsp-zero.settings').preset({})
+    end
+  },
+  -- LSP
+  {
+    'neovim/nvim-lspconfig',
+    cmd = 'LspInfo',
+    event = { 'BufReadPre', 'BufNewFile', 'InsertEnter' },
+    dependencies = {
+      { 'williamboman/mason-lspconfig.nvim' },
+      { 'mason.nvim' },
+      -- Navic
+      { "nvim-navic" },
 
-		-- Autocompletion
-		"hrsh7th/nvim-cmp", -- Required
-		"hrsh7th/cmp-nvim-lsp", -- Required
-		"hrsh7th/cmp-buffer", -- Optional
-		"hrsh7th/cmp-path", -- Optional
-		"hrsh7th/cmp-cmdline", -- Optional
-		"saadparwaiz1/cmp_luasnip", -- Optional
-		"hrsh7th/cmp-nvim-lua", -- Optional
-		"petertriho/cmp-git", -- Optional
+      -- Languages
+      { "wuelnerdotexe/vim-astro" },
+      { "jxnblk/vim-mdx-js" },
+      { "prisma/vim-prisma" },
 
-		-- Extra languages
-		"wuelnerdotexe/vim-astro",
-		"jxnblk/vim-mdx-js",
-		"prisma/vim-prisma",
+      -- Null-LS
+      "jose-elias-alvarez/null-ls.nvim", -- Optional
+      "jay-babu/mason-null-ls.nvim",     -- Optional
 
-		-- Snippets
-		"L3MON4D3/LuaSnip",
-		"rafamadriz/friendly-snippets", -- Optional
+      -- CMP
+      'hrsh7th/nvim-cmp',
+      'hrsh7th/cmp-nvim-lsp',
+      'L3MON4D3/LuaSnip',
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+    },
+    config = function()
+      -- This is where all the LSP shenanigans will live
 
-		-- Status Line Connections
-		"nvim-navic",
-	},
-	config = function()
-		local lsp = require("lsp-zero")
-		lsp.preset({
-			name = "recommended",
-			manage_nvim_cmp = true,
-		})
+      local lsp = require('lsp-zero').preset({})
 
-		lsp.ensure_installed({
-			"tsserver",
-			"eslint",
-			"tailwindcss",
-		})
+      lsp.on_attach(function(client, bufnr)
+        lsp.default_keymaps({ buffer = bufnr })
+      end)
 
-		lsp.nvim_workspace({
-			library = vim.api.nvim_get_runtime_file("", true),
-		})
+      -- (Optional) Configure lua language server for neovim
+      require('lspconfig').lua_ls.setup({
+        settings = {
+          Lua = {
+            diagnostics = {
+              -- Get the language server to recognize the `vim` global
+              globals = {
+                'vim',
+                'require'
+              },
+            },
+          }
+        }
+      })
 
-		lsp.set_preferences({
-			set_lsp_keymaps = { omit = { "<F2>", "gi", "gl", "gr", "go", "gd" } },
-		})
+      lsp.ensure_installed({
+        "tsserver",
+        "eslint",
+        "tailwindcss",
+      })
 
-		local navic = require("nvim-navic")
+      lsp.nvim_workspace({
+        library = vim.api.nvim_get_runtime_file("", true),
+      })
 
-		local on_attach = function(client, bufnr)
-			if client.server_capabilities.documentSymbolProvider then
-				navic.attach(client, bufnr)
-			end
-		end
+      lsp.set_preferences({
+        set_lsp_keymaps = { omit = { "<F2>", "gi", "gl", "gr", "go", "gd" } },
+      })
 
-		lsp.on_attach(on_attach)
+      local navic = require("nvim-navic")
 
-		local cmp = require("cmp")
+      local on_attach = function(client, bufnr)
+        if client.server_capabilities.documentSymbolProvider and client.name ~= "astro" and client.name ~= "mdx" then
+          navic.attach(client, bufnr)
+        end
+      end
 
-		lsp.setup_nvim_cmp({
-			sources = {
-				--{ name = "copilot" },
-				{ name = "path" },
-				{ name = "nvim_lsp" },
-				{ name = "nvim_lua" },
-				{ name = "luasnip", keyword_length = 2 },
-				{ name = "buffer", keyword_length = 2 },
-			},
-			completion = {
-				autocomplete = false,
-			},
-			sorting = {
-				comparators = {
-					--require("copilot_cmp.comparators").prioritize,
-					cmp.config.compare.offset,
-					cmp.config.compare.exact,
-					cmp.config.compare.score,
-					cmp.config.compare.recently_used,
-					cmp.config.compare.locality,
-					cmp.config.compare.kind,
-					cmp.config.compare.sort_text,
-					cmp.config.compare.length,
-					cmp.config.compare.order,
-				},
-			},
-			preselect = cmp.PreselectMode.Item,
-		})
+      lsp.on_attach(on_attach)
 
-		-- Set configuration for specific filetype.
-		cmp.setup.filetype("gitcommit", {
-			sources = cmp.config.sources({
-				{ name = "cmp_git" }, -- You can specify the `cmp_git` source if you were installed it.
-			}, {
-				{ name = "buffer" },
-			}),
-		})
+      local null_ls = require("null-ls")
+      local null_opts = lsp.build_options("null-ls", {})
 
-		-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-		cmp.setup.cmdline({ "/", "?" }, {
-			mapping = cmp.mapping.preset.cmdline(),
-			sources = {
-				{ name = "buffer" },
-			},
-		})
+      null_ls.setup({
+        on_attach = null_opts.on_attach,
+        sources = {
+          null_ls.builtins.formatting.prettier,
+          null_ls.builtins.code_actions.eslint_d,
+        },
+      })
 
-		-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-		cmp.setup.cmdline(":", {
-			mapping = cmp.mapping.preset.cmdline(),
-			sources = cmp.config.sources({
-				{ name = "path" },
-			}, {
-				{ name = "cmdline" },
-			}),
-		})
+      require("mason-null-ls").setup({
+        ensure_installed = nil,
+        automatic_installation = false,
+        automatic_setup = false,
+      })
 
-		lsp.setup()
+      lsp.setup()
 
-		local orig_handler = vim.lsp.handlers["textDocument/hover"]
-		vim.lsp.handlers["textDocument/hover"] = function(_, result, ctx, config)
-			if
-				not result
-				or not result.contents
-				or (type(result.contents) == "string" and result.contents == "")
-				or (type(result.contents) == "table" and vim.tbl_isempty(result.contents))
-			then
-				return
-			end
-			return orig_handler(_, result, ctx, config)
-		end
-
-		local null_ls = require("null-ls")
-		local null_opts = lsp.build_options("null-ls", {})
-
-		null_ls.setup({
-			on_attach = null_opts.on_attach,
-			sources = {
-				null_ls.builtins.formatting.prettier,
-				null_ls.builtins.code_actions.eslint_d,
-			},
-		})
-
-		require("mason-null-ls").setup({
-			ensure_installed = nil,
-			automatic_installation = false,
-			automatic_setup = false,
-		})
-
-		-- Required when `automatic_setup` is true
-		require("mason-null-ls").setup_handlers()
-	end,
-	keys = {
-		{ "K", vim.lsp.buf.hover },
-		{ "ga", vim.lsp.buf.code_action, { silent = true } },
-		{
-			"gi",
-			function()
-				vim.diagnostic.open_float(nil, { focus = false })
-			end,
-			{ noremap = true, silent = true, mode = { "n", "x" } },
-		},
-		{ "gr", vim.lsp.buf.rename, { silent = true } },
-		{
-			"gf",
-			function()
-				vim.lsp.buf.format({
-					filter = function(client)
-						return client.name ~= "tsserver"
-					end,
-				})
-			end,
-			{ silent = true },
-		},
-	},
+      require('lsp-zero.cmp').extend()
+      local cmp = require('cmp')
+      local cmp_action = require('lsp-zero').cmp_action()
+      cmp.setup({
+        behavior = cmp.ConfirmBehavior.Replace,
+        preselect = 'item',
+        experimental = {
+          ghost_text = true,
+        },
+        completion = {
+          completeopt = 'menu,menuone,noinsert,noselect',
+          behavior = cmp.ConfirmBehavior.Replace,
+          preselect = cmp.PreselectMode.None
+        },
+        sources = {
+          { name = 'copilot', keyword_length = 0, group_index = 2 },
+          { name = 'nvim_lsp' },
+          { name = 'path', },
+          { name = 'buffer',  keyword_length = 2 },
+          { name = 'luasnip', keyword_length = 2 },
+        },
+        sorting = {
+          priority_weight = 2,
+          comparators = {
+            require("copilot_cmp.comparators").prioritize,
+            cmp.config.compare.offset,
+            cmp.config.compare.exact,
+            cmp.config.compare.score,
+            cmp.config.compare.recently_used,
+            cmp.config.compare.locality,
+            cmp.config.compare.kind,
+            cmp.config.compare.sort_text,
+            cmp.config.compare.length,
+            cmp.config.compare.order,
+          },
+        },
+        mapping = {
+          ["<C-s>"] = cmp.mapping.complete(),
+          ["<C-k>"] = cmp.mapping.confirm({
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = true,
+          }),
+          ['<C-e>'] = cmp.mapping.abort(),
+        }
+      })
+    end,
+    keys = {
+      { "K",  vim.lsp.buf.hover },
+      { "ga", vim.lsp.buf.code_action, { silent = true } },
+      {
+        "gi",
+        function()
+          vim.diagnostic.open_float(nil, { focus = false })
+        end,
+        { noremap = true, silent = true, mode = { "n", "x" } },
+      },
+      { "gr", vim.lsp.buf.rename, { silent = true } },
+      {
+        "gf",
+        function()
+          vim.lsp.buf.format({
+            filter = function(client)
+              return client.name ~= "tsserver"
+            end,
+          })
+        end,
+        { silent = true },
+      },
+    },
+  }
 }
