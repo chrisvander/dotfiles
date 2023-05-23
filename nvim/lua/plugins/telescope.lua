@@ -11,8 +11,8 @@ return {
   {
     "folke/todo-comments.nvim",
     dependencies = "nvim-lua/plenary.nvim",
-    lazy = false,
     config = true,
+    event = "BufRead",
     keys = { { "<leader>t", "<cmd>TodoTelescope<CR>", desc = "Open todo list" } },
     cmd = "TodoTelescope",
   },
@@ -64,6 +64,7 @@ return {
       { "<leader>b", "<cmd>Telescope buffers<CR>",                   desc = "Open buffer picker" },
       { "<leader>j", "<cmd>Telescope jumplist<CR>",                  desc = "Open jumplist" },
       { "<leader>s", vim.lsp.buf.document_symbol,                    desc = "Open symbols" },
+      { "<leader>S", vim.lsp.buf.workspace_symbol,                   desc = "Open workspace symbols" },
       { "<leader>z", "<cmd>Telescope zoxide list<CR>",               desc = "Open workspace folder picker" },
       { "gd",        "<cmd>Telescope lsp_definitions theme=ivy<CR>", { silent = true } },
       { "gu",        "<cmd>Telescope lsp_references theme=ivy<CR>",  { silent = true } },
