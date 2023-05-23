@@ -17,7 +17,7 @@ return {
       mappings = { extra = false },
     },
     config = true,
-    keys = { "<C-c>", "<C-b>" },
+    keys = { { "<C-c>", desc = "Toggle line comment" }, { "<C-b>", desc = "Toggle block comment" } },
   },
   {
     "danymat/neogen",
@@ -48,10 +48,18 @@ return {
     config = true,
   },
   {
+    "folke/persistence.nvim",
+    event = "BufReadPre",
+    opts = { options = { "buffers", "curdir", "tabpages", "winsize", "help", "globals" } },
+    keys = {
+      { "<leader>p", function() require("persistence").load() end, desc = "Restore session" },
+    },
+  },
+  {
     "folke/zen-mode.nvim",
     config = true,
     keys = {
-      { "<leader>z", "<cmd>ZenMode<CR>" },
+      { "<leader>z", "<cmd>ZenMode<CR>", desc = "Toggle zen mode" },
     }
   },
   {
