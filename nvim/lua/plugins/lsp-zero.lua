@@ -37,10 +37,9 @@ return {
           preselect = cmp.PreselectMode.None
         },
         sources = {
-          { name = 'copilot', keyword_length = 0, group_index = 2 },
+          { name = 'copilot', group_index = 2,   keyword_pattern = "." },
           { name = 'nvim_lsp' },
           { name = 'path', },
-          { name = 'buffer',  keyword_length = 2 },
           { name = 'luasnip', keyword_length = 2 },
         },
         sorting = {
@@ -59,7 +58,13 @@ return {
           },
         },
         mapping = {
-          ["<C-s>"] = cmp.mapping.complete(),
+          ["<C-s>"] = cmp.mapping.complete({
+            config = {
+              sources = {
+                { name = "copilot", keyword_pattern = "." }
+              }
+            }
+          }),
           ["<C-k>"] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
