@@ -84,6 +84,7 @@ else
       touch $VIMRC_DOTFILE
    fi
    echo "⤵ Symlinking your .config/nvim folder"
+   mkdir -p $HOME/.config
    rm -rf $HOME/.config/nvim
    ln -s $BASEDIR/nvim $HOME/.config/nvim
    echo "✅ Successfully symlinked your .config/nvim folder"
