@@ -73,12 +73,12 @@ if ! grep -q "source ~/.zshrc.remote" "$HOME/.zshrc"; then
 fi
 
 # nvim init
-VIMRC_DOTFILE=$HOME/.config/nvim/init.lua
+VIMRC_DOTFILE=$HOME/.config/nvim
 if [[ -L ${VIMRC_DOTFILE} && -e ${VIMRC_DOTFILE} ]] ; then
-   echo "init.lua exists and is symlinked corrected"
+   echo ".config/nvim directory exists and is symlinked corrected"
 else
    if [ -e ${VIMRC_DOTFILE} ] ; then
-      echo "Your init.lua exists but is not symlinked."
+      echo "Your .config/nvim directory exists but is not symlinked."
       rm $VIMRC_DOTFILE
    else
       touch $VIMRC_DOTFILE
