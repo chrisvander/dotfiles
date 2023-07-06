@@ -58,13 +58,7 @@ return {
           },
         },
         mapping = {
-          ["<C-s>"] = cmp.mapping.complete({
-            config = {
-              sources = {
-                { name = "copilot", keyword_pattern = "." }
-              }
-            }
-          }),
+          ["<C-s>"] = cmp.mapping.complete(),
           ["<C-k>"] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
