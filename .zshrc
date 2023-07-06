@@ -2,13 +2,15 @@ include () {
     [[ -f "$1" ]] && source "$1"
 }
 
+eval "$(starship init zsh)"
+
 FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 
 bindkey -v
 
-include ~/.p10k.zsh
+# include ~/.p10k.zsh
 include ~/.secrets
-include ~/.zshrc.local
+# include ~/.zshrc.local
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
@@ -41,7 +43,7 @@ zi for \
 
 # add powerlevel10k and defer
 zinit ice depth=1 
-zinit light romkatv/powerlevel10k
+# zinit light romkatv/powerlevel10k
 zinit light romkatv/zsh-defer
 
 # add some most-used zsh plugins
