@@ -33,12 +33,12 @@
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
     # =========================[ Line #1 ]=========================
     # my_env
+    os_icon                 # os identifier
     my_focus
     dir                     # current directory
     vcs                     # git status
     # =========================[ Line #2 ]=========================
     newline                 # \n
-    os_icon                 # os identifier
     prompt_char             # prompt symbol
   )
 
@@ -54,6 +54,7 @@
     direnv                  # direnv status (https://direnv.net/)
     asdf                    # asdf version manager (https://github.com/asdf-vm/asdf)
     virtualenv              # python virtual environment (https://docs.python.org/3/library/venv.html)
+    things_count
     my_docker_context
     anaconda                # conda environment (https://conda.io/)
     pyenv                   # python environment (https://github.com/pyenv/pyenv)
@@ -1544,21 +1545,7 @@
     p10k segment -f 208 -i '⭐' -t 'hello, %n'
   }
 
-  # display docker context information
-  function prompt_my_docker_context() {
-    if type "docker" > /dev/null; then
-      docker_version=$(docker -v | sed -En "s/.*version (.*),.*/\1/p")
-      # docker_context=$(docker context show)
-      docker_msg="$docker_version"
-      # if [ "$docker_context" = "default" ]; then
-      #   docker_msg="$docker_version"
-      # else
-      #   docker_msg="$docker_version"
-      # fi
-      p10k segment -f "#0DB7ED" -i ' ' -t $docker_msg
-    fi
-  }
-  typeset -g POWERLEVEL9K_MY_DOCKER_CONTEXT_SHOW_ON_COMMAND="docker|docker-compose"
+
 
   # switch on docker, personal, or work env. otherwise, hostname
   function prompt_my_env() {
@@ -1575,36 +1562,86 @@
     fi
   }
 
-  typeset -gi _focus_calc_scheduled
-  typeset -g _focus_mode
-  typeset -g _focus_enabled
 
-  function p10k-on-pre-prompt() {
-    if [[ $_focus_calc_scheduled == 0 ]]; then
-      _focus_calc_scheduled=1
-      zsh-defer -a _calculate_focus
+  typeset -g -A _focus_mode
+  typeset -g -A _docker_context
+  typeset -g -A _things_count
+
+  function reset_prompt() {
+    zle reset-prompt
+    zle -R
+  }
+
+  function focus_cb() {
+    if [[ "$3" != "$_focus_mode" ]]; then
+      _focus_mode=$3
+      reset_prompt
+    fi
+
+  }
+
+  function docker_context_cb() {
+    if [[ "$3" != "$_docker_context" ]]; then
+      _docker_context=$3
+      reset_prompt
+    fi
+  }
+ 
+  function things_count_cb() {
+    if [[ "$3" != "$_things_count" ]]; then
+      _things_count=$3
+      reset_prompt
     fi
   }
 
-  function _calculate_focus() {
-    local content
+  function _get_focus() {
+    local mode
     local enabled
-    content=$(osascript -l JavaScript ~/.dotfiles/get-focus-mode.js)
+    local content
+    mode=$(osascript -l JavaScript ~/.dotfiles/get-focus-mode.js)
     enabled=$(defaults read com.apple.controlcenter 'NSStatusItem Visible FocusModes')
-    # check if either the focus mode or the focus enabled status has changed
-    if [[ "$content" != "$_focus_mode" || "$_focus_enabled" != "$enabled" ]]; then
-      _focus_mode=$content
-      _focus_enabled=$(defaults read com.apple.controlcenter 'NSStatusItem Visible FocusModes')
-      zle .reset-prompt
-      zle -R
-    fi
-    _focus_calc_scheduled=0
+    [[ "$enabled" == 1 && "$mode" != "" ]] && echo -n "[$mode]" || echo -n ""
   }
+
+  function _get_docker_context() {
+    local content
+    content=$(docker context show | tr -d '\n')
+    echo -n "$content"
+  }
+
+  function _get_things_count() {
+    local content
+    content=$(shortcuts run "Get Today List" | tee | grep "" -c)
+    [[ "$content" == "0" ]] && echo -n "" || echo -n "$content"
+  }
+
+  async_init
+  async_start_worker focus_worker -n
+  async_register_callback focus_worker focus_cb
+  async_start_worker docker_context_worker -n
+  async_register_callback docker_context_worker docker_context_cb
+  async_start_worker things_count_worker -n
+  async_register_callback things_count_worker things_count_cb
+
+  # display docker context information
+  function prompt_my_docker_context() {
+    [[ "$_docker_context" == "default" ]] && DISPLAY="" || DISPLAY="$_docker_context"
+    p10k segment -f "#0DB7ED" -i ' ' -e -c "$DISPLAY" -t "$DISPLAY"
+    async_job docker_context_worker _get_docker_context
+  }
+  # typeset -g POWERLEVEL9K_MY_DOCKER_CONTEXT_SHOW_ON_COMMAND="docker|docker-compose"
 
   function prompt_my_focus() {
-    if [[ "$_focus_enabled" = "1" && "$_focus_mode" != "" ]]; then
-      p10k segment -f "#4470ad" -t "[$_focus_mode]"
-    fi
+    (( $+commands[defaults] )) || return
+    (( $+commands[osascript] )) || return
+    p10k segment -f "#ff3535" -e -c $_focus_mode -t $_focus_mode
+    async_job focus_worker _get_focus
+  }
+
+  function prompt_things_count() {
+    (( $+commands[shortcuts] )) || return
+    p10k segment -f "#5c9cf5" -i "" -e -c "$_things_count" -t "$_things_count"
+    async_job things_count_worker _get_things_count
   }
 
   # add logo if in VSCode
