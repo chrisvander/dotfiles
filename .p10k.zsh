@@ -32,7 +32,8 @@
   # The list of segments shown on the left. Fill it with the most important segments.
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
     # =========================[ Line #1 ]=========================
-    my_env
+    # my_env
+    my_focus
     dir                     # current directory
     vcs                     # git status
     # =========================[ Line #2 ]=========================
@@ -1571,6 +1572,38 @@
       p10k segment -f '#85726F' -i "" -t 'Work'
     else
       p10k segment -f 244 -t $(hostname)
+    fi
+  }
+
+  typeset -gi _focus_calc_scheduled
+  typeset -g _focus_mode
+  typeset -g _focus_enabled
+
+  function p10k-on-pre-prompt() {
+    if [[ $_focus_calc_scheduled == 0 ]]; then
+      _focus_calc_scheduled=1
+      zsh-defer -a _calculate_focus
+    fi
+  }
+
+  function _calculate_focus() {
+    local content
+    local enabled
+    content=$(osascript -l JavaScript ~/.dotfiles/get-focus-mode.js)
+    enabled=$(defaults read com.apple.controlcenter 'NSStatusItem Visible FocusModes')
+    # check if either the focus mode or the focus enabled status has changed
+    if [[ "$content" != "$_focus_mode" || "$_focus_enabled" != "$enabled" ]]; then
+      _focus_mode=$content
+      _focus_enabled=$(defaults read com.apple.controlcenter 'NSStatusItem Visible FocusModes')
+      zle .reset-prompt
+      zle -R
+    fi
+    _focus_calc_scheduled=0
+  }
+
+  function prompt_my_focus() {
+    if [[ "$_focus_enabled" = "1" && "$_focus_mode" != "" ]]; then
+      p10k segment -f "#4470ad" -t "[$_focus_mode]"
     fi
   }
 
