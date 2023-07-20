@@ -42,7 +42,6 @@ return {
         mapping = {
           ['<C-s>'] = cmp.mapping.complete({}),
           ['<C-e>'] = cmp.mapping.close(),
-          ['<Esc>'] = cmp.mapping.close(),
           ['<C-u>'] = cmp.mapping.scroll_docs(-4),
           ['<C-d>'] = cmp.mapping.scroll_docs(4),
           ['<CR>'] = cmp.mapping.confirm({

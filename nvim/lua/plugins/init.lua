@@ -1,22 +1,12 @@
 return {
   { "tpope/vim-surround",     event = "VeryLazy" },
   { "stevearc/dressing.nvim", event = "VeryLazy" },
+  -- most comment keybindings set here
   {
     "numToStr/Comment.nvim",
-    opts = {
-      toggler = {
-        line = "<C-c>",
-        block = "<C-b>",
-      },
-      opleader = {
-        line = '<C-c>',
-        block = '<C-b>',
-      },
-      mappings = { extra = false },
-    },
     config = true,
-    keys = { { "<C-c>", desc = "Toggle line comment" }, { "<C-b>", desc = "Toggle block comment" } },
   },
+  -- add documentation generation
   {
     "danymat/neogen",
     dependencies = "nvim-treesitter",
@@ -26,7 +16,7 @@ return {
     config = true,
     cmd = "Neogen",
     keys = { {
-      "<C-n>",
+      "gcd",
       "<cmd>Neogen<CR>",
       desc = "Toggle documentation generation"
     } },
