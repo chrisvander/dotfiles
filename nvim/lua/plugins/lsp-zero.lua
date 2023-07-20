@@ -24,7 +24,6 @@ return {
     config = function()
       require('lsp-zero.cmp').extend()
       local cmp = require('cmp')
-      local cmp_action = require('lsp-zero').cmp_action()
       cmp.setup({
         behavior = cmp.ConfirmBehavior.Replace,
         preselect = 'item',
@@ -34,39 +33,39 @@ return {
         completion = {
           completeopt = 'menu,menuone,noinsert,noselect',
           behavior = cmp.ConfirmBehavior.Replace,
-          preselect = cmp.PreselectMode.None
         },
         sources = {
-          { name = 'copilot', group_index = 2,   keyword_pattern = "." },
           { name = 'nvim_lsp' },
           { name = 'path', },
           { name = 'luasnip', keyword_length = 2 },
         },
-        sorting = {
-          priority_weight = 2,
-          comparators = {
-            require("copilot_cmp.comparators").prioritize,
-            cmp.config.compare.offset,
-            cmp.config.compare.exact,
-            cmp.config.compare.score,
-            cmp.config.compare.recently_used,
-            cmp.config.compare.locality,
-            cmp.config.compare.kind,
-            cmp.config.compare.sort_text,
-            cmp.config.compare.length,
-            cmp.config.compare.order,
-          },
-        },
         mapping = {
-          ["<C-s>"] = cmp.mapping.complete(),
-          ["<C-k>"] = cmp.mapping.confirm({
+          ['<C-s>'] = cmp.mapping.complete({}),
+          ['<C-e>'] = cmp.mapping.close(),
+          ['<Esc>'] = cmp.mapping.close(),
+          ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+          ['<C-d>'] = cmp.mapping.scroll_docs(4),
+          ['<CR>'] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Replace,
-            select = true,
+            select = false,
           }),
-          ['<C-e>'] = cmp.mapping.abort(),
-        }
+          ["<Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_next_item()
+            else
+              fallback()
+            end
+          end, { "i", "s" }),
+          ["<S-Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_prev_item()
+            else
+              fallback()
+            end
+          end, { "i", "s" }),
+        },
       })
-    end
+    end,
   },
   -- LSP
   {
