@@ -26,7 +26,6 @@ include ~/.dotfiles/.p10k.zsh
 zinit light romkatv/powerlevel10k
 
 zinit ice blockf
-zinit light zsh-users/zsh-completions
 
 # add some most-used zsh plugins
 zinit wait lucid light-mode for \
@@ -35,6 +34,13 @@ zinit wait lucid light-mode for \
               zdharma-continuum/history-search-multi-word \
               sroze/docker-compose-zsh-plugin \
               chrisvander/docker-helpers.zshplugin \
+
+zi for \
+    atload"zicompinit; zicdreplay" \
+    blockf \
+    lucid \
+    wait \
+  zsh-users/zsh-completions
 
 __setup_conda() {
 # >>> conda initialize >>>

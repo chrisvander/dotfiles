@@ -21,7 +21,27 @@ return {
     },
     config = function()
       require("mason-nvim-dap").setup({
-        automatic_setup = true
+        automatic_setup = true,
+        handlers = {
+          function(config)
+            -- all sources with no handler get passed here
+
+            -- Keep original functionality
+            require('mason-nvim-dap').default_setup(config)
+          end,
+          rust = function(config)
+            config.adapter = {
+              type = 'server',
+              port = "${port}",
+              executable = {
+                command = '/usr/bin/codelldb',
+                args = { "--port", "${port}" },
+              }
+            }
+
+            require('mason-nvim-dap').default_setup(config) -- don't forget this!
+          end,
+        },
       })
     end,
   },

@@ -9,11 +9,11 @@ return {
   -- terminal
   {
     "akinsho/toggleterm.nvim",
+    lazy = false,
     config = function()
       require("toggleterm").setup({
         open_mapping = [[<C-;>]],
         direction = "vertical",
-        winbar = { enabled = true },
         size = function(term)
           if term.direction == "horizontal" then
             return 30
@@ -37,14 +37,16 @@ return {
         pattern = { "term://*" },
         callback = set_terminal_keymaps,
       })
-      vim.keymap.set("n", "<leader>;", "<cmd>ToggleTermToggleAll<CR>", { desc = "Toggle all ToggleTerm windows" })
 
       local Terminal = require("toggleterm.terminal").Terminal
       local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, direction = "float" })
       local lazydocker = Terminal:new({ cmd = "lazydocker", hidden = true, direction = "float" })
 
-      vim.keymap.set("n", "<leader>g", function() lazygit:toggle() end, { desc = "Open LazyGit" })
-      vim.keymap.set("n", "<leader>c", function() lazydocker:toggle() end, { desc = "Open LazyDocker" })
+      vim.keymap.set("n", "<leader>g", function() lazygit:toggle() end, { silent = true })
+      vim.keymap.set("n", "<leader>c", function() lazydocker:toggle() end, { silent = true })
     end,
+    keys = {
+      { "<leader>;", "<cmd>ToggleTermToggleAll<CR>", { desc = "Toggle all ToggleTerm windows" } },
+    }
   },
 }

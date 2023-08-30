@@ -1901,6 +1901,18 @@
 			<key>Text</key>
 			<string></string>
 		</dict>
+		<key>0x6a-0x100000-0x26</key>
+		<dict>
+			<key>Action</key>
+			<integer>25</integer>
+			<key>Label</key>
+			<string></string>
+			<key>Text</key>
+			<string>Maximize Active Pane
+Maximize Active Pane</string>
+			<key>Version</key>
+			<integer>1</integer>
+		</dict>
 		<key>0x9-0x40000</key>
 		<dict>
 			<key>Action</key>
@@ -3718,7 +3730,7 @@
 	<key>OpenBookmark</key>
 	<false/>
 	<key>OpenNoWindowsAtStartup</key>
-	<true/>
+	<false/>
 	<key>OpenTmuxDashboardIfHiddenWindows</key>
 	<true/>
 	<key>OpenTmuxWindowsIn</key>

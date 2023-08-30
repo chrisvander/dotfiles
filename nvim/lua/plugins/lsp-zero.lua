@@ -76,7 +76,7 @@ return {
 
       -- Mason
       'mason.nvim',
-      { 'williamboman/mason-lspconfig.nvim', config = true },
+      'williamboman/mason-lspconfig.nvim',
       "jay-babu/mason-null-ls.nvim", -- Optional
 
       -- Navic
@@ -101,17 +101,13 @@ return {
         end
       end)
 
-      -- (Optional) Configure lua language server for neovim
-      require('lspconfig').lua_ls.setup({
+      require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
+      require('lspconfig').tsserver.setup({
         settings = {
-          Lua = {
-            diagnostics = {
-              -- Get the language server to recognize the `vim` global
-              globals = {
-                'vim',
-                'require'
-              },
-            },
+          typescript = {
+            preferences = {
+              importModuleSpecifierPreference = 'non-relative',
+            }
           }
         }
       })
@@ -143,7 +139,7 @@ return {
       })
 
       require("mason-null-ls").setup({
-        ensure_installed = nil,
+        ensure_installed = { "prettier" },
         automatic_installation = false,
         automatic_setup = false,
       })
