@@ -1,7 +1,7 @@
 return {
   {
     'VonHeikemen/lsp-zero.nvim',
-    branch = 'v2.x',
+    branch = 'v3.x',
     lazy = true,
     config = function()
       -- This is where you modify the settings for lsp-zero
