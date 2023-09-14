@@ -16,7 +16,7 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
   pattern = { "*" },
   callback = function()
     vim.lsp.buf.format({
-      async = true,
+      async = false,
       filter = function(client)
         return client.name ~= "tsserver"
       end,

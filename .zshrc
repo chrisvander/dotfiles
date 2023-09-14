@@ -60,7 +60,7 @@ unset __conda_setup
 }
 zsh-defer __setup_conda
 zsh-defer ~/.dotfiles/update.sh
-zsh-defer eval "$(rtx activate zsh)" && eval "$(rtx e)" && eval "$(github-copilot-cli alias -- "$0")"
+zsh-defer eval "$(rtx activate zsh)" && eval "$(rtx e)"
 zsh-defer eval "$(direnv hook zsh)"
 zsh-defer eval "$(zoxide init zsh)"
 
