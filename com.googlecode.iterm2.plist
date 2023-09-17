@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Actions</key>
+	<array/>
 	<key>AlternateMouseScroll</key>
 	<true/>
 	<key>AutoHideTmuxClientSession</key>
@@ -2478,7 +2480,7 @@ Maximize Active Pane</string>
 			<key>Shortcut</key>
 			<string></string>
 			<key>Show Status Bar</key>
-			<true/>
+			<false/>
 			<key>Silence Bell</key>
 			<false/>
 			<key>Status Bar Layout</key>
@@ -2683,6 +2685,8 @@ Maximize Active Pane</string>
 								<integer>0</integer>
 								<key>auto-rainbow style</key>
 								<integer>0</integer>
+								<key>font</key>
+								<string>LigaSFMonoNerdFont-Medium 11</string>
 								<key>remove empty components</key>
 								<false/>
 							</dict>
