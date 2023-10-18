@@ -1,17 +1,34 @@
+# hack to ensure completions work with aliased commands
+function __my_op_plugin_run() {
+    _op_plugin_run
+
+    for ((i = 2; i < CURRENT; i++)); do
+        if [[ ${words[i]} == -- ]]; then
+            shift $i words
+            ((CURRENT -= i))
+            _normal
+            return
+        fi
+    done
+
+}
+
+function __load_op_completion() {
+    completion_function="$(op completion zsh)"
+    sed -E 's/^( +)_op_plugin_run/\1__my_op_plugin_run/' <<<"${completion_function}"
+}
+
 include () {
     [[ -f "$1" ]] && source "$1"
 }
 
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-
-bindkey -v
-
+# include "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 include ~/.secrets
-# include ~/.zshrc.local
+
+if type brew &>/dev/null; then
+  FPATH="$(brew --prefix)/share/zsh-completions:$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+fi
+bindkey -v
 
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 [ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
@@ -22,8 +39,8 @@ zinit ice depth=1
 zinit light mafredri/zsh-async
 zinit light romkatv/zsh-defer
 
-include ~/.dotfiles/.p10k.zsh
-zinit light romkatv/powerlevel10k
+# include ~/.dotfiles/.p10k.zsh
+# zinit light romkatv/powerlevel10k
 
 zinit ice blockf
 
@@ -35,8 +52,9 @@ zinit wait lucid light-mode for \
               sroze/docker-compose-zsh-plugin \
               chrisvander/docker-helpers.zshplugin \
 
-zi for \
-    atload"zicompinit; zicdreplay" \
+# load completions and load completions for 1Password aliased commands
+zinit for \
+  atload"zicompinit; zicdreplay; eval $(__load_op_completion); compdef _op op" \
     blockf \
     lucid \
     wait \
@@ -63,6 +81,7 @@ zsh-defer ~/.dotfiles/update.sh
 zsh-defer eval "$(rtx activate zsh)" && eval "$(rtx e)"
 zsh-defer eval "$(direnv hook zsh)"
 zsh-defer eval "$(zoxide init zsh)"
+eval "$(starship init zsh)"
 
 # kubectl
 [[ ! -f $HOME/.kube/config ]] || export KUBECONFIG=$HOME/.kube/config
