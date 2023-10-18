@@ -2362,6 +2362,8 @@ Maximize Active Pane</string>
 			<string>Yes</string>
 			<key>Custom Directory</key>
 			<string>Advanced</string>
+			<key>Custom Icon Path</key>
+			<string>/Users/chrisvanderloo/Pictures/Wallpapers/goo.jpg</string>
 			<key>Default Bookmark</key>
 			<string>No</string>
 			<key>Description</key>
@@ -2390,7 +2392,7 @@ Maximize Active Pane</string>
 			<key>Horizontal Spacing</key>
 			<real>1</real>
 			<key>Icon</key>
-			<integer>1</integer>
+			<integer>0</integer>
 			<key>Idle Code</key>
 			<integer>0</integer>
 			<key>Initial Text</key>
@@ -2423,6 +2425,8 @@ Maximize Active Pane</string>
 			<real>0.29804687499999999</real>
 			<key>Mouse Reporting</key>
 			<true/>
+			<key>Mouse Reporting allow mouse wheel</key>
+			<false/>
 			<key>Name</key>
 			<string>Default</string>
 			<key>Non Ascii Font</key>
@@ -3923,12 +3927,16 @@ Maximize Active Pane</string>
 	<false/>
 	<key>TmuxWarnBeforePausing</key>
 	<false/>
+	<key>Use background pattern indicator</key>
+	<true/>
 	<key>UseBorder</key>
 	<false/>
 	<key>UseLionStyleFullscreen</key>
 	<true/>
 	<key>UseTmuxStatusBar</key>
 	<true/>
+	<key>UseVirtualKeyCodesForDetectingDigits</key>
+	<false/>
 	<key>VisualIndicatorForEsc</key>
 	<false/>
 	<key>WindowNumber</key>
