@@ -12,18 +12,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-  pattern = { "*" },
-  callback = function()
-    vim.lsp.buf.format({
-      async = false,
-      filter = function(client)
-        return client.name ~= "tsserver"
-      end,
-    })
-  end,
-})
-
 vim.keymap.set({ "n", "v", "i", "t" }, "<C-h>", [[<Cmd>wincmd h<CR>]])
 vim.keymap.set({ "n", "v", "i", "t" }, "<C-j>", [[<Cmd>wincmd j<CR>]])
 vim.keymap.set({ "n", "v", "i", "t" }, "<C-k>", [[<Cmd>wincmd k<CR>]])
