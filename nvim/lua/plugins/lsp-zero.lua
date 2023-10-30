@@ -44,6 +44,7 @@ return {
 						lsp_fallback = true,
 					},
 				},
+				config = true,
 			},
 		},
 		lazy = true,
@@ -138,11 +139,7 @@ return {
 			{
 				"gf",
 				function()
-					vim.lsp.buf.format({
-						filter = function(client)
-							return client.name ~= "tsserver"
-						end,
-					})
+					require("conform").format()
 				end,
 				{ silent = true },
 			},
