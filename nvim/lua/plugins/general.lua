@@ -96,9 +96,7 @@ return {
     keys = {
       { "<leader>sn", "<cmd>Telescope notify<CR>", desc = "Notifications" },
       { "<leader>fw", "<cmd>Telescope zoxide list<CR>", desc = "Workspace" },
-      -- disable some keymaps
       { "<leader>fb", false },
-      -- change a keymap
       {
         "<leader>ff",
         function()
@@ -111,6 +109,7 @@ return {
         end,
         desc = "Find Files",
       },
+      { "<leader><space>", "<leader>ff", remap = true, desc = "Find files" },
     },
   },
   {
