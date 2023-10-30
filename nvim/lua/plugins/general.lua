@@ -1,4 +1,6 @@
 return {
+  -- theme
+  { "Shatur/neovim-ayu", lazy = false, priority = 1000 },
   -- theme switcher
   {
     "f-person/auto-dark-mode.nvim",
