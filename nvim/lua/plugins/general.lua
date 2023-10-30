@@ -2,21 +2,21 @@ return {
   -- theme
   { "Shatur/neovim-ayu", lazy = false, priority = 1000 },
   -- theme switcher
-  {
-    "f-person/auto-dark-mode.nvim",
-    lazy = false,
-    config = {
-      update_interval = 1000,
-      set_dark_mode = function()
-        vim.api.nvim_set_option("background", "dark")
-        vim.cmd("colorscheme ayu-mirage")
-      end,
-      set_light_mode = function()
-        vim.api.nvim_set_option("background", "light")
-        vim.cmd("colorscheme ayu-light")
-      end,
-    },
-  },
+  -- {
+  --   "f-person/auto-dark-mode.nvim",
+  --   lazy = false,
+  --   config = {
+  --     update_interval = 1000,
+  --     set_dark_mode = function()
+  --       vim.api.nvim_set_option("background", "dark")
+  --       vim.cmd("colorscheme ayu-mirage")
+  --     end,
+  --     set_light_mode = function()
+  --       vim.api.nvim_set_option("background", "light")
+  --       vim.cmd("colorscheme ayu-light")
+  --     end,
+  --   },
+  -- },
   -- formatters
   {
     "stevearc/conform.nvim",
@@ -128,23 +128,10 @@ return {
     "folke/noice.nvim",
     opts = {
       lsp = {
-        override = { ["textDocument/hover"] = false },
+        override = {
+          ["textDocument/hover"] = false,
+        },
       },
     },
-    config = function()
-      -- Fix TypeScript issue on hover
-      local prev_hover = vim.lsp.handlers["textDocument/hover"]
-      vim.lsp.handlers["textDocument/hover"] = function(_, result, ctx, config)
-        config = config or {}
-        config.focus_id = ctx.method
-        if not (result and result.contents) then
-          return
-        end
-        if type(result.contents) == "table" and vim.tbl_isempty(result.contents) then
-          return
-        end
-        return prev_hover(_, result, ctx, config)
-      end
-    end,
   },
 }
