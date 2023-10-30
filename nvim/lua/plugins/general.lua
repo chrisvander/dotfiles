@@ -128,6 +128,7 @@ return {
     "folke/noice.nvim",
     opts = {
       lsp = {
+        hover = { enabled = false },
         override = {
           ["textDocument/hover"] = false,
         },
