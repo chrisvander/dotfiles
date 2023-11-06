@@ -2,6 +2,7 @@ local Util = require("lazyvim.util")
 local icons = require("lazyvim.config").icons
 
 return {
+  { dir = "chrisvander/ollama.nvim", dev = true, lazy = false, opts = {} },
   -- theme
   { "Shatur/neovim-ayu", lazy = false, priority = 1000 },
   -- formatters
