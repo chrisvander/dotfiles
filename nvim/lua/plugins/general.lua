@@ -5,6 +5,22 @@ return {
   { dir = "chrisvander/ollama.nvim", dev = true, lazy = false, opts = {} },
   -- theme
   { "Shatur/neovim-ayu", lazy = false, priority = 1000 },
+  {
+    "f-person/auto-dark-mode.nvim",
+    lazy = false,
+    priority = 1000,
+    config = {
+      update_interval = 1000,
+      set_dark_mode = function()
+        vim.api.nvim_set_option("background", "dark")
+        vim.cmd("colorscheme ayu-mirage")
+      end,
+      set_light_mode = function()
+        vim.api.nvim_set_option("background", "light")
+        vim.cmd("colorscheme ayu-light")
+      end,
+    },
+  },
   -- formatters
   {
     "stevearc/conform.nvim",
@@ -54,31 +70,25 @@ return {
     },
     config = true,
   },
-  -- better looking folds
-  {
-    "kevinhwang91/nvim-ufo",
-    dependencies = "kevinhwang91/promise-async",
-    event = "BufRead",
-    config = function()
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities.textDocument.foldingRange = {
-        dynamicRegistration = false,
-        lineFoldingOnly = true,
-      }
-      local language_servers = require("lspconfig").util.available_servers()
-      for _, ls in ipairs(language_servers) do
-        require("lspconfig")[ls].setup({
-          capabilities = capabilities,
-        })
-      end
-      require("ufo").setup()
-    end,
-  },
   {
     "nvim-neo-tree/neo-tree.nvim",
     keys = {
       { "<leader>fe", false },
       { "<leader>fE", false },
+      {
+        "<leader>e",
+        function()
+          require("neo-tree.command").execute({ toggle = true, dir = Util.root() })
+        end,
+        desc = "Explorer NeoTree (root dir)",
+      },
+      {
+        "<leader>E",
+        function()
+          require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() })
+        end,
+        desc = "Explorer NeoTree (cwd)",
+      },
     },
   },
   -- zoxide in telescope
