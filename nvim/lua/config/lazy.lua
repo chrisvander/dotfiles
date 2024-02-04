@@ -19,7 +19,6 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lang.docker" },
     { import = "lazyvim.plugins.extras.lang.rust" },
     { import = "lazyvim.plugins.extras.lang.tailwind" },
-    { import = "lazyvim.plugins.extras.lang.typescript" },
     { import = "lazyvim.plugins.extras.test.core" },
     { import = "lazyvim.plugins.extras.ui.mini-starter" },
     -- import/override with your plugins
@@ -39,7 +38,7 @@ require("lazy").setup({
     patterns = { "chrisvander" }, -- For example {"folke"}
     fallback = false, -- Fallback to git when local plugin doesn't exist
   },
-  install = { colorscheme = { "catppuccin", "ayu" } },
+  install = { colorscheme = { "catppuccin" } },
   checker = { enabled = true }, -- automatically check for plugin updates
   performance = {
     rtp = {

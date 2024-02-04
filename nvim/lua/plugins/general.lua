@@ -4,23 +4,42 @@ local icons = require("lazyvim.config").icons
 return {
   { dir = "chrisvander/ollama.nvim", dev = true, lazy = false, opts = {} },
   -- theme
-  { "Shatur/neovim-ayu", lazy = false, priority = 1000 },
   {
-    "f-person/auto-dark-mode.nvim",
+    "Shatur/neovim-ayu",
     lazy = false,
     priority = 1000,
-    config = {
-      update_interval = 1000,
-      set_dark_mode = function()
-        vim.api.nvim_set_option("background", "dark")
-        vim.cmd("colorscheme ayu-mirage")
-      end,
-      set_light_mode = function()
-        vim.api.nvim_set_option("background", "light")
-        vim.cmd("colorscheme ayu-light")
-      end,
-    },
+    config = function()
+      require("ayu").setup({
+        overrides = {
+          Normal = { bg = "None" },
+          ColorColumn = { bg = "None" },
+          SignColumn = { bg = "None" },
+          Folded = { bg = "None" },
+          FoldColumn = { bg = "None" },
+          CursorLine = { bg = "None" },
+          CursorColumn = { bg = "None" },
+          WhichKeyFloat = { bg = "None" },
+          VertSplit = { bg = "None" },
+        },
+      })
+    end,
   },
+  -- {
+  --   "f-person/auto-dark-mode.nvim",
+  --   lazy = false,
+  --   priority = 1000,
+  --   opts = {
+  --     update_interval = 1000,
+  --     set_dark_mode = function()
+  --       vim.api.nvim_set_option("background", "dark")
+  --       vim.cmd("colorscheme ayu-mirage")
+  --     end,
+  --     set_light_mode = function()
+  --       vim.api.nvim_set_option("background", "light")
+  --       vim.cmd("colorscheme ayu-light")
+  --     end,
+  --   },
+  -- },
   -- formatters
   {
     "stevearc/conform.nvim",
@@ -28,11 +47,12 @@ return {
       formatters_by_ft = {
         lua = { "stylua" },
         python = { "isort", "black" },
-        json = { { "prettierd", "prettier" } },
-        javascript = { { "eslint_d", "eslint" }, { "prettierd", "prettier" } },
-        typescript = { { "eslint_d", "eslint" }, { "prettierd", "prettier" } },
-        typescriptreact = { { "eslint_d", "eslint" }, { "prettierd", "prettier" } },
-        javascriptreact = { { "eslint_d", "eslint" }, { "prettierd", "prettier" } },
+        json = { "biome" },
+        terraform = { "terraform_fmt" },
+        javascript = { "biome" },
+        typescript = { "biome" },
+        typescriptreact = { "biome" },
+        javascriptreact = { "biome" },
       },
     },
   },
@@ -102,7 +122,7 @@ return {
       require("telescope").load_extension("zoxide")
     end,
     keys = {
-      { "<leader><space>", Util.telescope("files"), desc = "Find Files (root dir)" },
+      { "<leader><space>", false },
       -- find
       { "<leader>fw", false },
       { "<leader>fb", false },
@@ -147,9 +167,9 @@ return {
   },
   {
     "nvim-lualine/lualine.nvim",
-    optional = true,
     event = "VeryLazy",
     opts = function(_, opts)
+      opts.theme = "ayu"
       opts.sections.lualine_c = {
         Util.lualine.root_dir(),
         {
