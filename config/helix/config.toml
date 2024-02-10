@@ -1,0 +1,36 @@
+theme = "ayu_mirage_transparent"
+
+[keys.normal]
+S-k = "hover"
+
+[editor]
+line-number = "relative"
+cursorline = true
+mouse = false
+bufferline = "multiple"
+color-modes = true
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+
+[editor.lsp]
+display-messages = true
+
+[editor.statusline]
+left = ["mode", "spacer", "version-control"]
+center = ["file-name", "file-modification-indicator", "spinner"]
+right = ["diagnostics", "selections", "separator", "position", "file-type"]
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
+
+[editor.indent-guides]
+render = true
+
+[editor.soft-wrap]
+enable = true

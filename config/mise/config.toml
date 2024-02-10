@@ -1,0 +1,22 @@
+[tools]
+neovim = "latest"
+1password-cli = "latest"
+node = "18"
+terraform = "latest"
+minikube = "latest"
+kubectl = "latest"
+k9s = "latest"
+github-cli = "latest"
+eksctl = "latest"
+awscli = "latest"
+pnpm = "latest"
+bun = "latest"
+argocd = "latest"
+bottom = "latest"
+lazygit = "latest"
+helm = "latest"
+aws-iam-authenticator = "latest"
+cloudflared = "latest"
+
+[settings]
+experimental = true
