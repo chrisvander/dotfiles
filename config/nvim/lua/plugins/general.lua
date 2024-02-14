@@ -44,8 +44,16 @@ return {
   {
     "stevearc/conform.nvim",
     opts = {
+      formatters = {
+        sqlfmt = {
+          command = "sqlfmt",
+          args = { "-" },
+          stdin = true,
+        },
+      },
       formatters_by_ft = {
         lua = { "stylua" },
+        sql = { "sqlfmt" },
         python = { "isort", "black" },
         json = { "biome" },
         terraform = { "terraform_fmt" },
@@ -163,6 +171,13 @@ return {
           ["textDocument/hover"] = false,
         },
       },
+    },
+  },
+  {
+    "nvim-treesitter",
+    dependencies = { "apple/pkl-neovim" },
+    opts = {
+      ensure_installed = "pkl",
     },
   },
   {
