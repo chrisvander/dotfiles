@@ -17,6 +17,7 @@ lazygit = "latest"
 helm = "latest"
 aws-iam-authenticator = "latest"
 cloudflared = "latest"
+pkl = "latest"
 
 [settings]
 experimental = true

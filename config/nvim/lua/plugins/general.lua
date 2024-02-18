@@ -45,15 +45,13 @@ return {
     "stevearc/conform.nvim",
     opts = {
       formatters = {
-        sqlfmt = {
-          command = "sqlfmt",
-          args = { "-" },
-          stdin = true,
+        sql_formatter = {
+          command = "sql-formatter",
         },
       },
       formatters_by_ft = {
         lua = { "stylua" },
-        sql = { "sqlfmt" },
+        sql = { "sql_formatter" },
         python = { "isort", "black" },
         json = { "biome" },
         terraform = { "terraform_fmt" },
