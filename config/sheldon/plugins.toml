@@ -14,11 +14,6 @@ shell = "zsh"
 
 [plugins]
 
-# For example:
-#
-# [plugins.base16]
-# github = "chriskempson/base16-shell"
-
 [plugins.zsh-completions]
 github = "zsh-users/zsh-completions"
 
@@ -40,11 +35,17 @@ github = "sroze/docker-compose-zsh-plugin"
 [plugins.zoxide]
 github = "ajeetdsouza/zoxide"
 
+[plugins.zsh-kubectl]
+github = "chrishrb/zsh-kubectl"
+
 [plugins.zsh-terraform]
 github = "macunha1/zsh-terraform"
 
 [plugins.zsh-defer]
 github = "romkatv/zsh-defer"
+
+[plugins.zsh-prompt-benchmark]
+github = "romkatv/zsh-prompt-benchmark"
 
 [plugins.zsh-abbr]
 github = "olets/zsh-abbr"
