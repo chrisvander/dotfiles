@@ -1,7 +1,5 @@
 eval "$(sheldon source)"
 
-export XDG_CONFIG_HOME=$HOME/.config
-
 if type brew &>/dev/null; then
   FPATH="$(brew --prefix)/share/zsh-completions:$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 fi
@@ -39,4 +37,5 @@ bindkey -M menuselect '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
 zstyle ':completion:*:*' matcher-list 'm:{[:lower:]-}={[:upper:]_}' '+r:|[.]=**'
 eval "$(mise activate zsh)"
 eval "$(mise completion zsh)"
+(( $+command[kubectl] )) && source <(kubectl completion zsh)
 eval "$(starship init zsh)"
