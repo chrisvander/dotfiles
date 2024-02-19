@@ -1,3 +1,7 @@
+export ZDOTDIR=$HOME
+export XDG_CONFIG_HOME=$HOME/.config
+export EDITOR=nvim
+
 alias k=kubectl
 alias mk=minikube
 alias kc='kubectl config get-contexts'
@@ -11,3 +15,5 @@ alias ls='eza --icons'
 alias la='eza -lah --icons --git --no-user'
 alias zj=zellij
 alias zr='zellij run -- '
+alias vi=nvim
+alias vim=nvim
