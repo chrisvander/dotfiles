@@ -1,6 +1,7 @@
 export ZDOTDIR=$HOME
 export XDG_CONFIG_HOME=$HOME/.config
 export EDITOR=nvim
+export PATH="$HOME/.local/share/mise/shims:$PATH"
 
 alias k=kubectl
 alias mk=minikube
@@ -17,3 +18,4 @@ alias zj=zellij
 alias zr='zellij run -- '
 alias vi=nvim
 alias vim=nvim
+
