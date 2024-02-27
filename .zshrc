@@ -1,3 +1,20 @@
+zs() {
+  # zj integration
+  if [[ -z "$ZELLIJ" ]]; then
+    ZJ_SESSIONS=$(zellij list-sessions --short)
+    NO_SESSIONS=$(echo "${ZJ_SESSIONS}" | wc -l)
+    if [ "${NO_SESSIONS}" -ge 2 ]; then
+      SELECTED_SESSION="$(echo "${ZJ_SESSIONS}" | fzf)"
+    fi
+
+    if [[ -z "$SELECTED_SESSION" ]]; then
+      zellij attach -c default   
+    else
+      zellij attach -f "$SELECTED_SESSION"
+    fi
+  fi
+}
+
 eval "$(sheldon source)"
 
 if type brew &>/dev/null; then
@@ -30,11 +47,8 @@ unset __conda_setup
 
 zsh-defer __setup_conda
 zsh-defer ~/.dotfiles/update.sh
-bindkey "^R" history-incremental-search-backward
-bindkey "^S" history-incremental-search-forward
-bindkey '\t' menu-select "$terminfo[kcbt]" menu-select
-bindkey -M menuselect '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
-zstyle ':completion:*:*' matcher-list 'm:{[:lower:]-}={[:upper:]_}' '+r:|[.]=**'
+bindkey "^R" .history-incremental-search-backward
+bindkey "^S" .history-incremental-search-forward
 eval "$(mise activate zsh)"
 eval "$(mise completion zsh)"
 (( $+command[kubectl] )) && source <(kubectl completion zsh)

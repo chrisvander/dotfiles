@@ -1,7 +1,9 @@
 export ZDOTDIR=$HOME
 export XDG_CONFIG_HOME=$HOME/.config
 export EDITOR=nvim
-export PATH="$HOME/.local/share/mise/shims:$PATH"
+export PNPM_HOME="$HOME/.local/share/pnpm"
+export MISE_SHIMS="$HOME/.local/share/mise/shims"
+export PATH="$MISE_SHIMS:$PNPM_HOME:$PATH"
 
 alias k=kubectl
 alias mk=minikube
