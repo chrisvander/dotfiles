@@ -20,8 +20,8 @@ github = "zsh-users/zsh-completions"
 [plugins.zsh-autosuggestions]
 github = "zsh-users/zsh-autosuggestions"
 
-[plugins.zsh-autocomplete]
-github = "marlonrichert/zsh-autocomplete"
+# [plugins.zsh-autocomplete]
+# github = "marlonrichert/zsh-autocomplete"
 
 [plugins.zsh-syntax-highlighting]
 github = "zdharma-continuum/fast-syntax-highlighting"

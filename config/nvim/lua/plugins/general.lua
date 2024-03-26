@@ -2,7 +2,14 @@ local Util = require("lazyvim.util")
 local icons = require("lazyvim.config").icons
 
 return {
-  { dir = "chrisvander/ollama.nvim", dev = true, lazy = false, opts = {} },
+  {
+    "LazyVim/LazyVim",
+    dependencies = { "neovim-ayu" },
+    opts = {
+      colorscheme = "ayu-mirage",
+    },
+  },
+  { "echasnovski/mini.pairs", enabled = false },
   -- theme
   {
     "Shatur/neovim-ayu",
@@ -20,6 +27,9 @@ return {
           CursorColumn = { bg = "None" },
           WhichKeyFloat = { bg = "None" },
           VertSplit = { bg = "None" },
+          DashboardHeader = { fg = "#FFAD66" },
+          DashboardCenter = { fg = "#F28779" },
+          DashboardFooter = { fg = "#73D0FF" },
         },
       })
     end,
@@ -62,19 +72,82 @@ return {
       },
     },
   },
+  {
+    "mfussenegger/nvim-lint",
+    opts = {
+      linters_by_ft = {
+        ["*"] = { "biomejs" },
+        markdown = { "markdownlint" },
+        json = { "biomejs" },
+        javascript = { "biomejs" },
+        typescript = { "biomejs" },
+        typescriptreact = { "biomejs" },
+        javascriptreact = { "biomejs" },
+      },
+    },
+  },
   -- starter
   {
-    "echasnovski/mini.starter",
+    "dashboard-nvim",
+    dependencies = {
+      "nvim-web-devicons",
+    },
     opts = {
-      header = table.concat({
-
-        " ██████╗██╗  ██╗██████╗ ██╗███████╗██╗   ██╗██╗███╗   ███╗",
-        "██╔════╝██║  ██║██╔══██╗██║██╔════╝██║   ██║██║████╗ ████║",
-        "██║     ███████║██████╔╝██║███████╗██║   ██║██║██╔████╔██║",
-        "██║     ██╔══██║██╔══██╗██║╚════██║╚██╗ ██╔╝██║██║╚██╔╝██║",
-        "╚██████╗██║  ██║██║  ██║██║███████║ ╚████╔╝ ██║██║ ╚═╝ ██║",
-        " ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚══════╝  ╚═══╝  ╚═╝╚═╝     ╚═╝",
-      }, "\n"),
+      theme = "hyper",
+      config = {
+        header = vim.split(string.rep("\n", 8) .. [[
+  ██████╗██╗  ██╗██████╗ ██╗███████╗██╗   ██╗██╗███╗   ███╗
+██╔════╝██║  ██║██╔══██╗██║██╔════╝██║   ██║██║████╗ ████║
+██║     ███████║██████╔╝██║███████╗██║   ██║██║██╔████╔██║
+██║     ██╔══██║██╔══██╗██║╚════██║╚██╗ ██╔╝██║██║╚██╔╝██║
+╚██████╗██║  ██║██║  ██║██║███████║ ╚████╔╝ ██║██║ ╚═╝ ██║
+╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚══════╝  ╚═══╝  ╚═╝╚═╝     ╚═╝
+        ]] .. "\n\n", "\n"),
+        shortcut = {
+          {
+            action = LazyVim.telescope("files"),
+            desc = " Open",
+            icon = " ",
+            key = "f",
+          },
+          {
+            action = "ene | startinsert",
+            desc = " New",
+            icon = " ",
+            key = "n",
+          },
+          {
+            action = "Telescope oldfiles",
+            desc = " Recent",
+            icon = " ",
+            key = "r",
+          },
+          {
+            action = "Telescope live_grep",
+            desc = " Find",
+            icon = " ",
+            key = "g",
+          },
+          {
+            action = [[lua LazyVim.telescope.config_files()()]],
+            desc = " Config",
+            icon = " ",
+            key = "c",
+          },
+          {
+            action = 'lua require("persistence").load()',
+            desc = " Restore Session",
+            icon = " ",
+            key = "s",
+          },
+          {
+            action = "qa",
+            desc = " Quit",
+            icon = " ",
+            key = "q",
+          },
+        },
+      },
     },
   },
   -- bufferline
@@ -172,11 +245,15 @@ return {
     },
   },
   {
-    "nvim-treesitter",
-    dependencies = { "apple/pkl-neovim" },
-    opts = {
-      ensure_installed = "pkl",
+    "https://github.com/apple/pkl-neovim",
+    lazy = true,
+    event = "BufReadPre *.pkl",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
     },
+    build = function()
+      vim.cmd("TSInstall! pkl")
+    end,
   },
   {
     "nvim-lualine/lualine.nvim",
@@ -198,28 +275,6 @@ return {
         { Util.lualine.pretty_path() },
       }
     end,
-  },
-  -- remap mini files
-  {
-    "echasnovski/mini.files",
-    keys = {
-      { "<leader>fm", false },
-      { "<leader>fM", false },
-      {
-        "<leader>m",
-        function()
-          require("mini.files").open(vim.api.nvim_buf_get_name(0), true)
-        end,
-        desc = "Open mini.files (directory of current file)",
-      },
-      {
-        "<leader>M",
-        function()
-          require("mini.files").open(vim.loop.cwd(), true)
-        end,
-        desc = "Open mini.files (cwd)",
-      },
-    },
   },
   -- disable animations
   { "rcarriga/nvim-notify", opts = { render = "compact", stages = "static" } },

@@ -21,3 +21,4 @@ alias zr='zellij run -- '
 alias vi=nvim
 alias vim=nvim
 
+. "/Users/chrisvanderloo/.local/share/mise/installs/rust/1.76.0/env"
