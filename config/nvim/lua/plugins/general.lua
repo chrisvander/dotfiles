@@ -105,7 +105,9 @@ return {
         ]] .. "\n\n", "\n"),
         shortcut = {
           {
-            action = function() LazyVim.pick.open("files") end,
+            action = function()
+              LazyVim.pick.open("files")
+            end,
             desc = " Open",
             icon = " ",
             key = "f",
@@ -129,7 +131,7 @@ return {
             key = "g",
           },
           {
-            action = [[lua LazyVim.telescope.config_files()()]],
+            action = [[lua LazyVim.pick.config_files()()]],
             desc = " Config",
             icon = " ",
             key = "c",
@@ -222,7 +224,7 @@ return {
       {
         "<leader>E",
         function()
-          require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() })
+          require("neo-tree.command").execute({ toggle = true, dir = vim.uv.cwd() })
         end,
         desc = "Explorer NeoTree (cwd)",
       },
@@ -250,11 +252,35 @@ return {
       { "<leader>fR", false },
       { "<leader>w", "<cmd>Telescope zoxide list<CR>", desc = "Workspace" },
       { "<leader>b", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },
-      { "<leader>C", function() Util.pick.config_files() end, desc = "Find Config File" },
-      { "<leader>f", function() Util.pick.open("files") end, desc = "Find Files (root dir)" },
-      { "<leader>F", function() Util.pick.open("files", { cwd = vim.loop.cwd() }) end, desc = "Find Files (cwd)" },
+      {
+        "<leader>C",
+        function()
+          Util.pick.config_files()
+        end,
+        desc = "Find Config File",
+      },
+      {
+        "<leader>f",
+        function()
+          Util.pick.open("files")
+        end,
+        desc = "Find Files (root dir)",
+      },
+      {
+        "<leader>F",
+        function()
+          Util.pick.open("files", { cwd = vim.uv.cwd() })
+        end,
+        desc = "Find Files (cwd)",
+      },
       { "<leader>r", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
-      { "<leader>R", function() Util.pick.open("oldfiles", { cwd = vim.loop.cwd() }) end, desc = "Recent (cwd)" },
+      {
+        "<leader>R",
+        function()
+          Util.pick.open("oldfiles", { cwd = vim.uv.cwd() })
+        end,
+        desc = "Recent (cwd)",
+      },
       -- search
       { "<leader>sn", "<cmd>Telescope notify<CR>", desc = "Notifications" },
     },
