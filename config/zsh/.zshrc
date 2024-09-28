@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 zs() {
   # zj integration
   if [[ -z "$ZELLIJ" ]]; then
