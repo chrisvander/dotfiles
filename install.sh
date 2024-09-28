@@ -30,7 +30,7 @@ function symlink() {
 	else
 		if [ -e ${DST_LINK} ]; then
 			echo "Your ${2} exists but is not symlinked."
-			rm $DST_LINK
+			rm -rf $DST_LINK
 		else
 			touch $DST_LINK
 		fi
@@ -42,8 +42,6 @@ function symlink() {
 }
 
 # dotfiles
-symlink .dotfiles .dotfiles
-symlink .zshrc .zshrc.remote
 symlink .zshenv .zshenv
 for file in ./config/*; do symlink config/$(basename $file) .config/$(basename $file); done
 
