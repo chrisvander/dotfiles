@@ -41,9 +41,6 @@ github = "chrishrb/zsh-kubectl"
 [plugins.zsh-terraform]
 github = "macunha1/zsh-terraform"
 
-[plugins.zsh-defer]
-github = "romkatv/zsh-defer"
-
 [plugins.zsh-prompt-benchmark]
 github = "romkatv/zsh-prompt-benchmark"
 

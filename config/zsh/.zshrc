@@ -1,38 +1,32 @@
 #!/usr/bin/env zsh
 
-zs() {
-  # zj integration
-  if [[ -z "$ZELLIJ" ]]; then
-    ZJ_SESSIONS=$(zellij list-sessions --short)
-    NO_SESSIONS=$(echo "${ZJ_SESSIONS}" | wc -l)
-    if [ "${NO_SESSIONS}" -ge 2 ]; then
-      SELECTED_SESSION="$(echo "${ZJ_SESSIONS}" | fzf)"
-    fi
-
-    if [[ -z "$SELECTED_SESSION" ]]; then
-      zellij attach -c default
-    else
-      zellij attach -f "$SELECTED_SESSION"
-    fi
-  fi
-}
-
-eval "$(sheldon source)"
+# znap
+[[ -r "$XDG_DATA_HOME/zsh/plugins/znap/znap.zsh" ]] ||
+    git clone --depth 1 -- \
+        https://github.com/marlonrichert/zsh-snap.git \
+        "$XDG_DATA_HOME/zsh/plugins/znap"
+source "$XDG_DATA_HOME/zsh/plugins/znap/znap.zsh"
 
 if type brew &>/dev/null; then
-  FPATH="$(brew --prefix)/share/zsh-completions:$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+
+  autoload -Uz compinit
+  compinit -u
 fi
-bindkey -v
 
-autoload -Uz compinit
-compinit
+# prompt
+znap eval starship "starship init zsh"
+znap eval _starship "starship completions zsh"
+znap prompt
 
-__setup_conda() {
+# plugins
+eval "$(sheldon source)"
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/opt/homebrew/Caskroom/miniforge/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
+    znap eval conda "$__conda_setup"
 else
     if [ -f "/opt/homebrew/Caskroom/miniforge/base/etc/profile.d/conda.sh" ]; then
         . "/opt/homebrew/Caskroom/miniforge/base/etc/profile.d/conda.sh"
@@ -41,8 +35,6 @@ else
     fi
 fi
 unset __conda_setup
-# <<< conda initialize <<<
-}
 
 # history
 HISTSIZE=10000
@@ -58,14 +50,33 @@ setopt hist_find_no_dups
 
 # kubectl
 [[ ! -f $HOME/.kube/config ]] || export KUBECONFIG=$HOME/.kube/config
+(( $+command[kubectl] )) && source <(kubectl completion zsh)
 
-zsh-defer __setup_conda
-zsh-defer ~/.dotfiles/update.sh
+__update_dotfiles() {
+  git fetch
+
+  UPSTREAM=${1:-'@{u}'}
+  LOCAL=$(git rev-parse @)
+  REMOTE=$(git rev-parse "$UPSTREAM")
+  BASE=$(git merge-base @ "$UPSTREAM")
+
+  if [ $LOCAL = $REMOTE ]; then
+    true
+  elif [ $LOCAL = $BASE ]; then
+    git pull
+  fi
+}
+
+__update_dotfiles &> /dev/null
+
 # bindkey "^R" .history-incremental-search-backward
 # bindkey "^S" .history-incremental-search-forward
-eval "$(mise activate zsh)"
-eval "$(mise completion zsh)"
-eval "$(fzf --zsh)"
+
+# mise
+znap eval mise "mise activate zsh"
+znap eval _mise "mise completion zsh"
+znap eval fzf "fzf --zsh"
+
 export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type d --hidden --strip-cwd-prefix --exclude .git"
@@ -87,5 +98,3 @@ _fzf_comprun() {
 
   esac
 }
-(( $+command[kubectl] )) && source <(kubectl completion zsh)
-eval "$(starship init zsh)"

@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # XDG
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
@@ -10,8 +12,7 @@ export VISUAL=${VISUAL:-nvim}
 export MANPAGER=${MANPAGER:-nvim +Man!}
 export PNPM_BIN="$HOME/.local/share/pnpm"
 export MISE_BIN="$HOME/.local/share/mise/shims"
-export BREW_BIN="/opt/homebrew/bin"
-export PATH="$BREW_BIN:$MISE_BIN:$PNPM_BIN:$PATH"
+export PATH="$MISE_BIN:$PNPM_BIN:$PATH"
 
 alias k=kubectl
 alias mk=minikube
