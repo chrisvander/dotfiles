@@ -1,5 +1,4 @@
 [tools]
-neovim = "latest"
 1password-cli = "latest"
 node = "18"
 terraform = "latest"
@@ -20,6 +19,7 @@ cloudflared = "latest"
 pkl = "latest"
 rust = "latest"
 pulumi = "latest"
+neovim = "latest"
 
 [settings]
 experimental = true
