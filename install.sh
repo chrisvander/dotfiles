@@ -1,28 +1,25 @@
 #!/bin/bash
-if ! command -v curl &>/dev/null; then
-	echo "ERROR: curl could not be found"
-	exit
-fi
+function check_for() {
+  if ! command -v $1 &>/dev/null; then
+  	echo "ERROR: $1 could not be found"
+  	exit
+  fi
+}
 
-if ! command -v git &>/dev/null; then
-	echo "ERROR: git could not be found"
-	exit
-fi
-
-if ! command -v zsh &>/dev/null; then
-	echo "ERROR: zsh could not be found"
-	exit
-fi
+check_for curl
+check_for git
+check_for zsh
+check_for brew
 
 if [[ ! -e $HOME/.zshrc ]]; then
 	touch ~/.zshrc
 fi
 
-if ! command -v brew &>/dev/null; then
-	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  brew bundle install --file $HOME/.dotfiles/Brewfile-macos
+else
+  brew bundle install --file $HOME/.dotfiles/Brewfile
 fi
-
-brew bundle install --file $HOME/.dotfiles/Brewfile
 
 BASEDIR=$(pwd)
 function symlink() {
@@ -54,5 +51,5 @@ if ! grep -q "source ~/.zshrc.remote" "$HOME/.zshrc"; then
 	echo "source ~/.zshrc.remote" >>~/.zshrc
 fi
 
-# source zshrc for install
+# source zshrc to install packages
 export SHELL=$(which zsh)
