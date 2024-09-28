@@ -15,7 +15,6 @@ fi
         "$XDG_DATA_HOME/zsh/plugins/znap"
 source "$XDG_DATA_HOME/zsh/plugins/znap/znap.zsh"
 
-
 # prompt
 znap eval starship "starship init zsh"
 znap eval _starship "starship completions zsh"
@@ -23,6 +22,7 @@ znap prompt
 
 # plugins
 eval "$(sheldon source)"
+eval "$(sheldon completions --shell zsh)"
 
 # conda
 __conda_setup="$('/opt/homebrew/Caskroom/miniforge/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
