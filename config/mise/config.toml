@@ -18,6 +18,8 @@ helm = "latest"
 aws-iam-authenticator = "latest"
 cloudflared = "latest"
 pkl = "latest"
+rust = "latest"
+pulumi = "latest"
 
 [settings]
 experimental = true

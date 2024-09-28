@@ -52,3 +52,9 @@ github = "olets/zsh-abbr"
 
 [plugins.zsh-aws]
 github = "apachler/zsh-aws"
+
+[plugins.fzf-git]
+github = "junegunn/fzf-git.sh"
+
+[plugins.fzf-tab]
+github = "Aloxaf/fzf-tab"

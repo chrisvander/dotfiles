@@ -1,0 +1,35 @@
+[
+  {
+    "label": "Lazygit",
+    "command": "lazygit",
+    "args": [],
+    "env": {},
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false
+  },
+  {
+    "label": "Lazydocker",
+    "command": "lazydocker",
+    "args": [],
+    "env": {},
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false
+  },
+  {
+    "label": "k9s",
+    "command": "aws sts get-caller-identity &> /dev/null; if [ $? = 0 ]; then k9s; else aws sso login && k9s; fi",
+    "args": [],
+    "env": {},
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false
+  },
+  {
+    "label": "Format Prisma",
+    "command": "npx prisma format",
+    "args": [],
+    "reveal": "never",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "shell": "system"
+  }
+]

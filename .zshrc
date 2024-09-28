@@ -8,7 +8,7 @@ zs() {
     fi
 
     if [[ -z "$SELECTED_SESSION" ]]; then
-      zellij attach -c default   
+      zellij attach -c default
     else
       zellij attach -f "$SELECTED_SESSION"
     fi
@@ -42,14 +42,48 @@ unset __conda_setup
 # <<< conda initialize <<<
 }
 
+# history
+HISTSIZE=10000
+HISTFILE=~/.zsh_history
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_all_dups
+setopt hist_ignore_dups
+setopt hist_save_no_dups
+setopt hist_find_no_dups
+
 # kubectl
 [[ ! -f $HOME/.kube/config ]] || export KUBECONFIG=$HOME/.kube/config
 
 zsh-defer __setup_conda
 zsh-defer ~/.dotfiles/update.sh
-bindkey "^R" .history-incremental-search-backward
-bindkey "^S" .history-incremental-search-forward
+# bindkey "^R" .history-incremental-search-backward
+# bindkey "^S" .history-incremental-search-forward
 eval "$(mise activate zsh)"
 eval "$(mise completion zsh)"
+eval "$(fzf --zsh)"
+export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd --type d --hidden --strip-cwd-prefix --exclude .git"
+_fzf_compgen_path() {
+  fd --hidden --follow --exclude .git . "$1"
+}
+_fzf_compgen_dir() {
+  fd --type d --hidden --follow --exclude .git . "$1"
+}
+_fzf_comprun() {
+  local command=$1
+  shift
+
+  case $command in
+    cd) fzf --preview 'eza --tree --color=always --icons {} | head -200' "$@" ;;
+    export|unset) fzf --preview "eval echo {}" "$@" ;;
+    ssh) fzf --preview "dig {}" "$@" ;;
+    *) fzf --preview "--preview 'bat -n --color=always --line-range :500 {}'" "$@" ;;
+
+  esac
+}
 (( $+command[kubectl] )) && source <(kubectl completion zsh)
 eval "$(starship init zsh)"

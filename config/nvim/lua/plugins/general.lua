@@ -150,6 +150,44 @@ return {
       },
     },
   },
+  -- {
+  --   "hrsh7th/nvim-cmp",
+  --   dependencies = {
+  --     "tzachar/cmp-ai",
+  --     "nvim-lua/plenary.nvim",
+  --     {
+  --       "tzachar/cmp-ai",
+  --       opts = {
+  --         max_lines = 1000,
+  --         provider = "Ollama",
+  --         provider_options = {
+  --           model = "codellama",
+  --           -- stream = true,
+  --         },
+  --         -- notify = true,
+  --         -- notify_callback = function(msg)
+  --         --   vim.notify(msg)
+  --         -- end,
+  --         run_on_every_keystroke = true,
+  --         ignored_file_types = {
+  --           -- default is not to ignore
+  --           -- uncomment to ignore in lua:
+  --           -- lua = true
+  --         },
+  --       },
+  --       config = function(_, opts)
+  --         require("cmp_ai.config"):setup(opts)
+  --       end,
+  --     },
+  --   },
+  --   opts = function(_, opts)
+  --     table.insert(opts.sources, {
+  --       name = "cmp_ai",
+  --       -- group_index = 1,
+  --       -- priority = 100,
+  --     })
+  --   end,
+  -- },
   -- bufferline
   {
     "akinsho/bufferline.nvim",

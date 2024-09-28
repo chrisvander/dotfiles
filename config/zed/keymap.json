@@ -1,0 +1,75 @@
+[
+  {
+    "context": "Dock",
+    "bindings": {
+      "ctrl-w h": ["workspace::ActivatePaneInDirection", "Left"],
+      "ctrl-w l": ["workspace::ActivatePaneInDirection", "Right"],
+      "ctrl-w k": ["workspace::ActivatePaneInDirection", "Up"],
+      "ctrl-w j": ["workspace::ActivatePaneInDirection", "Down"]
+    }
+  },
+  {
+    "context": "EmptyPane || SharedScreen",
+    "bindings": {
+      "space f": "file_finder::Toggle",
+      "space /": "pane::DeploySearch",
+      "space g": [
+        "task::Spawn",
+        {
+          "task_name": "Lazygit"
+        }
+      ],
+      "space c": [
+        "task::Spawn",
+        {
+          "task_name": "Lazydocker"
+        }
+      ],
+      "space k": [
+        "task::Spawn",
+        {
+          "task_name": "k9s"
+        }
+      ],
+      "space r": "task::Spawn"
+    }
+  },
+  {
+    "context": "Editor && VimControl && !VimWaiting && !menu",
+    "bindings": {
+      "shift-k": "editor::Hover",
+      "space f": "file_finder::Toggle",
+      "space d": "diagnostics::Deploy",
+      "space /": "pane::DeploySearch",
+      "space s": "outline::Toggle",
+      "space shift-s": "project_symbols::Toggle",
+      "space g": [
+        "task::Spawn",
+        {
+          "task_name": "Lazygit"
+        }
+      ],
+      "space c": [
+        "task::Spawn",
+        {
+          "task_name": "Lazydocker"
+        }
+      ],
+      "space k": [
+        "task::Spawn",
+        {
+          "task_name": "k9s"
+        }
+      ],
+      "space r": "task::Spawn"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == normal && vim_operator == none && !VimWaiting",
+    "bindings": {
+      "g a": "editor::ToggleCodeActions",
+      "space a": "editor::ToggleCodeActions",
+      "g r": "editor::Rename"
+    }
+  }
+]

@@ -1,0 +1,100 @@
+{
+  "language_models": {
+    "ollama": {}
+  },
+  "base_keymap": "VSCode",
+  "telemetry": {
+    "diagnostics": true,
+    "metrics": true
+  },
+  "relative_line_numbers": true,
+  "theme": "Catppuccin Macchiato",
+  "buffer_font_family": "FiraCode Nerd Font",
+  "tab_size": 2,
+  "tabs": {
+    "file_icons": true
+  },
+  "ui_font_size": 15,
+  "buffer_font_size": 14,
+  "vim_mode": true,
+  "terminal": {
+    "dock": "right",
+    "alternate_scroll": "off",
+    "blinking": "terminal_controlled",
+    "copy_on_select": false,
+    "env": {
+      "EDITOR": "zed --wait"
+    },
+    "font_family": "Liga SFMono Nerd Font",
+    "font_size": 13,
+    "option_as_meta": false,
+    "working_directory": "current_project_directory",
+    "line_height": "standard"
+  },
+  "features": {
+    "inline_completion_provider": "supermaven"
+  },
+  "languages": {
+    "JavaScript": {
+      "language_servers": ["biome", "!eslint", "!prettier"]
+    },
+    "JSONC": {
+      "language_servers": [
+        "json-language-server",
+        "biome",
+        "!eslint",
+        "!prettier"
+      ]
+    },
+    "JSON": {
+      "language_servers": [
+        "json-language-server",
+        "biome",
+        "!eslint",
+        "!prettier"
+      ]
+    },
+    "Astro": {
+      "format_on_save": "on",
+      "language_servers": [
+        "astro-language-server",
+        "vtsls",
+        "biome",
+        "!eslint",
+        "!prettier"
+      ],
+      "code_actions_on_format": {
+        "source.organizeImports.biome": true
+      }
+    },
+    "TypeScript": {
+      "format_on_save": "on",
+      "language_servers": ["vtsls", "biome", "!eslint", "!prettier"],
+      "code_actions_on_format": {
+        "source.organizeImports.biome": true
+      }
+    },
+    "Markdown": {
+      "soft_wrap": "editor_width"
+    },
+    "TSX": {
+      "format_on_save": "on",
+      "language_servers": ["vtsls", "biome", "!eslint", "!prettier"],
+      "code_actions_on_format": {
+        "source.organizeImports.biome": true
+      }
+    },
+    "Prisma": {
+      "format_on_save": "off",
+      "language_servers": ["prisma-language-server"]
+    }
+  },
+  "assistant": {
+    "default_model": {
+      "provider": "zed.dev",
+      "model": "claude-3-5-sonnet-20240620"
+    },
+    "version": "2",
+    "provider": null
+  }
+}
