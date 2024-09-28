@@ -105,7 +105,7 @@ return {
         ]] .. "\n\n", "\n"),
         shortcut = {
           {
-            action = LazyVim.telescope("files"),
+            action = function() LazyVim.pick.open("files") end,
             desc = " Open",
             icon = " ",
             key = "f",
@@ -250,11 +250,11 @@ return {
       { "<leader>fR", false },
       { "<leader>w", "<cmd>Telescope zoxide list<CR>", desc = "Workspace" },
       { "<leader>b", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },
-      { "<leader>C", Util.telescope.config_files(), desc = "Find Config File" },
-      { "<leader>f", Util.telescope("files"), desc = "Find Files (root dir)" },
-      { "<leader>F", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
+      { "<leader>C", function() Util.pick.config_files() end, desc = "Find Config File" },
+      { "<leader>f", function() Util.pick.open("files") end, desc = "Find Files (root dir)" },
+      { "<leader>F", function() Util.pick.open("files", { cwd = vim.loop.cwd() }) end, desc = "Find Files (cwd)" },
       { "<leader>r", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
-      { "<leader>R", Util.telescope("oldfiles", { cwd = vim.loop.cwd() }), desc = "Recent (cwd)" },
+      { "<leader>R", function() Util.pick.open("oldfiles", { cwd = vim.loop.cwd() }) end, desc = "Recent (cwd)" },
       -- search
       { "<leader>sn", "<cmd>Telescope notify<CR>", desc = "Notifications" },
     },

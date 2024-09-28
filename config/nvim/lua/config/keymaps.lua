@@ -3,10 +3,8 @@
 -- Add any additional keymaps here
 
 local del = vim.keymap.del
-del("n", "<leader>ww")
 del("n", "<leader>wd")
-del("n", "<leader>w-")
-del("n", "<leader>w|")
+-- del("n", "<leader>w|")
 del("n", "<leader>-")
 del("n", "<leader>|")
 del("n", "<leader>fn")
