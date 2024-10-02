@@ -9,11 +9,11 @@ set -q EDITOR || set -x EDITOR nvim
 set -q VISUAL || set -x VISUAL nvim
 set -q MANPAGER || set -x MANPAGER "nvim +Man!"
 
-# prompt
-starship init fish | source
-
 # source brew shellenv
 /opt/homebrew/bin/brew shellenv | source
+
+# prompt
+starship init fish | source
 
 # fzf
 fzf --fish | source
