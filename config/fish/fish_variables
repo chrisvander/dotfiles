@@ -1,9 +1,5 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
-SETUVAR XDG_CACHE_HOME:/Users/chrisvanderloo/\x2ecache
-SETUVAR XDG_CONFIG_HOME:/Users/chrisvanderloo/\x2econfig
-SETUVAR XDG_DATA_HOME:/Users/chrisvanderloo/\x2elocal/share
-SETUVAR XDG_STATE_HOME:/Users/chrisvanderloo/\x2elocal/state
 SETUVAR __fish_initialized:3400
 SETUVAR fish_color_autosuggestion:brblack
 SETUVAR fish_color_cancel:\x2dr
