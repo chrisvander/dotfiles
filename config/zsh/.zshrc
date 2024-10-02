@@ -3,31 +3,33 @@
 # brew completions
 if type brew &>/dev/null; then
   FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-
-  autoload -Uz compinit
-  compinit -u
 fi
 
-# znap
-[[ -r "$XDG_DATA_HOME/zsh/plugins/znap/znap.zsh" ]] ||
-    git clone --depth 1 -- \
-        https://github.com/marlonrichert/zsh-snap.git \
-        "$XDG_DATA_HOME/zsh/plugins/znap"
-source "$XDG_DATA_HOME/zsh/plugins/znap/znap.zsh"
-
-# prompt
-znap eval starship "starship init zsh"
-znap eval _starship "starship completions zsh"
-znap prompt
+autoload -Uz compinit && compinit
 
 # plugins
 eval "$(sheldon source)"
 eval "$(sheldon completions --shell zsh)"
 
+# fzf
+eval "$(fzf --zsh)"
+
+# mise
+eval "$(mise activate zsh)"
+eval "$(mise completion zsh)"
+
+# kubectl
+[[ ! -f $HOME/.kube/config ]] || export KUBECONFIG=$HOME/.kube/config
+eval "$(kubectl completion zsh)"
+
+# prompt
+eval "$(starship init zsh)"
+eval "$(starship completions zsh)"
+
 # conda
 __conda_setup="$('/opt/homebrew/Caskroom/miniforge/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
-  znap eval conda "$__conda_setup"
+  zsh-defer eval "$__conda_setup"
 else
   if [ -f "/opt/homebrew/Caskroom/miniforge/base/etc/profile.d/conda.sh" ]; then
     . "/opt/homebrew/Caskroom/miniforge/base/etc/profile.d/conda.sh"
@@ -55,35 +57,7 @@ setopt INC_APPEND_HISTORY_TIME # Append events to history file immediately
 setopt HIST_NO_STORE # Don't store the history command in history
 export HISTORY_IGNORE="cd|cd *|ls *|mv *|cp *|cat *"
 
-# kubectl
-[[ ! -f $HOME/.kube/config ]] || export KUBECONFIG=$HOME/.kube/config
-znap eval _kubectl "kubectl completion zsh"
-
-# auto-update
-__update_dotfiles() {
-  git fetch
-
-  UPSTREAM=${1:-'@{u}'}
-  LOCAL=$(git rev-parse @)
-  REMOTE=$(git rev-parse "$UPSTREAM")
-  BASE=$(git merge-base @ "$UPSTREAM")
-
-  if [ $LOCAL = $REMOTE ]; then
-    true
-  elif [ $LOCAL = $BASE ]; then
-    git pull
-  fi
-}
-
-__update_dotfiles &> /dev/null
-
-# mise
-znap eval mise "mise activate zsh"
-znap eval _mise "mise completion zsh"
-
-# fzf
-znap eval fzf "fzf --zsh"
-
+# fzf settings
 export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type d --hidden --strip-cwd-prefix --exclude .git"
@@ -105,3 +79,22 @@ _fzf_comprun() {
 
   esac
 }
+
+# auto-update
+__update_dotfiles() {
+  git fetch
+
+  UPSTREAM=${1:-'@{u}'}
+  LOCAL=$(git rev-parse @)
+  REMOTE=$(git rev-parse "$UPSTREAM")
+  BASE=$(git merge-base @ "$UPSTREAM")
+
+  if [ $LOCAL = $REMOTE ]; then
+    true
+  elif [ $LOCAL = $BASE ]; then
+    git pull
+  fi
+}
+
+zsh-defer __update_dotfiles &> /dev/null
+

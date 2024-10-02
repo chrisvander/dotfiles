@@ -29,8 +29,6 @@ alias cat=bat
 alias tree='eza -ah --icons=always --tree --level=3 --git-ignore --ignore-glob=".git|node_modules|.DS_Store"'
 alias ls='eza --icons=always --git'
 alias la='eza -lah --icons --git --no-user'
-alias zj=zellij
-alias zr='zellij run -- '
 alias gc='git commit'
 alias gch='git checkout'
 alias gs='git status'
