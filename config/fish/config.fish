@@ -5,8 +5,8 @@ set -x XDG_DATA_HOME $HOME/.local/share
 set -x XDG_STATE_HOME $HOME/.local/state
 
 # variables with defaults
-set -q EDITOR || set -x EDITOR "nvim"
-set -q VISUAL || set -x VISUAL "nvim"
+set -q EDITOR || set -x EDITOR nvim
+set -q VISUAL || set -x VISUAL nvim
 set -q MANPAGER || set -x MANPAGER "nvim +Man!"
 
 # prompt
@@ -17,3 +17,6 @@ starship init fish | source
 
 # fzf
 fzf --fish | source
+
+# zoxide
+zoxide init fish | source
