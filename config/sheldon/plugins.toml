@@ -52,3 +52,6 @@ github = "junegunn/fzf-git.sh"
 
 [plugins.fzf-tab]
 github = "Aloxaf/fzf-tab"
+
+[plugins.zsh-defer]
+github = "romaktv/zsh-defer"
