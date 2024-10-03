@@ -15,8 +15,5 @@ set -q MANPAGER || set -x MANPAGER "nvim +Man!"
 # prompt
 starship init fish | source
 
-# fzf
-fzf --fish | source
-
 # zoxide
 zoxide init fish | source
