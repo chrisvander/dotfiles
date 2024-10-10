@@ -1,14 +1,11 @@
 {
-	"language_models": {
-		"ollama": {}
-	},
 	"base_keymap": "VSCode",
 	"telemetry": {
 		"diagnostics": true,
 		"metrics": true
 	},
 	"relative_line_numbers": true,
-	"theme": "Catppuccin Frappé",
+	"theme": "Catppuccin Macchiato",
 	"buffer_font_family": "FiraCode Nerd Font",
 	"tab_size": 2,
 	"tabs": {
@@ -31,35 +28,64 @@
 		"working_directory": "current_project_directory",
 		"line_height": "standard"
 	},
-	"features": {
-		"inline_completion_provider": "supermaven"
-	},
 	"languages": {
-		"TypeScript": {
-			"language_servers": ["vtsls", "biome"]
+		"JavaScript": {
+			"formatter": {
+				"language_server": {
+					"name": "biome"
+				}
+			},
+			"code_actions_on_format": {
+				"source.fixAll.biome": true,
+				"source.organizeImports.biome": true
+			},
+			"language_servers": [
+				"vtsls",
+				"biome",
+				"!typescript-language-server",
+				"!eslint"
+			]
 		},
 		"TSX": {
-			"language_servers": ["vtsls", "biome"]
+			"format_on_save": {
+				"language_server": {
+					"name": "biome"
+				}
+			},
+			"code_actions_on_format": {
+				"source.formatter.formatWithErrors": true,
+				"source.fixAll.biome": true,
+				"source.organizeImports.biome": true
+			},
+			"language_servers": [
+				"vtsls",
+				"biome",
+				"!typescript-language-server",
+				"!eslint"
+			]
 		},
-		"Astro": {
-			"language_servers": ["astro-language-server", "vtsls", "biome"]
-		},
-		"Markdown": {
-			"soft_wrap": "editor_width"
-		},
-		"Prisma": {
-			"language_servers": ["prisma-language-server", "biome"]
+		"TypeScript": {
+			"format_on_save": {
+				"language_server": {
+					"name": "biome"
+				}
+			},
+			"code_actions_on_format": {
+				"source.formatter.formatWithErrors": true,
+				"source.fixAll.biome": true,
+				"source.organizeImports.biome": true
+			},
+			"language_servers": [
+				"vtsls",
+				"biome",
+				"!typescript-language-server",
+				"!eslint"
+			]
 		}
 	},
-	"language_servers": ["biome", "!eslint", "!prettier"],
-	"formatter": {
-		"language_server": {
-			"name": "biome"
-		}
-	},
-	"code_actions_on_format": {
-		"source.fixAll.biome": true,
-		"source.organizeImports.biome": true
+
+	"features": {
+		"inline_completion_provider": "supermaven"
 	},
 	"assistant": {
 		"default_model": {
