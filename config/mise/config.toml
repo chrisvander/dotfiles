@@ -1,5 +1,4 @@
 [tools]
-1password-cli = "latest"
 node = "18"
 terraform = "latest"
 minikube = "latest"
@@ -20,6 +19,7 @@ pkl = "latest"
 rust = "latest"
 pulumi = "latest"
 neovim = "latest"
+1password-cli = "latest"
 
 [settings]
 experimental = true
