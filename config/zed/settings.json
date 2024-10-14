@@ -1,98 +1,101 @@
 {
-	"base_keymap": "VSCode",
-	"telemetry": {
-		"diagnostics": true,
-		"metrics": true
-	},
-	"relative_line_numbers": true,
-	"theme": "Catppuccin Macchiato",
-	"buffer_font_family": "FiraCode Nerd Font",
-	"tab_size": 2,
-	"tabs": {
-		"file_icons": true
-	},
-	"ui_font_size": 15,
-	"buffer_font_size": 14,
-	"vim_mode": true,
-	"terminal": {
-		"dock": "right",
-		"alternate_scroll": "off",
-		"blinking": "terminal_controlled",
-		"copy_on_select": false,
-		"env": {
-			"EDITOR": "zed --wait"
-		},
-		"font_family": "Liga SFMono Nerd Font",
-		"font_size": 13,
-		"option_as_meta": false,
-		"working_directory": "current_project_directory",
-		"line_height": "standard"
-	},
-	"languages": {
-		"JavaScript": {
-			"formatter": {
-				"language_server": {
-					"name": "biome"
-				}
-			},
-			"code_actions_on_format": {
-				"source.fixAll.biome": true,
-				"source.organizeImports.biome": true
-			},
-			"language_servers": [
-				"vtsls",
-				"biome",
-				"!typescript-language-server",
-				"!eslint"
-			]
-		},
-		"TSX": {
-			"format_on_save": {
-				"language_server": {
-					"name": "biome"
-				}
-			},
-			"code_actions_on_format": {
-				"source.formatter.formatWithErrors": true,
-				"source.fixAll.biome": true,
-				"source.organizeImports.biome": true
-			},
-			"language_servers": [
-				"vtsls",
-				"biome",
-				"!typescript-language-server",
-				"!eslint"
-			]
-		},
-		"TypeScript": {
-			"format_on_save": {
-				"language_server": {
-					"name": "biome"
-				}
-			},
-			"code_actions_on_format": {
-				"source.formatter.formatWithErrors": true,
-				"source.fixAll.biome": true,
-				"source.organizeImports.biome": true
-			},
-			"language_servers": [
-				"vtsls",
-				"biome",
-				"!typescript-language-server",
-				"!eslint"
-			]
-		}
-	},
-
-	"features": {
-		"inline_completion_provider": "supermaven"
-	},
-	"assistant": {
-		"default_model": {
-			"provider": "zed.dev",
-			"model": "claude-3-5-sonnet-20240620"
-		},
-		"version": "2",
-		"provider": null
-	}
+  "base_keymap": "VSCode",
+  "telemetry": {
+    "diagnostics": true,
+    "metrics": true
+  },
+  "theme": {
+    "mode": "system",
+    "light": "Catppuccin Latte",
+    "dark": "Catppuccin Mocha"
+  },
+  "relative_line_numbers": true,
+  "buffer_font_family": "FiraCode Nerd Font",
+  "tab_size": 2,
+  "tabs": {
+    "file_icons": true
+  },
+  "ui_font_size": 15,
+  "buffer_font_size": 14,
+  "vim_mode": true,
+  "terminal": {
+    "dock": "right",
+    "alternate_scroll": "off",
+    "blinking": "terminal_controlled",
+    "copy_on_select": false,
+    "env": {
+      "EDITOR": "zed --wait"
+    },
+    "font_family": "Liga SFMono Nerd Font",
+    "font_size": 13,
+    "option_as_meta": false,
+    "working_directory": "current_project_directory",
+    "line_height": "standard"
+  },
+  "languages": {
+    "JavaScript": {
+      "formatter": {
+        "language_server": {
+          "name": "biome"
+        }
+      },
+      "code_actions_on_format": {
+        "source.fixAll.biome": true,
+        "source.organizeImports.biome": true
+      },
+      "language_servers": [
+        "vtsls",
+        "biome",
+        "!typescript-language-server",
+        "!eslint"
+      ]
+    },
+    "TSX": {
+      "format_on_save": {
+        "language_server": {
+          "name": "biome"
+        }
+      },
+      "code_actions_on_format": {
+        "source.formatter.formatWithErrors": true,
+        "source.fixAll.biome": true,
+        "source.organizeImports.biome": true
+      },
+      "language_servers": [
+        "vtsls",
+        "biome",
+        "!typescript-language-server",
+        "!eslint"
+      ]
+    },
+    "TypeScript": {
+      "format_on_save": {
+        "language_server": {
+          "name": "biome"
+        }
+      },
+      "code_actions_on_format": {
+        "source.formatter.formatWithErrors": true,
+        "source.fixAll.biome": true,
+        "source.organizeImports.biome": true
+      },
+      "language_servers": [
+        "vtsls",
+        "biome",
+        "!typescript-language-server",
+        "!eslint"
+      ]
+    }
+  },
+  "features": {
+    "inline_completion_provider": "supermaven"
+  },
+  "assistant": {
+    "default_model": {
+      "provider": "zed.dev",
+      "model": "claude-3-5-sonnet-20240620"
+    },
+    "version": "2",
+    "provider": null
+  }
 }
