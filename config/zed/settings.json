@@ -38,54 +38,27 @@
         "language_server": {
           "name": "biome"
         }
-      },
-      "code_actions_on_format": {
-        "source.fixAll.biome": true,
-        "source.organizeImports.biome": true
-      },
-      "language_servers": [
-        "vtsls",
-        "biome",
-        "!typescript-language-server",
-        "!eslint"
-      ]
+      }
     },
     "TSX": {
-      "format_on_save": {
+      "formatter": {
         "language_server": {
           "name": "biome"
         }
-      },
-      "code_actions_on_format": {
-        "source.formatter.formatWithErrors": true,
-        "source.fixAll.biome": true,
-        "source.organizeImports.biome": true
-      },
-      "language_servers": [
-        "vtsls",
-        "biome",
-        "!typescript-language-server",
-        "!eslint"
-      ]
+      }
     },
     "TypeScript": {
-      "format_on_save": {
+      "formatter": {
         "language_server": {
           "name": "biome"
         }
-      },
-      "code_actions_on_format": {
-        "source.formatter.formatWithErrors": true,
-        "source.fixAll.biome": true,
-        "source.organizeImports.biome": true
-      },
-      "language_servers": [
-        "vtsls",
-        "biome",
-        "!typescript-language-server",
-        "!eslint"
-      ]
+      }
     }
+  },
+  "language_servers": ["biome", "!eslint", "!prettier"],
+  "code_actions_on_format": {
+    "source.fixAll.biome": true,
+    "source.organizeImports.biome": true
   },
   "features": {
     "inline_completion_provider": "supermaven"
