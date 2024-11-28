@@ -1,3 +1,2 @@
-# ~/.config/helix/themes/dracula_transparent.toml
 inherits = "ayu_mirage"
 "ui.background" = {}
