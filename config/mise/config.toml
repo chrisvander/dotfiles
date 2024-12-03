@@ -20,6 +20,8 @@ rust = "latest"
 pulumi = "latest"
 neovim = "latest"
 1password-cli = "latest"
+python = "3"
+gleam = "latest"
 
 [settings]
 experimental = true
