@@ -112,13 +112,10 @@
 		"source.fixAll.biome": true,
 		"source.organizeImports.biome": true
 	},
-	"features": {
-		"inline_completion_provider": "supermaven"
-	},
 	"assistant": {
 		"default_model": {
-			"provider": "zed.dev",
-			"model": "claude-3-5-sonnet-latest"
+			"provider": "copilot_chat",
+			"model": "gpt-4o"
 		},
 		"version": "2",
 		"provider": null

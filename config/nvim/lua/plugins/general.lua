@@ -88,66 +88,18 @@ return {
   },
   -- starter
   {
-    "dashboard-nvim",
-    dependencies = {
-      "nvim-web-devicons",
-    },
+    "snacks.nvim",
     opts = {
-      theme = "hyper",
-      config = {
-        header = vim.split(string.rep("\n", 8) .. [[
+      dashboard = {
+        preset = {
+          header = [[
  ██████╗██╗  ██╗██████╗ ██╗███████╗██╗   ██╗██╗███╗   ███╗
 ██╔════╝██║  ██║██╔══██╗██║██╔════╝██║   ██║██║████╗ ████║
 ██║     ███████║██████╔╝██║███████╗██║   ██║██║██╔████╔██║
 ██║     ██╔══██║██╔══██╗██║╚════██║╚██╗ ██╔╝██║██║╚██╔╝██║
 ╚██████╗██║  ██║██║  ██║██║███████║ ╚████╔╝ ██║██║ ╚═╝ ██║
 ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚══════╝  ╚═══╝  ╚═╝╚═╝     ╚═╝
-        ]] .. "\n\n", "\n"),
-        shortcut = {
-          {
-            action = function()
-              LazyVim.pick.open("files")
-            end,
-            desc = " Open",
-            icon = " ",
-            key = "f",
-          },
-          {
-            action = "ene | startinsert",
-            desc = " New",
-            icon = " ",
-            key = "n",
-          },
-          {
-            action = "Telescope oldfiles",
-            desc = " Recent",
-            icon = " ",
-            key = "r",
-          },
-          {
-            action = "Telescope live_grep",
-            desc = " Find",
-            icon = " ",
-            key = "g",
-          },
-          {
-            action = [[lua LazyVim.pick.config_files()()]],
-            desc = " Config",
-            icon = " ",
-            key = "c",
-          },
-          {
-            action = 'lua require("persistence").load()',
-            desc = " Restore Session",
-            icon = " ",
-            key = "s",
-          },
-          {
-            action = "qa",
-            desc = " Quit",
-            icon = " ",
-            key = "q",
-          },
+        ]],
         },
       },
     },
