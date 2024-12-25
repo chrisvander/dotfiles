@@ -5,12 +5,12 @@
 		"metrics": true
 	},
 	"theme": {
-		"mode": "dark",
+		"mode": "system",
 		"light": "Catppuccin Latte",
 		"dark": "Catppuccin Mocha"
 	},
 	"relative_line_numbers": true,
-	"buffer_font_family": "FiraCode Nerd Font",
+	"buffer_font_family": "MonaspiceNe Nerd Font",
 	"tab_size": 2,
 	"tabs": {
 		"file_icons": true
@@ -28,7 +28,7 @@
 			"VISUAL": "zed --wait",
 			"MANPAGER": "zed --wait +Man!"
 		},
-		"font_family": "Liga SFMono Nerd Font",
+		"font_family": "MonaspiceNe Nerd Font",
 		"font_size": 13,
 		"option_as_meta": false,
 		"working_directory": "current_project_directory",
