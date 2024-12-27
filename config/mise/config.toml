@@ -22,6 +22,7 @@ neovim = "latest"
 1password-cli = "latest"
 python = "3"
 gleam = "latest"
+yarn = "latest"
 
 [settings]
 experimental = true
