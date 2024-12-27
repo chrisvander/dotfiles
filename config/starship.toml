@@ -4,11 +4,13 @@
 # Inserts a blank line between shell prompts
 add_newline = false
 
-format = '''$directory$git_branch$git_commit$git_state$git_status$character$prompt'''
-right_format = '''$all'''
+format = '''$directory$git_branch$git_commit$git_state$git_status$cmd_duration$fill$all$character$prompt'''
+
+[fill]
+symbol = " "
 
 [kubernetes]
-format = '[$symbol$context( \($namespace\))]($style) '
+format = ' [$symbol$context( \($namespace\))]($style) '
 disabled = false
 
 [gcloud]
