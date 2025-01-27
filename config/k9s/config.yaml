@@ -12,7 +12,7 @@ k9s:
     crumbsless: false
     reactive: true
     noIcons: false
-    skin: dracula
+    skin: transparent
   skipLatestRevCheck: false
   disablePodCounting: false
   shellPod:
