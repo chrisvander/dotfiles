@@ -1,4 +1,4 @@
-theme = "ayu_mirage_transparent"
+theme = "catppuccin_latte_transparent"
 
 [keys.normal]
 S-k = "hover"
