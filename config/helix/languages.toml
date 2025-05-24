@@ -5,6 +5,7 @@ args = ["stdio"]
 [language-server.astro-ls]
 command = "astro-ls"
 args = ["--stdio"]
+config = { typescript = { tsdk = ".local/share/pnpm/global/5/node_modules/typescript/lib" } }
 
 [language-server.biome]
 command = "biome"
@@ -44,7 +45,7 @@ name = "astro"
 scope = "source.astro"
 injection-regex = "astro"
 file-types = ["astro"]
-language-servers = ["astro-ls", { name = "typescript-language-server", except-features = [ "format" ] }]
+language-servers = ["astro-ls"]
 formatter = { command = "prettier", args = ["--plugin", "prettier-plugin-astro", "--parser", "astro"] }
 auto-format = true
 
@@ -69,6 +70,12 @@ auto-format = true
 
 [[language]]
 name = "javascript"
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "tailwindcss-language-server", "biome"]
+indent = { tab-width = 2, unit = " " }
+auto-format = true
+
+[[language]]
+name = "json"
 language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "tailwindcss-language-server", "biome"]
 indent = { tab-width = 2, unit = " " }
 auto-format = true

@@ -12,7 +12,7 @@ export XDG_STATE_HOME=$HOME/.local/state
 
 export EDITOR=${EDITOR:-hx}
 export VISUAL=${VISUAL:-hx}
-export MANPAGER=${MANPAGER:-hx +Man!}
+export MANPAGER=${MANPAGER:-nvim +Man!}
 export PNPM_BIN="$HOME/.local/share/pnpm"
 export MISE_BIN="$HOME/.local/share/mise/shims"
 export PATH="$MISE_BIN:$PNPM_BIN:$PATH"

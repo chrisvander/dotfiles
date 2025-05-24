@@ -6,7 +6,7 @@ brew "dockerfile-language-server"
 brew "dust"
 brew "eza"
 brew "fd"
-brew "fisher
+brew "fisher"
 brew "fzf"
 brew "gh"
 brew "git"

@@ -1,77 +1,78 @@
 {
-	"icon_theme": "Material Icon Theme",
-	"base_keymap": "VSCode",
-	"telemetry": {
-		"diagnostics": true,
-		"metrics": true
-	},
-	"theme": {
-		"mode": "system",
+	// Theme
+	"icon_theme": {
+		"mode": "dark",
 		"light": "Catppuccin Latte",
 		"dark": "Catppuccin Mocha"
 	},
-	"features": {
-		"edit_prediction_provider": "copilot"
+	"theme": {
+		"mode": "dark",
+		"light": "Catppuccin Latte",
+		"dark": "Catppuccin Macchiato"
 	},
-	"relative_line_numbers": true,
+
+	// Buffer
 	"buffer_font_family": "MonaspiceNe Nerd Font Mono",
 	"tab_size": 2,
-	"tabs": {
-		"file_icons": true
-	},
 	"ui_font_size": 15,
-	"buffer_font_size": 14.0,
+	"buffer_font_size": 14,
+
+	// Tabs
+	"tabs": {
+		"file_icons": true,
+		"git_status": true
+	},
+	"tab_bar": {
+		"show_nav_history_buttons": false
+	},
+
+	// Vim stuff
 	"vim_mode": true,
+	"relative_line_numbers": true,
+	"vertical_scroll_margin": 20,
+
 	"terminal": {
 		"dock": "right",
-		"alternate_scroll": "off",
-		"blinking": "terminal_controlled",
-		"copy_on_select": false,
 		"env": {
 			"EDITOR": "zed --wait",
 			"VISUAL": "zed --wait",
 			"MANPAGER": "zed --wait +Man!"
 		},
 		"font_family": "MonaspiceNe Nerd Font Mono",
-		"font_size": 14,
-		"option_as_meta": false,
-		"working_directory": "current_project_directory",
-		"line_height": "standard"
+		"line_height": "standard",
+		"working_directory": "current_project_directory"
 	},
+
+	"jupyter": {
+		"kernel_selections": {
+			"python": "python3",
+			"typescript": "deno",
+			"javascript": "deno"
+		}
+	},
+
 	"languages": {
 		"Astro": {
 			"language_servers": [
 				"astro-language-server",
 				"biome",
 				"tailwindcss-language-server",
-				"..."
+				"!prettier"
 			],
-			"prettier": {
-				"allowed": false
+			"code_actions_on_format": {
+				"source.fixAll.biome": true
+			},
+			"formatter": {
+				"language_server": {
+					"name": "biome"
+				}
 			}
 		},
-		"JavaScript": {
-			"language_servers": [
-				"!typescript-language-server",
-				"vtsls",
-				"biome",
-				"..."
-			],
-			"prettier": {
-				"allowed": false
-			}
-		},
-		"JSON": {
-			"language_servers": ["biome", "..."],
-			"prettier": {
-				"allowed": false
-			}
-		},
-		"JSONC": {
-			"language_servers": ["biome", "..."],
-			"prettier": {
-				"allowed": false
-			}
+		"Rust": {
+			"tab_size": 4,
+			"formatter": "language_server",
+			"format_on_save": "language_server",
+			"language_servers": ["rust-analyzer"]
 		},
 		"Prisma": {
 			"formatter": {
@@ -79,50 +80,144 @@
 					"name": "prisma-language-server"
 				}
 			},
-			"language_servers": ["prisma-language-server", "!biome"]
+			"language_servers": ["prisma-language-server"]
 		},
-		"TSX": {
+		"JSON": {
+			"language_servers": ["vtsls", "biome", "!prettier", "..."],
+			"code_actions_on_format": {
+				"source.fixAll.biome": true
+			},
+			"formatter": {
+				"language_server": {
+					"name": "biome"
+				}
+			}
+		},
+		"JSONC": {
+			"language_servers": ["vtsls", "biome", "!prettier", "..."],
+			"code_actions_on_format": {
+				"source.fixAll.biome": true
+			},
+			"formatter": {
+				"language_server": {
+					"name": "biome"
+				}
+			}
+		},
+		"JavaScript": {
 			"language_servers": [
-				"!typescript-language-server",
 				"vtsls",
 				"biome",
 				"tailwindcss-language-server",
+				"!eslint",
+				"!prettier",
+				"!typescript-language-server",
 				"..."
 			],
-			"prettier": {
-				"allowed": false
+			"code_actions_on_format": {
+				"source.fixAll.biome": true,
+				"source.organizeImports.biome": true
+			},
+			"formatter": {
+				"language_server": {
+					"name": "biome"
+				}
+			}
+		},
+		"TSX": {
+			"language_servers": [
+				"vtsls",
+				"biome",
+				"tailwindcss-language-server",
+				"!eslint",
+				"!prettier",
+				"!typescript-language-server",
+				"..."
+			],
+			"code_actions_on_format": {
+				"source.fixAll.biome": true,
+				"source.organizeImports.biome": true
+			},
+			"formatter": {
+				"language_server": {
+					"name": "biome"
+				}
 			}
 		},
 		"TypeScript": {
 			"language_servers": [
-				"!typescript-language-server",
 				"vtsls",
 				"biome",
 				"tailwindcss-language-server",
+				"!eslint",
+				"!prettier",
+				"!typescript-language-server",
 				"..."
 			],
-			"prettier": {
-				"allowed": false
+			"code_actions_on_format": {
+				"source.fixAll.biome": true,
+				"source.organizeImports.biome": true
+			},
+			"formatter": {
+				"language_server": {
+					"name": "biome"
+				}
 			}
 		}
 	},
-	"formatter": {
-		"language_server": {
-			"name": "biome"
+
+	"lsp": {
+		"rust-analyzer": {
+			"initialization_options": {
+				"check": {
+					"command": "clippy"
+				}
+			}
+		},
+		"tailwindcss-language-server": {
+			"classFunctions": ["twMerge", "twJoin"]
 		}
 	},
-	"language_servers": ["!typescript-language-server", "!eslint", "!prettier"],
-	"code_actions_on_format": {
-		"source.fixAll.biome": true,
-		"source.organizeImports.biome": true
-	},
+
 	"file_types": {
 		"JSONC": ["tsconfig*.json"]
 	},
-	"assistant": {
+
+	"features": {
+		"edit_prediction_provider": "copilot"
+	},
+
+	"agent": {
+		"profiles": {
+			"write": {
+				"name": "Write",
+				"tools": {
+					"copy_path": true,
+					"create_directory": true,
+					"create_file": true,
+					"delete_path": true,
+					"diagnostics": true,
+					"edit_file": true,
+					"fetch": true,
+					"list_directory": true,
+					"move_path": true,
+					"now": true,
+					"find_path": true,
+					"read_file": true,
+					"grep": true,
+					"terminal": true,
+					"thinking": true,
+					"web_search": true,
+					"open": true
+				},
+				"enable_all_context_servers": true,
+				"context_servers": {}
+			}
+		},
+		"default_profile": "write",
 		"default_model": {
 			"provider": "copilot_chat",
-			"model": "gpt-4o"
+			"model": "gpt-4.1"
 		},
 		"version": "2",
 		"provider": null

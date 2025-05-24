@@ -7,7 +7,7 @@ adjust-cell-height = 6
 adjust-font-baseline = -2
 
 # bg
-background-opacity = 0.95
+background-opacity = 0.9
 background-blur-radius = 20
 
 # window
