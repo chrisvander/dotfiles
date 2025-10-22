@@ -1,5 +1,5 @@
 [tools]
-node = "18"
+node = "22"
 terraform = "latest"
 minikube = "latest"
 kubectl = "latest"
@@ -22,15 +22,6 @@ neovim = "latest"
 python = "latest"
 gleam = "latest"
 yarn = "latest"
-"npm:@astrojs/language-server" = "latest"
-"npm:@prisma/language-server" = "latest"
-"npm:typescript-language-server" = "latest"
-"npm:typescript" = "latest"
-"npm:prettier-plugin-astro" = "latest"
-"npm:tailwindcss-language-server" = "latest"
-"npm:prettier" = "latest"
-"npm:@commitlint/cli" = "latest"
-"npm:@commitlint/config-conventional" = "latest"
 rust = "latest"
 
 [settings]
