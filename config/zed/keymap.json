@@ -1,23 +1,33 @@
 [
 	{
-		"context": "EmptyPane || not_editing || (vim_mode == normal && vim_operator == none && !VimWaiting)",
+		"context": "EmptyPane || not_editing || ((vim_mode == helix_normal || vim_mode == normal) && vim_operator == none && !VimWaiting)",
 		"bindings": {
 			"space f": "file_finder::Toggle",
 			"space /": "pane::DeploySearch",
-			"space s": "outline::Toggle",
-			"space S": "project_symbols::Toggle",
 			"space e": "project_panel::ToggleFocus",
-			"space g": "git_panel::ToggleFocus",
+			"cmd-e": "project_panel::ToggleFocus",
 			"space o": "outline_panel::ToggleFocus",
+			"cmd-o": "outline_panel::ToggleFocus",
 			"space t": "terminal_panel::ToggleFocus",
-			"space b": "git::Branch",
-			"space d": "diagnostics::Deploy",
 			"space r": "task::Spawn",
-			"space c": "git::ExpandCommitEditor",
+			"space d": "diagnostics::Deploy",
 			"space k": [
 				"task::Spawn",
 				{
 					"task_name": "k9s"
+				}
+			],
+			"space g": [
+				"task::Spawn",
+				{
+					"task_name": "Lazygit",
+					"reveal_target": "center"
+				}
+			],
+			"space shift-d": [
+				"task::Spawn",
+				{
+					"task_tag": "dev"
 				}
 			]
 		}
@@ -29,12 +39,6 @@
 			"ctrl-w l": "workspace::ActivatePaneRight",
 			"ctrl-w k": "workspace::ActivatePaneUp",
 			"ctrl-w j": "workspace::ActivatePaneDown"
-		}
-	},
-	{
-		"context": "Editor && VimControl && !VimWaiting && !menu",
-		"bindings": {
-			"shift-k": "editor::Hover"
 		}
 	},
 	// {
@@ -49,7 +53,7 @@
 	// 	}
 	// },
 	{
-		"context": "Dock && !Editor",
+		"context": "Dock && !Editor && !Terminal",
 		"bindings": {
 			"ctrl-d": ["workspace::SendKeystrokes", "j j j j j j"],
 			"ctrl-u": ["workspace::SendKeystrokes", "k k k k k k"]
@@ -58,17 +62,9 @@
 	{
 		"context": "ProjectPanel && not_editing",
 		"bindings": {
+			"H": "project_panel::CollapseAllEntries",
 			"n": "project_panel::NewFile",
 			"N": "project_panel::NewDirectory"
-		}
-	},
-	{
-		"context": "Editor && vim_mode == normal && vim_operator == none && !VimWaiting",
-		"bindings": {
-			"g a": "editor::ToggleCodeActions",
-			"space a": "editor::ToggleCodeActions",
-			"g r": "editor::Rename",
-			"g n": "repl::Run"
 		}
 	}
 ]

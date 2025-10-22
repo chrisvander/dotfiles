@@ -1,33 +1,36 @@
 {
+	"features": {
+		"edit_prediction_provider": "zed"
+	},
 	// Theme
 	"icon_theme": {
-		"mode": "dark",
-		"light": "Catppuccin Latte",
-		"dark": "Catppuccin Mocha"
+		"mode": "system",
+		"light": "JetBrains New UI Icons (Light)",
+		"dark": "Catppuccin Macchiato"
 	},
 	"theme": {
-		"mode": "dark",
+		"mode": "system",
 		"light": "Catppuccin Latte",
 		"dark": "Catppuccin Macchiato"
 	},
 
 	// Buffer
-	"buffer_font_family": "MonaspiceNe Nerd Font Mono",
+	"buffer_font_family": "Hack Nerd Font",
+	"buffer_font_weight": 500,
 	"tab_size": 2,
 	"ui_font_size": 15,
 	"buffer_font_size": 14,
 
 	// Tabs
 	"tabs": {
-		"file_icons": true,
-		"git_status": true
+		"file_icons": true
 	},
 	"tab_bar": {
 		"show_nav_history_buttons": false
 	},
 
-	// Vim stuff
-	"vim_mode": true,
+	// Helix stuff
+	"helix_mode": true,
 	"relative_line_numbers": true,
 	"vertical_scroll_margin": 20,
 
@@ -38,17 +41,7 @@
 			"VISUAL": "zed --wait",
 			"MANPAGER": "zed --wait +Man!"
 		},
-		"font_family": "MonaspiceNe Nerd Font Mono",
-		"line_height": "standard",
 		"working_directory": "current_project_directory"
-	},
-
-	"jupyter": {
-		"kernel_selections": {
-			"python": "python3",
-			"typescript": "deno",
-			"javascript": "deno"
-		}
 	},
 
 	"languages": {
@@ -59,19 +52,20 @@
 				"tailwindcss-language-server",
 				"!prettier"
 			],
-			"code_actions_on_format": {
-				"source.fixAll.biome": true
-			},
-			"formatter": {
-				"language_server": {
-					"name": "biome"
+			"formatter": [
+				{
+					"code_action": "source.fixAll.biome"
+				},
+				{
+					"language_server": {
+						"name": "biome"
+					}
 				}
-			}
+			]
 		},
 		"Rust": {
 			"tab_size": 4,
 			"formatter": "language_server",
-			"format_on_save": "language_server",
 			"language_servers": ["rust-analyzer"]
 		},
 		"Prisma": {
@@ -84,25 +78,29 @@
 		},
 		"JSON": {
 			"language_servers": ["vtsls", "biome", "!prettier", "..."],
-			"code_actions_on_format": {
-				"source.fixAll.biome": true
-			},
-			"formatter": {
-				"language_server": {
-					"name": "biome"
+			"formatter": [
+				{
+					"code_action": "source.fixAll.biome"
+				},
+				{
+					"language_server": {
+						"name": "biome"
+					}
 				}
-			}
+			]
 		},
 		"JSONC": {
 			"language_servers": ["vtsls", "biome", "!prettier", "..."],
-			"code_actions_on_format": {
-				"source.fixAll.biome": true
-			},
-			"formatter": {
-				"language_server": {
-					"name": "biome"
+			"formatter": [
+				{
+					"code_action": "source.fixAll.biome"
+				},
+				{
+					"language_server": {
+						"name": "biome"
+					}
 				}
-			}
+			]
 		},
 		"JavaScript": {
 			"language_servers": [
@@ -114,15 +112,19 @@
 				"!typescript-language-server",
 				"..."
 			],
-			"code_actions_on_format": {
-				"source.fixAll.biome": true,
-				"source.organizeImports.biome": true
-			},
-			"formatter": {
-				"language_server": {
-					"name": "biome"
+			"formatter": [
+				{
+					"code_action": "source.fixAll.biome"
+				},
+				{
+					"code_action": "source.organizeImports.biome"
+				},
+				{
+					"language_server": {
+						"name": "biome"
+					}
 				}
-			}
+			]
 		},
 		"TSX": {
 			"language_servers": [
@@ -134,17 +136,25 @@
 				"!typescript-language-server",
 				"..."
 			],
-			"code_actions_on_format": {
-				"source.fixAll.biome": true,
-				"source.organizeImports.biome": true
-			},
-			"formatter": {
-				"language_server": {
-					"name": "biome"
+			"formatter": [
+				{
+					"code_action": "source.fixAll.biome"
+				},
+				{
+					"code_action": "source.organizeImports.biome"
+				},
+				{
+					"language_server": {
+						"name": "biome"
+					}
 				}
-			}
+			]
 		},
 		"TypeScript": {
+			"inlay_hints": {
+				"enabled": true,
+				"show_type_hints": false
+			},
 			"language_servers": [
 				"vtsls",
 				"biome",
@@ -154,72 +164,38 @@
 				"!typescript-language-server",
 				"..."
 			],
-			"code_actions_on_format": {
-				"source.fixAll.biome": true,
-				"source.organizeImports.biome": true
-			},
-			"formatter": {
-				"language_server": {
-					"name": "biome"
+			"formatter": [
+				{
+					"code_action": "source.fixAll.biome"
+				},
+				{
+					"code_action": "source.organizeImports.biome"
+				},
+				{
+					"language_server": {
+						"name": "biome"
+					}
 				}
-			}
+			]
 		}
 	},
 
 	"lsp": {
 		"rust-analyzer": {
 			"initialization_options": {
+				"checkOnSave": {
+					"enable": true,
+					"command": "clippy",
+					"extraArgs": ["--", "-W", "clippy::all"]
+				},
 				"check": {
-					"command": "clippy"
+					"allTargets": true
 				}
 			}
-		},
-		"tailwindcss-language-server": {
-			"classFunctions": ["twMerge", "twJoin"]
 		}
 	},
 
 	"file_types": {
 		"JSONC": ["tsconfig*.json"]
-	},
-
-	"features": {
-		"edit_prediction_provider": "copilot"
-	},
-
-	"agent": {
-		"profiles": {
-			"write": {
-				"name": "Write",
-				"tools": {
-					"copy_path": true,
-					"create_directory": true,
-					"create_file": true,
-					"delete_path": true,
-					"diagnostics": true,
-					"edit_file": true,
-					"fetch": true,
-					"list_directory": true,
-					"move_path": true,
-					"now": true,
-					"find_path": true,
-					"read_file": true,
-					"grep": true,
-					"terminal": true,
-					"thinking": true,
-					"web_search": true,
-					"open": true
-				},
-				"enable_all_context_servers": true,
-				"context_servers": {}
-			}
-		},
-		"default_profile": "write",
-		"default_model": {
-			"provider": "copilot_chat",
-			"model": "gpt-4.1"
-		},
-		"version": "2",
-		"provider": null
 	}
 }
