@@ -2,3 +2,5 @@ git:
   paging:
     colorArg: always
     pager: delta --light --paging=never
+  overrideGpg: true
+
