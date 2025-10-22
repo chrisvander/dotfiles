@@ -1,4 +1,4 @@
-theme = dark:catppuccin-mocha,light:catppuccin-latte
+theme = dark:Catppuccin Frappe,light:Catppuccin Latte
 
 # text
 font-family = "MonaspiceNe Nerd Font Mono"
@@ -7,8 +7,8 @@ adjust-cell-height = 6
 adjust-font-baseline = -2
 
 # bg
-background-opacity = 0.9
-background-blur-radius = 20
+background-opacity = 0.8
+background-blur-radius = 30
 
 # window
 window-padding-x = 8
