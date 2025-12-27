@@ -1,28 +1,4 @@
 [tools]
 node = "22"
-terraform = "latest"
-minikube = "latest"
-kubectl = "latest"
-k9s = "latest"
-github-cli = "latest"
-eksctl = "latest"
-awscli = "latest"
-pnpm = "latest"
-bun = "latest"
-argocd = "latest"
-bottom = "latest"
-lazygit = "latest"
-helm = "latest"
-aws-iam-authenticator = "latest"
-cloudflared = "latest"
-pkl = "latest"
-pulumi = "latest"
-neovim = "latest"
-1password-cli = "latest"
-python = "latest"
-gleam = "latest"
-yarn = "latest"
-rust = "latest"
 
 [settings]
-experimental = true
