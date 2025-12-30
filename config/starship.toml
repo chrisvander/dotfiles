@@ -34,9 +34,6 @@ us-east-2 = 'oh'
 [buf]
 symbol = " "
 
-[bun]
-disabled = true
-
 [c]
 symbol = " "
 
@@ -74,7 +71,6 @@ truncation_length = 8
 symbol = " "
 
 [golang]
-disabled = true
 symbol = " "
 
 [guix_shell]
