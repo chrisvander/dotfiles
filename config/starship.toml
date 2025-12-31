@@ -4,7 +4,7 @@
 # Inserts a blank line between shell prompts
 add_newline = false
 
-format = '''$directory$git_branch$git_commit$git_state$git_status$cmd_duration$fill$all$character$prompt'''
+format = '''$directory${custom.jj}$git_branch$git_commit$git_state$git_status$cmd_duration$fill$all$character$prompt'''
 
 command_timeout = 1000
 
@@ -13,7 +13,28 @@ symbol = " "
 
 [kubernetes]
 format = ' [$symbol$context( \($namespace\))]($style) '
-disabled = false
+disabled = true
+
+[git_branch]
+disabled = true
+format = '[$symbol$branch(:$remote_branch)]($style) '
+truncation_length = 8
+symbol = " "
+
+[git_commit]
+disabled = true
+
+[git_state]
+disabled = true
+
+[git_status]
+disabled = true
+
+[custom.jj]
+command = "jj-starship --bookmarks-display-limit 1 --truncate-name 14 --strip-bookmark-prefix \"chris/eng-\" --no-git-prefix --no-jj-prefix --no-git-id"
+shell = ["sh"]
+format = "$output "
+when = "jj-starship detect"
 
 [gcloud]
 disabled = true
@@ -31,10 +52,14 @@ ap-southeast-2 = 'au'
 us-east-1 = 'va'
 us-east-2 = 'oh'
 
+[bun]
+disabled = true
+
 [buf]
 symbol = " "
 
 [c]
+disabled = true
 symbol = " "
 
 [conda]
@@ -63,11 +88,6 @@ disabled = true
 symbol = " "
 
 [fossil_branch]
-symbol = " "
-
-[git_branch]
-format = '[$symbol$branch(:$remote_branch)]($style) '
-truncation_length = 8
 symbol = " "
 
 [golang]
@@ -160,7 +180,7 @@ Windows = "󰍲 "
 [package]
 symbol = "󰏗 "
 format = 'via [$symbol$version]($style) '
-disabled = false
+disabled = true
 
 [pijul_channel]
 symbol = "🪺 "
