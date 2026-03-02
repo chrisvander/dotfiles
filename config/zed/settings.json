@@ -1,230 +1,242 @@
 {
-	"agent": {
-  "default_model": {
-   "provider": "copilot_chat",
-   "model": "gpt-5"
+  "centered_layout": {
+    "right_padding": 0.2,
+    "left_padding": 0.2
   },
-  "model_parameters": []
- },
- "buffer_line_height": {
-		"custom": 1.4
-	},
-	"minimap": {
-		"show": "auto",
-		"max_width_columns": 80,
-		"thumb_border": "left_only"
-	},
+  "which_key": {
+    "delay_ms": 100,
+    "enabled": true
+  },
+  "cli_default_open_behavior": "new_window",
+  "project_panel": {
+    "dock": "left"
+  },
+  "outline_panel": {
+    "dock": "left"
+  },
+  "collaboration_panel": {
+    "dock": "left"
+  },
+  "agent_servers": {
+    "pi-acp": {
+      "type": "registry"
+    },
+    "codex-acp": {
+      "default_config_options": {
+        "fast-mode": "off",
+        "mode": "agent",
+        "reasoning_effort": "medium",
+        "model": "gpt-5.6-sol"
+      },
+      "favorite_config_option_values": {
+        "reasoning_effort": ["medium", "low"],
+        "model": ["gpt-5.6-luna", "gpt-5.6-terra"]
+      },
+      "type": "registry"
+    }
+  },
+  "agent": {
+    "auto_compact": {
+      "threshold": "90%"
+    },
+    "sidebar_side": "right",
+    "dock": "right",
+    "default_profile": "write",
+    "default_model": {
+      "provider": "ollama",
+      "model": "gpt-oss:latest",
+      "enable_thinking": true
+    },
+    "inline_assistant_model": {
+      "model": "gpt-5.6-terra",
+      "provider": "openai-subscribed"
+    }
+  },
+  "edit_predictions": {
+    "provider": "zed",
+    "ollama": {
+      "model": "qwen2.5-coder:3b"
+    }
+  },
+  "minimap": {
+    "show": "auto",
+    "max_width_columns": 60,
+    "thumb_border": "none"
+  },
+  // Theme
+  "icon_theme": {
+    "mode": "system",
+    "light": "Catppuccin Latte",
+    "dark": "Catppuccin Macchiato"
+  },
+  "theme": {
+    "mode": "system",
+    "light": "Catppuccin Latte",
+    "dark": "Catppuccin Macchiato"
+  },
+  // Buffer
+  "tab_size": 2,
+  "ui_font_size": 14,
+  "buffer_font_family": "MonaspiceNe Nerd Font",
+  "buffer_font_size": 14.0,
+  "experimental.theme_overrides": {
+    "syntax": {
+      "comment.doc": {
+        "font_weight": 300,
+        "font_style": "oblique"
+      },
+      "comment": {
+        "font_weight": 300
+      },
+      "keyword": {
+        "font_weight": 500
+      }
+    }
+  },
+  "tab_bar": {
+    "show_nav_history_buttons": false
+  },
+  "helix_mode": true,
+  "relative_line_numbers": "enabled",
+  "vertical_scroll_margin": 20,
+  "terminal": {
+    "font_family": "MonaspiceNe Nerd Font Mono",
+    "dock": "bottom",
+    "env": {
+      "EDITOR": "zed --wait",
+      "VISUAL": "zed --wait",
+      "MANPAGER": "zed --wait +Man!"
+    },
+    "working_directory": "current_project_directory"
+  },
+  "languages": {
+    "Rust": {
+      "tab_size": 4,
+      "formatter": "language_server",
+      "language_servers": ["rust-analyzer", ".."],
+      "format_on_save": "on"
+    },
+    "Prisma": {
+      "formatter": {
+        "language_server": {
+          "name": "prisma-language-server"
+        }
+      },
+      "format_on_save": "on",
+      "language_servers": ["prisma-language-server", ".."]
+    },
+    "TSX": {
+      "language_servers": ["vtsls", "oxfmt", "oxlint", ".."],
+      "format_on_save": "on",
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        },
+        {
+          "code_action": "source.fixAll.oxc"
+        }
+      ]
+    },
+    "TypeScript": {
+      "language_servers": ["vtsls", "oxfmt", "oxlint", ".."],
+      "format_on_save": "on",
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        },
+        {
+          "code_action": "source.fixAll.oxc"
+        }
+      ]
+    },
+    "JavaScript": {
+      "language_servers": ["vtsls", "oxfmt", "oxlint", ".."],
+      "format_on_save": "on",
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        },
+        {
+          "code_action": "source.fixAll.oxc"
+        }
+      ]
+    },
+    "JSON": {
+      "language_servers": ["json-language-server", "oxfmt", "oxlint", ".."],
+      "format_on_save": "on",
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        }
+      ]
+    },
+    "JSONC": {
+      "language_servers": ["json-language-server", "oxfmt", "oxlint", ".."],
+      "format_on_save": "on",
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        }
+      ]
+    },
+    "JSON5": {
+      "language_servers": ["json-language-server", "oxfmt", "oxlint", ".."],
+      "format_on_save": "on",
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        }
+      ]
+    },
+    "CSharp": {
+      "formatter": {
+        "external": {
+          "command": "/Users/chrisvanderloo/.dotnet/tools/csharpier",
+          "arguments": ["format"]
+        }
+      },
+      "format_on_save": "on"
+    }
+  },
+  "lsp": {
+    "oxlint": {
+      "initialization_options": {
+        "settings": {
+          "configPath": null,
+          "run": "onType",
+          "disableNestedConfig": false,
+          "fixKind": "safe_fix",
+          "unusedDisableDirectives": "deny"
+        }
+      }
+    },
+    "oxfmt": {
+      "initialization_options": {
+        "settings": {
+          "fmt.configPath": null,
+          "run": "onSave",
+          "typeAware": false
+        }
+      }
+    }
+  },
 
-	"features": {
-		"edit_prediction_provider": "copilot"
-	},
-
-	// Theme
-	"icon_theme": {
-		"mode": "system",
-		"light": "Catppuccin Latte",
-		"dark": "Catppuccin Mocha"
-	},
-	"theme": {
-		"mode": "system",
-		"light": "Catppuccin Latte",
-		"dark": "Catppuccin Mocha"
-	},
-
-	// Buffer
-	"buffer_font_family": "JetBrainsMono Nerd Font",
-	"tab_size": 2,
-	"ui_font_size": 14,
-	"buffer_font_size": 14.0,
-	"experimental.theme_overrides": {
-		"syntax": {
-			"comment.doc": {
-				"font_weight": 300,
-				"font_style": "oblique"
-			},
-			"comment": {
-				"font_weight": 300
-			},
-			"keyword": {
-				"font_weight": 600
-			}
-		}
-	},
-
-	// Tabs
-	"tabs": {
-		"file_icons": true
-	},
-	"tab_bar": {
-		"show_nav_history_buttons": false
-	},
-
-	// Helix stuff
-	"helix_mode": true,
-	"relative_line_numbers": "enabled",
-	"vertical_scroll_margin": 20,
-
-	"terminal": {
-		"dock": "right",
-		"env": {
-			"EDITOR": "zed --wait",
-			"VISUAL": "zed --wait",
-			"MANPAGER": "zed --wait +Man!"
-		},
-		"working_directory": "current_project_directory"
-	},
-
-	"languages": {
-		"Astro": {
-			"language_servers": [
-				"astro-language-server",
-				"biome",
-				"tailwindcss-language-server",
-				"!prettier",
-				"!tsgo"
-			],
-			"formatter": [
-				{
-					"code_action": "source.fixAll.biome"
-				},
-				{
-					"language_server": {
-						"name": "biome"
-					}
-				}
-			]
-		},
-		"Rust": {
-			"tab_size": 4,
-			"formatter": "language_server",
-			"language_servers": ["rust-analyzer"]
-		},
-		"Prisma": {
-			"formatter": {
-				"language_server": {
-					"name": "prisma-language-server"
-				}
-			},
-			"language_servers": ["prisma-language-server"]
-		},
-		"JSON": {
-			"language_servers": [
-				"vtsls",
-				"biome",
-				"!prettier",
-				"!vtsls",
-				"!typescript-language-server",
-				"..."
-			],
-			"formatter": [
-				{
-					"code_action": "source.fixAll.biome"
-				},
-				{
-					"language_server": {
-						"name": "biome"
-					}
-				}
-			]
-		},
-		"JSONC": {
-			"language_servers": [
-				"vtsls",
-				"biome",
-				"!prettier",
-				"!vtsls",
-				"!typescript-language-server",
-				"..."
-			],
-			"formatter": [
-				{
-					"code_action": "source.fixAll.biome"
-				},
-				{
-					"language_server": {
-						"name": "biome"
-					}
-				}
-			]
-		},
-		"JavaScript": {
-			"language_servers": [
-				"vtsls",
-				"biome",
-				"tailwindcss-language-server",
-				"!eslint",
-				"!prettier",
-				"!vtsls",
-				"!typescript-language-server",
-				"..."
-			],
-			"formatter": [
-				{
-					"code_action": "source.fixAll.biome"
-				},
-				{
-					"code_action": "source.organizeImports.biome"
-				},
-				{
-					"language_server": {
-						"name": "biome"
-					}
-				}
-			]
-		},
-		"TSX": {
-			"language_servers": [
-				"vtsls",
-				"biome",
-				"tailwindcss-language-server",
-				"!eslint",
-				"!prettier",
-				"!vtsls",
-				"!typescript-language-server",
-				"..."
-			],
-			"formatter": [
-				{
-					"code_action": "source.fixAll.biome"
-				},
-				{
-					"code_action": "source.organizeImports.biome"
-				},
-				{
-					"language_server": {
-						"name": "biome"
-					}
-				}
-			]
-		},
-		"TypeScript": {
-			"language_servers": [
-				"vtsls",
-				"biome",
-				"tailwindcss-language-server",
-				"!eslint",
-				"!prettier",
-				"!vtsls",
-				"!typescript-language-server",
-				"..."
-			],
-			"formatter": [
-				{
-					"code_action": "source.fixAll.biome"
-				},
-				{
-					"code_action": "source.organizeImports.biome"
-				},
-				{
-					"language_server": {
-						"name": "biome"
-					}
-				}
-			]
-		}
-	},
-
-	"file_types": {
-		"JSONC": ["tsconfig*.json"]
-	}
+  "prettier": {
+    "allowed": false
+  },
+  "file_types": {
+    "JSONC": ["tsconfig*.json"]
+  }
 }

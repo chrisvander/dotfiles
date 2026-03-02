@@ -1,44 +1,10 @@
-[language-server.tailwindcss-language-server]
-command = "tailwindcss-language-server"
-args = ["stdio"]
+[language-server]
+biome = { command = "bunx", args = ["biome", "lsp-proxy"] }
 
 [language-server.astro-ls]
-command = "astro-ls"
 args = ["--stdio"]
+command = "astro-ls"
 config = { typescript = { tsdk = ".local/share/pnpm/global/5/node_modules/typescript/lib" } }
-
-[language-server.biome]
-command = "biome"
-args = ["lsp-proxy"]
-
-[language-server.deno-lsp]
-command = "deno"
-args = ["lsp"]
-
-[language-server.deno-lsp.config.deno]
-enable = true
-unstable = true
-suggest.imports.hosts = { "https://deno.land" = true }
-inlayHints.parameterNames.enabled = "all"
-inlayHints.parameterTypes.enabled = true
-inlayHints.variableTypes.enabled = true
-inlayHints.propertyDeclarationTypes.enabled  = true
-inlayHints.functionLikeReturnTypes.enabled = true
-inlayHints.enumMemberValues.enabled = true
- 
-[[language]]
-name = "typescript"
-shebangs = ["deno"]
-roots = ["deno.json", "deno.jsonc", "package.json"]
-auto-format = true
-language-servers = ["deno-lsp", "tailwindcss-language-server"]
-
-[[language]]
-name = "tsx"
-shebangs = ["deno"]
-roots = ["deno.json", "deno.jsonc", "package.json"]
-auto-format = true
-language-servers = ["deno-lsp", "tailwindcss-language-server"]
 
 [[language]]
 name = "astro"
@@ -51,31 +17,31 @@ auto-format = true
 
 [[language]]
 name = "typescript"
-language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "tailwindcss-language-server", "biome"]
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome"]
 indent = { tab-width = 2, unit = " " }
 auto-format = true
 
 [[language]]
 name = "tsx"
-language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "tailwindcss-language-server", "biome"]
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome"]
 indent = { tab-width = 2, unit = " " }
 auto-format = true
 
 [[language]]
 name = "jsx"
-language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "tailwindcss-language-server", "biome"]
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome"]
 grammar = "javascript"
 indent = { tab-width = 2, unit = " " }
 auto-format = true
 
 [[language]]
 name = "javascript"
-language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "tailwindcss-language-server", "biome"]
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome"]
 indent = { tab-width = 2, unit = " " }
 auto-format = true
 
 [[language]]
 name = "json"
-language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "tailwindcss-language-server", "biome"]
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome"]
 indent = { tab-width = 2, unit = " " }
 auto-format = true

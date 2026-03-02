@@ -31,7 +31,7 @@ disabled = true
 disabled = true
 
 [custom.jj]
-command = "jj-starship --bookmarks-display-limit 1 --truncate-name 14 --strip-bookmark-prefix \"chris/eng-\" --no-git-prefix --no-jj-prefix --no-git-id"
+command = "jj-starship --bookmarks-display-limit 2 --truncate-name 14 --strip-bookmark-prefix \"chris/eng-\" --no-git-prefix --no-jj-prefix --no-git-id"
 shell = ["sh"]
 format = "$output "
 when = "jj-starship detect"
