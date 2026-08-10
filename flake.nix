@@ -9,51 +9,14 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager, ... }:
-  let
-    configuration = { pkgs, ... }: {
-      # List packages installed in system profile. To search by name, run:
-      # $ nix-env -qaP | grep wget
-      environment.systemPackages =
-        with pkgs; [
-          vim
-          nil
-          nixd
-        ];
-
-      homebrew = {};
-
-      # Necessary for using flakes on this system.
-      nix.settings.experimental-features = "nix-command flakes";
-
-      # Fish shell setup
-      programs.fish.enable = true;
-      environment.shells = [ pkgs.fish ];
-      users.users.chrisvanderloo = {
-        home = "/Users/chrisvanderloo";
-        shell = pkgs.fish;
-      };
-
-      # Enable Touch ID authentication for sudo
-      security.pam.services.sudo_local.touchIdAuth = true;
-
-      # Set Git commit hash for darwin-version.
-      system.configurationRevision = self.rev or self.dirtyRev or null;
-
-      # Used for backwards compatibility, please read the changelog before changing.
-      # $ darwin-rebuild changelog
-      system.stateVersion = 6;
-
-      # The platform the configuration will be used on.
-      nixpkgs.hostPlatform = "aarch64-darwin";
-    };
-  in
-  {
+  outputs = { self, nix-darwin, home-manager, ... }: {
     # Build darwin flake using:
-    # $ darwin-rebuild build --flake .#Chriss-MacBook-Pro-14
-    darwinConfigurations."Chriss-MacBook-Pro-14" = nix-darwin.lib.darwinSystem {
+    # $ darwin-rebuild build --flake .#mbp
+    darwinConfigurations.mbp = nix-darwin.lib.darwinSystem {
+      specialArgs = { inherit self; };
       modules = [
-        configuration
+        home-manager.darwinModules.home-manager
+        ./modules/hosts/mbp.nix
       ];
     };
     # homeConfigurations."chris@pi" = home-manager.lib.homeManagerConfiguration {
