@@ -1,4 +1,7 @@
-{ pkgs, self, ... }: {
+{ pkgs, self, nixpkgs-unstable, ... }:
+let
+  unstable = nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+in {
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [ nil nixd ];
@@ -18,9 +21,24 @@
       dust
       gh
       git
-      jujutsu
       eza
       fzf
+      zoxide
+
+      pulumi
+
+      llvm
+
+      uv
+      python3
+
+      azure-cli
+      commitizen
+      podman
+      podman-compose
+
+      nodejs_26
+      pnpm
 
       # LSPs
       # - Nix
@@ -35,6 +53,9 @@
       typescript-language-server
       # - Astro
       astro-language-server
+    ] ++ [
+      unstable.jujutsu
+      unstable._1password-cli
     ];
   };
 
