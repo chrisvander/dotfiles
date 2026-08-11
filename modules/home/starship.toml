@@ -1,19 +1,8 @@
-# Get editor completions based on the config schema
 "$schema" = 'https://starship.rs/config-schema.json'
-
-# Inserts a blank line between shell prompts
-add_newline = false
-
-format = '''$directory${custom.jj}$git_branch$git_commit$git_state$git_status$cmd_duration$fill$all$character$prompt'''
-
-command_timeout = 1000
-
-[fill]
-symbol = " "
+format = "$directory${custom.jj}$git_branch$git_commit$git_state$git_status$cmd_duration$fill$all$character$prompt"
 
 [kubernetes]
 format = ' [$symbol$context( \($namespace\))]($style) '
-disabled = true
 
 [git_branch]
 disabled = true
@@ -39,9 +28,6 @@ when = "jj-starship detect"
 [gcloud]
 disabled = true
 
-###
-# Use Nerd Fonts
-###
 [aws]
 format = 'on [$symbol$region]($style) '
 style = 'bold yellow'

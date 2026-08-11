@@ -16,13 +16,11 @@
     packages = with pkgs; [
       # Shell packages
       dust
-      bat
       gh
       git
       jujutsu
       eza
       fzf
-      starship
 
       # LSPs
       # - Nix

@@ -1,0 +1,17 @@
+{
+  programs.fzf = {
+    enable = true;
+
+    defaultOptions = [
+      "--color=16"
+      "--color=gutter:-1"
+      "--no-mouse"
+      "--margin=1"
+      "--cycle"
+      "--layout=reverse"
+      "--height=~60%"
+      "--preview-window=wrap"
+      "--marker=*"
+    ];
+  };
+}
