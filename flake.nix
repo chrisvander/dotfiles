@@ -10,7 +10,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs-unstable, nix-darwin, home-manager, ... }: {
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, nix-darwin, home-manager, ... }: {
     # Build darwin flake using:
     # $ darwin-rebuild build --flake .#mbp
     darwinConfigurations.mbp = nix-darwin.lib.darwinSystem {
@@ -20,13 +20,12 @@
         ./modules/hosts/mbp.nix
       ];
     };
-    # homeConfigurations."chris@pi" = home-manager.lib.homeManagerConfiguration {
-    #   pkgs = nixpkgs.legacyPackages.aarch64-linux;
-
-    #   modules = [
-    #     ./modules/home/shell.nix
-    #     ./modules/home/roles/personal.nix
-    #   ];
-    # };
+    homeConfigurations.pi = home-manager.lib.homeManagerConfiguration {
+      pkgs = nixpkgs.legacyPackages.aarch64-linux.extend nixpkgs;
+      extraSpecialArgs = { inherit inputs; };
+      modules = [
+        ./modules/hosts/pi.nix
+      ];
+    };
   };
 }

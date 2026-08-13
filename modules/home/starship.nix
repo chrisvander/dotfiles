@@ -6,6 +6,9 @@ in {
     enable = true;
     extraPackages = [ pkgs.jj-starship ];
 
+    enableFishIntegration = true;
+    enableTransience = true;
+
     settings = lib.recursiveUpdate base {
       add_newline = false;
       command_timeout = 1000;

@@ -1,10 +1,17 @@
-{ pkgs, self, nixpkgs-unstable, ... }:
+{ lib, pkgs, self, nixpkgs-unstable, ... }:
 let
-  unstable = nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+  unstable = import nixpkgs-unstable {
+    system = pkgs.stdenv.hostPlatform.system;
+
+    config.allowUnfreePredicate = pkg:
+      builtins.elem (lib.getName pkg) [
+        "1password-cli"
+      ];
+  };
 in {
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
-  environment.systemPackages = with pkgs; [ nil nixd ];
+  environment.systemPackages = [  ];
 
   # Necessary for using flakes on this system.
   nix.settings.experimental-features = "nix-command flakes";
@@ -25,33 +32,46 @@ in {
       fzf
       zoxide
 
+      # Kubernetes
+      k9s
+      kubectl
+      kind
+
+      # .NET
+      dotnet-sdk_9
+
       pulumi
 
       llvm
 
+      # Python
       uv
       python3
 
       azure-cli
       commitizen
+
+      # Podman
       podman
       podman-compose
 
+
+      # Node
       nodejs_26
       pnpm
+      bun
 
-      # LSPs
-      # - Nix
+      # Nix
       nil
       nixd
-      # - TailwindCSS
+      # TailwindCSS
       tailwindcss-language-server
-      # - TS
+      # TS
       oxlint
       oxfmt
       typescript-go
       typescript-language-server
-      # - Astro
+      # Astro
       astro-language-server
     ] ++ [
       unstable.jujutsu
@@ -59,14 +79,7 @@ in {
     ];
   };
 
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    backupFileExtension = "before-home-manager";
-    users.chrisvanderloo = import ../home;
-  };
-
-  security.pam.services.sudo_local = {
+   security.pam.services.sudo_local = {
     # Enable Touch ID authentication for sudo
     touchIdAuth = true;
   };
