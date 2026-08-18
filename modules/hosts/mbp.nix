@@ -1,4 +1,4 @@
-{
+{ nixpkgs-unstable, ... }: {
   imports = [
     ../darwin
   ];
@@ -9,14 +9,15 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     backupFileExtension = "before-home-manager";
+
+    extraSpecialArgs = { inherit nixpkgs-unstable; };
+
     users.chrisvanderloo = {
       imports = [
         ../home/helix.nix
         ../home/fish.nix
         ../home/ghostty.nix
-        ../home/bat.nix
-        ../home/fzf.nix
-        ../home/starship.nix
+        ../home/packages.nix
       ];
 
       home.stateVersion = "26.05";
