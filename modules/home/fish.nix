@@ -20,6 +20,15 @@ in
     };
   };
 
+  programs.fd.enable = true;
+  programs.git.enable = true;
+  programs.gh.enable = true;
+  programs.eza = {
+    enable = true;
+    enableFishIntegration = true;
+    git = true;
+  };
+
   programs.fish = {
     enable = true;
     generateCompletions = true;

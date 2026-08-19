@@ -1,4 +1,4 @@
-{ nixpkgs-unstable, ... }: {
+{ nixpkgs-unstable, pkgs, ... }: {
   imports = [
     ../darwin
   ];
@@ -18,6 +18,12 @@
         ../home/fish.nix
         ../home/ghostty.nix
         ../home/packages.nix
+        ../home/podman.nix
+        ../home/kubernetes.nix
+      ];
+
+      home.packages = with pkgs; [
+        kind
       ];
 
       home.stateVersion = "26.05";

@@ -10,37 +10,20 @@ let
   };
 in {
   home.packages = with pkgs; [
-    # Shell packages
     dust
-    gh
-    git
-    eza
-
-    # Kubernetes
-    k9s
-    kubectl
-    kind
-
-    # .NET
     dotnet-sdk_9
-
     pulumi
-
     llvm
 
     # Python
     uv
     python3
 
-    azure-cli
     commitizen
-
-    # Podman
-    podman
-    podman-compose
 
     # Node
     nodejs_26
+    azure-cli
     pnpm
     bun
 
