@@ -93,6 +93,11 @@ symbol = " "
 
 [hostname]
 ssh_symbol = " "
+format = '[$ssh_symbol]($style)[$hostname]($style) '
+
+[username]
+disabled = true
+format = '[$user]($style) on '
 
 [java]
 disabled = true

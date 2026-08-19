@@ -21,8 +21,8 @@
       ];
     };
     homeConfigurations.pi = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.aarch64-linux.extend nixpkgs;
-      extraSpecialArgs = { inherit inputs; };
+      pkgs = nixpkgs.legacyPackages.aarch64-linux;
+      extraSpecialArgs = { inherit nixpkgs-unstable; };
       modules = [
         ./modules/hosts/pi.nix
       ];
