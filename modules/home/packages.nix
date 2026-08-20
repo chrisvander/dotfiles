@@ -40,7 +40,6 @@ in {
     # Astro
     astro-language-server
   ] ++ [
-    unstable.jujutsu
     unstable._1password-cli
   ];
 }

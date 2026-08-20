@@ -1,6 +1,14 @@
-{ pkgs, lib, ... }:
+{ pkgs, nixpkgs-unstable, lib, ... }:
 let
   starshipConfig = with builtins; fromTOML (readFile ./starship.toml);
+  unstable = import nixpkgs-unstable {
+    system = pkgs.stdenv.hostPlatform.system;
+
+    config.allowUnfreePredicate = pkg:
+      builtins.elem (lib.getName pkg) [
+        "1password-cli"
+      ];
+  };
 in
 {
   xdg.configFile = {
@@ -20,6 +28,26 @@ in
     };
   };
 
+  home.sessionVariables = {
+    EDITOR = "hx";
+    VISUAL = "hx";
+    MANPAGER = "bat -l man";
+  };
+
+  home.shellAliases = {
+    # alias for bat
+    cat = "bat";
+    # alias for bottom
+    top = "btm";
+    # git aliases
+    gs = "git status";
+    gc = "git commit";
+    gch = "git checkout";
+    gp = "git push";
+    gpl = "git pull";
+  };
+
+  programs.bottom.enable = true;
   programs.fd.enable = true;
   programs.git.enable = true;
   programs.gh = {
@@ -30,6 +58,14 @@ in
     enable = true;
     enableFishIntegration = true;
     git = true;
+    icons = "always";
+    colors = "always";
+  };
+
+  programs.delta = {
+    enable = true;
+    enableJujutsuIntegration = true;
+    enableGitIntegration = true;
   };
 
   programs.fish = {
@@ -85,6 +121,20 @@ in
       "--preview-window=wrap"
       "--marker=*"
     ];
+  };
+
+  programs.jujutsu = {
+    enable = true;
+    package = unstable.jujutsu;
+    settings = {
+      user = {
+        email = "chris.vanderloo@icloud.com";
+        name = "Chris van der Loo";
+      };
+      ui = {
+        default-command = "log";
+      };
+    };
   };
 
   programs.ghostty.enableFishIntegration = true;
