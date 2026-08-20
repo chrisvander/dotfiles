@@ -11,6 +11,15 @@
     stateVersion = "26.05";
   };
 
+  nix = {
+    package = pkgs.nix;
+    settings = {
+      cores = 2;
+      max-jobs = 1;
+      http-connections = 8;
+    };
+  };
+
   programs.fish.plugins = [
     {
       name = "nix-env";

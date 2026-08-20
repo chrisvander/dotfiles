@@ -22,7 +22,10 @@ in
 
   programs.fd.enable = true;
   programs.git.enable = true;
-  programs.gh.enable = true;
+  programs.gh = {
+    enable = true;
+    settings.aliases.co = "pr checkout";
+  };
   programs.eza = {
     enable = true;
     enableFishIntegration = true;
@@ -31,7 +34,6 @@ in
 
   programs.fish = {
     enable = true;
-    generateCompletions = true;
 
     functions = {
       fish_greeting = "";
