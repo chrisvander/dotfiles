@@ -102,11 +102,6 @@
   "terminal": {
     "font_family": "MonaspiceNe Nerd Font Mono",
     "dock": "bottom",
-    "env": {
-      "EDITOR": "zed --wait",
-      "VISUAL": "zed --wait",
-      "MANPAGER": "zed --wait +Man!"
-    },
     "working_directory": "current_project_directory"
   },
   "languages": {

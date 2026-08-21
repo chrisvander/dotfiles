@@ -27,9 +27,6 @@ in {
     pnpm
     bun
 
-    # Nix
-    nil
-    nixd
     # TailwindCSS
     tailwindcss-language-server
     # TS
@@ -37,6 +34,7 @@ in {
     oxfmt
     typescript-go
     typescript-language-server
+
     # Astro
     astro-language-server
   ] ++ [

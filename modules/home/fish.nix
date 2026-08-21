@@ -48,6 +48,10 @@ in
   };
 
   programs.bottom.enable = true;
+  programs.direnv = {
+    enable = true;
+    enableFishIntegration = true;
+  };
   programs.fd.enable = true;
   programs.git.enable = true;
   programs.gh = {

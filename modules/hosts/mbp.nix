@@ -24,6 +24,13 @@
 
       home.packages = with pkgs; [
         kind
+
+        # Rust
+        cargo
+        rustc
+        rust-analyzer
+        rustfmt
+        clippy
       ];
 
       home.stateVersion = "26.05";

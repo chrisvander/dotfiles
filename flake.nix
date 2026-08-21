@@ -10,7 +10,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, nix-darwin, home-manager, ... }: {
+  outputs = { self, nixpkgs, nixpkgs-unstable, nix-darwin, home-manager, ... }: {
     # Build darwin flake using:
     # $ darwin-rebuild build --flake .#mbp
     darwinConfigurations.mbp = nix-darwin.lib.darwinSystem {
@@ -26,6 +26,36 @@
       modules = [
         ./modules/hosts/pi.nix
       ];
+    };
+    devShells.aarch64-darwin = let pkgs = nixpkgs.legacyPackages.aarch64-darwin; in {
+      rust = pkgs.mkShellNoCC {
+        name = "rust";
+        packages = with pkgs; [
+          cargo
+          rustc
+          rustfmt
+          clippy
+          rust-analyzer
+        ];
+      };
+
+      js = pkgs.mkShellNoCC {
+        name = "js";
+        packages = with pkgs; [
+          bun
+          nodejs_26
+          pnpm
+          typescript
+        ];
+      };
+
+      nix = pkgs.mkShellNoCC {
+        name = "nix";
+        packages = with pkgs; [
+          nil
+          nixd
+        ];
+      };
     };
   };
 }
