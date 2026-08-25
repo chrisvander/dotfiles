@@ -11,7 +11,7 @@
   };
 
   outputs =
-    inputs@{ self, nixpkgs, ... }:
+    inputs@{ nixpkgs, ... }:
     let
       dotfilesLib = import ./lib {
         inherit (inputs)
@@ -60,18 +60,12 @@
         example =
           (dotfilesLib.mkDarwin {
             system = "aarch64-darwin";
-            hostName = "example-host";
             darwinStateVersion = 6;
             homeStateVersion = "26.05";
             user = exampleUser;
             vcs = exampleVcs;
             modules = exampleModules;
           }).system;
-
-        privacy = import ./checks/privacy.nix {
-          pkgs = nixpkgs.legacyPackages.aarch64-darwin;
-          source = self;
-        };
       };
 
       checks.aarch64-linux.example =

@@ -7,7 +7,6 @@
     darwinConfigurations.default = dotfiles.lib.mkDarwin {
       source = self;
       system = "aarch64-darwin";
-      hostName = "example-host";
       darwinStateVersion = 6;
       homeStateVersion = "26.05";
 

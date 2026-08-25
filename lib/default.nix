@@ -34,7 +34,6 @@ in
   mkDarwin =
     {
       system,
-      hostName,
       darwinStateVersion,
       homeStateVersion,
       user,
@@ -46,7 +45,6 @@ in
     let
       host = {
         inherit system darwinStateVersion homeStateVersion;
-        hostName = requireNonEmpty "hostName" hostName;
         user = validateUser user;
         vcs = validateVcs vcs;
       };
@@ -57,7 +55,6 @@ in
         home-manager.darwinModules.home-manager
         ../modules/darwin
         ({ ... }: {
-          networking.hostName = host.hostName;
           system.configurationRevision =
             if source == null then null else source.rev or source.dirtyRev or null;
 
