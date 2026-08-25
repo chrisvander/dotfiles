@@ -1,2 +1,0 @@
-SETUVAR --export CC_wasm32_unknown_unknown:/opt/homebrew/opt/llvm/bin/clang
-SETUVAR RUSTC_WRAPPER:sccache

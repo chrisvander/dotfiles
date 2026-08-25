@@ -1,3 +1,29 @@
 # dotfiles
 
-My personal dotfiles repo.
+Reusable nix-darwin and Home Manager components. Real hostnames, user details,
+home directories, and VCS identity belong in a separate local host flake.
+
+Create a local Darwin host without cloning this repository:
+
+```sh
+mkdir -p ~/Developer/dotfiles-host
+cd ~/Developer/dotfiles-host
+nix flake init -t github:chrisvander/dotfiles#darwin-host
+```
+
+The generated `flake.nix` selects modules from `homeManagerModules` and
+language-specific toolchains and LSPs from `languageModules`.
+
+Build it with the published dotfiles revision:
+
+```sh
+darwin-rebuild build --flake ~/Developer/dotfiles-host#default
+```
+
+While editing a local dotfiles checkout, override the published input:
+
+```sh
+darwin-rebuild build \
+  --flake ~/Developer/dotfiles-host#default \
+  --override-input dotfiles path:$PWD
+```

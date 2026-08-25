@@ -1,13 +1,17 @@
-{ pkgs, nixpkgs-unstable, lib, ... }:
+{
+  host,
+  pkgs,
+  nixpkgs-unstable,
+  lib,
+  ...
+}:
 let
   starshipConfig = with builtins; fromTOML (readFile ./starship.toml);
+  jjBookmarkPrefix = lib.optionalString (
+    host.vcs.jjBookmarkPrefix != null
+  ) " --strip-bookmark-prefix ${lib.escapeShellArg host.vcs.jjBookmarkPrefix}";
   unstable = import nixpkgs-unstable {
     system = pkgs.stdenv.hostPlatform.system;
-
-    config.allowUnfreePredicate = pkg:
-      builtins.elem (lib.getName pkg) [
-        "1password-cli"
-      ];
   };
 in
 {
@@ -104,6 +108,7 @@ in
     settings = lib.recursiveUpdate starshipConfig {
       add_newline = false;
       command_timeout = 1000;
+      custom.jj.command = "jj-starship --bookmarks-display-limit 2 --truncate-name 14${jjBookmarkPrefix} --no-git-prefix --no-jj-prefix --no-git-id";
       fill = {
         symbol = " ";
       };
@@ -132,8 +137,8 @@ in
     package = unstable.jujutsu;
     settings = {
       user = {
-        email = "chris.vanderloo@icloud.com";
-        name = "Chris van der Loo";
+        email = host.vcs.email;
+        name = host.vcs.name;
       };
       ui = {
         default-command = "log";
