@@ -19,6 +19,11 @@
     ShowDayOfWeek = true;
     ShowSeconds = false;
   };
+  system.defaults.dock = {
+    tilesize = 64;
+    magnification = true;
+    largesize = 85;
+  };
 
   security.pam.services.sudo_local = {
     # Enable Touch ID authentication for sudo
