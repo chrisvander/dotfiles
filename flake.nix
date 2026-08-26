@@ -6,6 +6,7 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
     home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -17,6 +18,7 @@
         inherit (inputs)
           home-manager
           nix-darwin
+          nix-homebrew
           nixpkgs
           nixpkgs-unstable
           ;
@@ -42,6 +44,8 @@
         typescript = ./modules/languages/typescript.nix;
       };
 
+      darwinModules.homebrew = ./modules/darwin/homebrew.nix;
+
       exampleUser = {
         username = "example";
         homeDirectory = "/Users/example";
@@ -54,7 +58,7 @@
     in
     {
       lib = dotfilesLib;
-      inherit homeManagerModules languageModules;
+      inherit darwinModules homeManagerModules languageModules;
 
       checks.aarch64-darwin = {
         example =
@@ -65,6 +69,7 @@
             user = exampleUser;
             vcs = exampleVcs;
             modules = exampleModules;
+            darwinModules = [ darwinModules.homebrew ];
           }).system;
       };
 

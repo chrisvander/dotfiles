@@ -10,6 +10,16 @@
     shell = pkgs.fish;
   };
 
+  system.primaryUser = host.user.username;
+  system.defaults.menuExtraClock = {
+    Show24Hour = false;
+    ShowAMPM = true;
+    ShowDate = 2;
+    ShowDayOfMonth = false;
+    ShowDayOfWeek = true;
+    ShowSeconds = false;
+  };
+
   security.pam.services.sudo_local = {
     # Enable Touch ID authentication for sudo
     touchIdAuth = true;

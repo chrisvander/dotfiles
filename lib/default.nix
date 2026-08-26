@@ -1,6 +1,7 @@
 {
   home-manager,
   nix-darwin,
+  nix-homebrew,
   nixpkgs,
   nixpkgs-unstable,
 }:
@@ -50,7 +51,10 @@ in
       };
     in
     nix-darwin.lib.darwinSystem {
-      specialArgs = { inherit host nixpkgs-unstable; };
+      specialArgs = {
+        inherit host nixpkgs-unstable;
+        nixHomebrew = nix-homebrew;
+      };
       modules = [
         home-manager.darwinModules.home-manager
         ../modules/darwin

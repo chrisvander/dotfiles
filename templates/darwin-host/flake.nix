@@ -20,6 +20,8 @@
         email = "example@example.invalid";
       };
 
+      darwinModules = with dotfiles.darwinModules; [ homebrew ];
+
       modules =
         with dotfiles.homeManagerModules;
         [

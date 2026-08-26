@@ -14,6 +14,9 @@ nix flake init -t github:chrisvander/dotfiles#darwin-host
 The generated `flake.nix` selects modules from `homeManagerModules` and
 language-specific toolchains and LSPs from `languageModules`.
 
+It also selects `darwinModules.homebrew`, which installs Homebrew itself. Add
+formulae and casks separately if you want them declaratively managed.
+
 Build it with the published dotfiles revision:
 
 ```sh
