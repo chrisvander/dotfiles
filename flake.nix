@@ -26,11 +26,11 @@
 
       homeManagerModules = {
         base = ./modules/home/base.nix;
-        cloud = ./modules/home/cloud.nix;
         fish = ./modules/home/fish.nix;
         ghostty = ./modules/home/ghostty.nix;
         helix = ./modules/home/helix.nix;
         kubernetes = ./modules/home/kubernetes.nix;
+        mise = ./modules/home/mise.nix;
         podman = ./modules/home/podman.nix;
       };
 
