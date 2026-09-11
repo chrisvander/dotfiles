@@ -1,5 +1,5 @@
 {
-  description = "Reusable system and user configuration";
+  description = "Reusable system and user configuration with my preferences.";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-26.05-darwin";
@@ -93,6 +93,11 @@
       templates.darwin-host = {
         path = ./templates/darwin-host;
         description = "Local nix-darwin host using these dotfiles";
+      };
+
+      templates.linux-host = {
+        path = ./templates/linux-host;
+        description = "Home Manager configuration for a Linux host or Docker container";
       };
 
       devShells.aarch64-darwin =

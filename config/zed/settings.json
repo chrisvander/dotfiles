@@ -25,8 +25,8 @@
       "default_config_options": {
         "fast-mode": "off",
         "mode": "agent",
-        "reasoning_effort": "medium",
-        "model": "gpt-5.6-sol"
+        "reasoning_effort": "low",
+        "model": "gpt-6-astra"
       },
       "favorite_config_option_values": {
         "reasoning_effort": ["medium", "low"],

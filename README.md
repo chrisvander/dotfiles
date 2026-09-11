@@ -3,6 +3,25 @@
 Reusable nix-darwin and Home Manager components. Real hostnames, user details,
 home directories, and VCS identity belong in a separate local host flake.
 
+For a Linux host or an existing Docker container with Nix installed:
+
+```sh
+mkdir -p ~/dotfiles-host
+cd ~/dotfiles-host
+nix flake init -t github:chrisvander/dotfiles#linux-host
+```
+
+Edit the generated `flake.nix` to choose the architecture, user, and modules, then
+build and activate as that user:
+
+```sh
+nix build .#homeConfigurations.default.activationPackage
+./result/activate
+```
+
+See [the Linux template instructions](templates/linux-host/README.md) for container
+setup details.
+
 Create a local Darwin host without cloning this repository:
 
 ```sh
