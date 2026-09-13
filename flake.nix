@@ -32,6 +32,8 @@
         kubernetes = ./modules/home/kubernetes.nix;
         mise = ./modules/home/mise.nix;
         podman = ./modules/home/podman.nix;
+        tmux = ./modules/home/tmux.nix;
+        mosh = ./modules/home/mosh.nix;
       };
 
       languageModules = {

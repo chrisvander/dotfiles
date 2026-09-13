@@ -22,6 +22,8 @@
         (with dotfiles.homeManagerModules; [
           fish
           helix
+          tmux
+          mosh
         ])
         ++ (with dotfiles.languageModules; [
           nix
