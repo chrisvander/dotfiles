@@ -16,6 +16,11 @@ let
 in
 {
   xdg.configFile = {
+    "devenv/config.yaml".source = (pkgs.formats.yaml { }).generate "devenv-config.yaml" {
+      version = 1;
+      tui.statusline.enabled = false;
+    };
+
     "fish/completions" = {
       source = ../../config/fish/completions;
       recursive = true;
@@ -38,6 +43,8 @@ in
     MANPAGER = "bat -l man";
   };
 
+  home.packages = [ unstable.devenv ];
+
   home.shellAliases = {
     # alias for bat
     cat = "bat";
@@ -54,7 +61,7 @@ in
   programs.bottom.enable = true;
   programs.direnv = {
     enable = true;
-    enableFishIntegration = true;
+    enableFishIntegration = lib.mkDefault false;
   };
   programs.fd.enable = true;
   programs.git.enable = true;
@@ -85,6 +92,7 @@ in
 
     interactiveShellInit = ''
       fish_vi_key_bindings
+      devenv hook fish | source
     '';
   };
 

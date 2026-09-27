@@ -120,7 +120,8 @@ symbol = "󰔷 "
 symbol = "󰆥 "
 
 [nix_shell]
-symbol = " "
+symbol = ""
+format = '[$symbol dev]($style) '
 
 [nodejs]
 disabled = true
