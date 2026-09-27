@@ -1,0 +1,4 @@
+interface:
+  display_name: "Structural Invariants"
+  short_description: "Make invalid states impossible with simpler APIs"
+  default_prompt: "Use $structural-invariants to review this design's assertions and find simpler structures that prevent invalid states."

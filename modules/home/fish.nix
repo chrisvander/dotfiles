@@ -32,6 +32,8 @@ in
     };
   };
 
+  home.enableNixpkgsReleaseCheck = false;
+
   home.sessionVariables = {
     EDITOR = "hx";
     VISUAL = "hx";
@@ -52,9 +54,18 @@ in
   };
 
   programs.bottom.enable = true;
+  programs.devenv = {
+    enable = true;
+    package = unstable.devenv;
+    enableFishIntegration = true;
+  };
   programs.direnv = {
     enable = true;
-    enableFishIntegration = true;
+    enableFishIntegration = lib.mkDefault false;
+    config = {
+      prompt_prefix = false;
+      secretspec.enable = true;
+    };
   };
   programs.fd.enable = true;
   programs.git.enable = true;
@@ -118,6 +129,7 @@ in
   programs.fzf = {
     enable = true;
     enableFishIntegration = true;
+    enableNushellIntegration = false;
 
     defaultOptions = [
       "--color=16"
@@ -150,6 +162,7 @@ in
   programs.zoxide = {
     enable = true;
     enableFishIntegration = true;
+    options = [ "--cmd=cd" ];
   };
 
   programs.man.generateCaches = false;

@@ -1,5 +1,5 @@
 "$schema" = 'https://starship.rs/config-schema.json'
-format = "$directory${custom.jj}$git_branch$git_commit$git_state$git_status$cmd_duration$fill$all$character$prompt"
+format = "$directory${custom.jj}$git_branch$git_commit$git_state$git_status$cmd_duration$fill$all$username$hostname$character$prompt"
 
 [kubernetes]
 format = ' [$symbol$context( \($namespace\))]($style) '
@@ -120,7 +120,8 @@ symbol = "󰔷 "
 symbol = "󰆥 "
 
 [nix_shell]
-symbol = " "
+symbol = ""
+format = '[$symbol dev]($style) '
 
 [nodejs]
 disabled = true
