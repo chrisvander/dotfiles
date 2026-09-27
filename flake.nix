@@ -7,7 +7,7 @@
     nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
-    home-manager.url = "github:nix-community/home-manager/release-26.05";
+    home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
@@ -26,12 +26,14 @@
 
       homeManagerModules = {
         base = ./modules/home/base.nix;
+        direnv = ./modules/home/direnv.nix;
         fish = ./modules/home/fish.nix;
         ghostty = ./modules/home/ghostty.nix;
         helix = ./modules/home/helix.nix;
         kubernetes = ./modules/home/kubernetes.nix;
         mise = ./modules/home/mise.nix;
         podman = ./modules/home/podman.nix;
+        skills = ./modules/home/skills.nix;
         tmux = ./modules/home/tmux.nix;
         mosh = ./modules/home/mosh.nix;
       };
@@ -101,42 +103,5 @@
         path = ./templates/linux-host;
         description = "Home Manager configuration for a Linux host or Docker container";
       };
-
-      devShells.aarch64-darwin =
-        let
-          pkgs = nixpkgs.legacyPackages.aarch64-darwin;
-          # nixpkgs still exposes TypeScript 7 under its former package name.
-          typescript = pkgs.typescript-go;
-        in
-        {
-          rust = pkgs.mkShellNoCC {
-            name = "rust";
-            packages = with pkgs; [
-              cargo
-              clippy
-              rust-analyzer
-              rustc
-              rustfmt
-            ];
-          };
-
-          js = pkgs.mkShellNoCC {
-            name = "js";
-            packages = [
-              pkgs.bun
-              pkgs.nodejs_26
-              pkgs.pnpm
-              typescript
-            ];
-          };
-
-          nix = pkgs.mkShellNoCC {
-            name = "nix";
-            packages = with pkgs; [
-              nixd
-              nixfmt
-            ];
-          };
-        };
     };
 }

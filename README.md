@@ -3,6 +3,13 @@
 Reusable nix-darwin and Home Manager components. Real hostnames, user details,
 home directories, and VCS identity belong in a separate local host flake.
 
+Run `devenv shell` in this checkout for the Rust, JavaScript/TypeScript, and Nix
+development tools.
+
+The `fish` Home Manager module installs devenv from `nixpkgs-unstable` and uses its
+native auto-activation hook. It keeps direnv available for editors such as Zed;
+add `dotfiles.homeManagerModules.direnv` to enable direnv's Fish hook as well.
+
 For a Linux host or an existing Docker container with Nix installed:
 
 ```sh
@@ -49,3 +56,26 @@ darwin-rebuild build \
   --flake ~/Developer/dotfiles-host#default \
   --override-input dotfiles path:$PWD
 ```
+
+To install the skills in `config/codex/skills` and global Codex instructions from
+`config/codex/AGENTS.md`, add
+`dotfiles.homeManagerModules.skills` to the `modules` list in your host flake
+(or `skills` inside its existing `with dotfiles.homeManagerModules;` list):
+
+```nix
+modules = with dotfiles.homeManagerModules; [
+  base
+  skills
+];
+```
+
+Home Manager links the skill files into `~/.agents/skills`, leaving other skills
+in that directory available. New skills added to `config/codex/skills` are included
+automatically on the next rebuild and activation. The files come from the selected
+dotfiles revision in the Nix store; use the local input override above when testing
+unpublished changes.
+
+The same module links `config/codex/AGENTS.md` to `~/.codex/AGENTS.md`.
+Edit the tracked copy to change these instructions. The Darwin configuration
+backs up an existing unmanaged file with the `.before-home-manager` suffix
+when activating; the module does not force-overwrite existing files.
