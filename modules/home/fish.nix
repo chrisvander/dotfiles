@@ -7,9 +7,6 @@
 }:
 let
   starshipConfig = with builtins; fromTOML (readFile ./starship.toml);
-  jjBookmarkPrefix = lib.optionalString (
-    host.vcs.jjBookmarkPrefix != null
-  ) " --strip-bookmark-prefix ${lib.escapeShellArg host.vcs.jjBookmarkPrefix}";
   unstable = import nixpkgs-unstable {
     system = pkgs.stdenv.hostPlatform.system;
   };
@@ -119,7 +116,22 @@ in
     settings = lib.recursiveUpdate starshipConfig {
       add_newline = false;
       command_timeout = 1000;
-      custom.jj.command = "jj-starship --bookmarks-display-limit 2 --truncate-name 14${jjBookmarkPrefix} --no-git-prefix --no-jj-prefix --no-git-id";
+      custom.jj = {
+        shell = [
+          "jj-starship"
+          "--bookmarks-display-limit"
+          "2"
+          "--truncate-name"
+          "14"
+          "--strip-bookmark-prefix"
+          host.vcs.jjBookmarkPrefix
+          "--no-git-prefix"
+          "--no-jj-prefix"
+          "--no-git-id"
+        ];
+        when = true;
+        format = "($output )";
+      };
       fill = {
         symbol = " ";
       };

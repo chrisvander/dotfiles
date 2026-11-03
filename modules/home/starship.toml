@@ -19,12 +19,6 @@ disabled = true
 [git_status]
 disabled = true
 
-[custom.jj]
-command = "jj-starship --bookmarks-display-limit 2 --truncate-name 14 --no-git-prefix --no-jj-prefix --no-git-id"
-shell = ["sh"]
-format = "$output "
-when = "jj-starship detect"
-
 [gcloud]
 disabled = true
 
@@ -93,7 +87,7 @@ symbol = " "
 
 [hostname]
 ssh_symbol = " "
-format = '[$ssh_symbol]($style)[$hostname]($style)'
+format = '[$ssh_symbol]($style)[$hostname]($style) '
 
 [username]
 format = '[$user]($style) on '
