@@ -108,30 +108,12 @@ in
 
   programs.starship = {
     enable = true;
+    package = unstable.starship;
     enableFishIntegration = true;
-    extraPackages = [ pkgs.jj-starship ];
-
     enableTransience = true;
-
     settings = lib.recursiveUpdate starshipConfig {
       add_newline = false;
       command_timeout = 1000;
-      custom.jj = {
-        shell = [
-          "jj-starship"
-          "--bookmarks-display-limit"
-          "2"
-          "--truncate-name"
-          "14"
-          "--strip-bookmark-prefix"
-          host.vcs.jjBookmarkPrefix
-          "--no-git-prefix"
-          "--no-jj-prefix"
-          "--no-git-id"
-        ];
-        when = true;
-        format = "($output )";
-      };
       fill = {
         symbol = " ";
       };

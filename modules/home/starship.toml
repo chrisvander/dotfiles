@@ -1,23 +1,87 @@
 "$schema" = 'https://starship.rs/config-schema.json'
-format = "$directory${custom.jj}$git_branch$git_commit$git_state$git_status$cmd_duration$fill$all$username$hostname$character$prompt"
+format = """
+$directory\
+$vcs\
+$cmd_duration\
+$fill\
+$localip\
+$shlvl\
+$singularity\
+$kubernetes\
+$nats\
+$vcsh\
+$cmake\
+$cobol\
+$cpp\
+$daml\
+$deno\
+$erlang\
+$fennel\
+$fortran\
+$gleam\
+$golang\
+$gradle\
+$haskell\
+$haxe\
+$helm\
+$kotlin\
+$maven\
+$mojo\
+$nim\
+$ocaml\
+$odin\
+$opa\
+$perl\
+$php\
+$pulumi\
+$purescript\
+$quarto\
+$raku\
+$rlang\
+$red\
+$ruby\
+$scala\
+$solidity\
+$terraform\
+$typst\
+$vlang\
+$vagrant\
+$xmake\
+$zig\
+$buf\
+$guix_shell\
+$nix_shell\
+$conda\
+$pixi\
+$meson\
+$spack\
+$memory_usage\
+$aws\
+$openstack\
+$azure\
+$direnv\
+$env_var\
+$mise\
+$crystal\
+$custom\
+$sudo\
+$line_break\
+$jobs\
+$battery\
+$time\
+$status\
+$container\
+$netns\
+$shell\
+$username\
+$hostname\
+$character"""
 
 [kubernetes]
 format = ' [$symbol$context( \($namespace\))]($style) '
 
-[git_branch]
-disabled = true
-format = '[$symbol$branch(:$remote_branch)]($style) '
-truncation_length = 8
-symbol = " "
-
-[git_commit]
-disabled = true
-
-[git_state]
-disabled = true
-
-[git_status]
-disabled = true
+[vcs]
+order = ["jj", "git"]
 
 [gcloud]
 disabled = true
