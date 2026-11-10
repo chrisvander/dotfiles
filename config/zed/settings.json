@@ -1,4 +1,5 @@
 {
+  "load_direnv": "direct",
   "centered_layout": {
     "right_padding": 0.2,
     "left_padding": 0.2
@@ -36,10 +37,12 @@
     }
   },
   "agent": {
+    "threads_sidebar": {
+      "position": "right"
+    },
     "auto_compact": {
       "threshold": "90%"
     },
-    "sidebar_side": "right",
     "dock": "right",
     "default_profile": "write",
     "default_model": {
