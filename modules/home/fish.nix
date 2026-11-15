@@ -13,6 +13,13 @@ let
 in
 {
   xdg.configFile = {
+    "devenv/config.yaml".text = ''
+      version: 1
+      tui:
+        statusline:
+          enabled: false
+    '';
+
     "fish/completions" = {
       source = ../../config/fish/completions;
       recursive = true;
