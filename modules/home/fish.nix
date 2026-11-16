@@ -61,7 +61,7 @@ in
   programs.devenv = {
     enable = true;
     package = unstable.devenv;
-    enableFishIntegration = false;
+    enableFishIntegration = true;
   };
   programs.direnv = {
     enable = true;
@@ -94,12 +94,16 @@ in
   programs.fish = {
     enable = true;
 
+    shellAliases = {
+      cd = "z";
+      cdi = "zi";
+    };
+
     functions = {
       fish_greeting = "";
     };
 
     interactiveShellInit = ''
-      ${lib.getExe unstable.devenv} hook fish -- --no-tui | source
       fish_vi_key_bindings
       if set -q REX_BIN_DIR
         fish_add_path --path --prepend --move $REX_BIN_DIR
@@ -167,7 +171,6 @@ in
   programs.zoxide = {
     enable = true;
     enableFishIntegration = true;
-    options = [ "--cmd=cd" ];
   };
 
   programs.man.generateCaches = false;
