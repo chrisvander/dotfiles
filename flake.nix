@@ -9,6 +9,7 @@
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    helix.url = "github:helix-editor/helix";
   };
 
   outputs =
@@ -29,7 +30,12 @@
         direnv = ./modules/home/direnv.nix;
         fish = ./modules/home/fish.nix;
         ghostty = ./modules/home/ghostty.nix;
-        helix = ./modules/home/helix.nix;
+        helix =
+          { pkgs, ... }:
+          {
+            imports = [ ./modules/home/helix.nix ];
+            programs.helix.package = inputs.helix.packages.${pkgs.stdenv.hostPlatform.system}.default;
+          };
         kubernetes = ./modules/home/kubernetes.nix;
         mise = ./modules/home/mise.nix;
         podman = ./modules/home/podman.nix;
