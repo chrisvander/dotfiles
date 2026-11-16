@@ -4,7 +4,10 @@
     defaultEditor = true;
 
     settings = {
-      theme = "catppuccin_frappe";
+      theme = {
+        light = "catppuccin_latte";
+        dark = "catppuccin_mocha";
+      };
 
       keys.normal = {
         "S-k" = "hover";

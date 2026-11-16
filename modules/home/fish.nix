@@ -61,7 +61,7 @@ in
   programs.devenv = {
     enable = true;
     package = unstable.devenv;
-    enableFishIntegration = true;
+    enableFishIntegration = false;
   };
   programs.direnv = {
     enable = true;
@@ -99,6 +99,7 @@ in
     };
 
     interactiveShellInit = ''
+      ${lib.getExe unstable.devenv} hook fish -- --no-tui | source
       fish_vi_key_bindings
       if set -q REX_BIN_DIR
         fish_add_path --path --prepend --move $REX_BIN_DIR
